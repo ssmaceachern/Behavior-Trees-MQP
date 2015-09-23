@@ -40,6 +40,6 @@ public class Flocking : MonoBehaviour
         Vector3 velocity = controller.flockVelocity - GetComponent<Rigidbody>().velocity;
         Vector3 follow = controller.target.localPosition - transform.localPosition;
 
-        return (center + velocity + follow * 2 + randomize);
+        return (center + velocity + follow * 5);
     }
 }

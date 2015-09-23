@@ -39,7 +39,6 @@ public class FlockingController : MonoBehaviour
         {
             center += boid.transform.localPosition;
             velocity += boid.GetComponent<Rigidbody>().velocity;
-            velocity.y = 0;
         }
         flockCenter = center / flockSize;
         flockVelocity = velocity / flockSize;
