@@ -3,28 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using RAIN.Action;
 using RAIN.Core;
-using RAIN.Entities;
-using RAIN.Entities.Aspects;
-using RAIN.Minds;
-using RAIN.BehaviorTrees;
+using RAIN.Motion;
 
 [RAINAction]
-public class JoinElfhood : RAINAction
+public class WalkBackToPath : RAINAction
 {
+	MoveLookTarget mlt;
+
     public override void Start(RAIN.Core.AI ai)
     {
+		mlt = ai.WorkingMemory.GetItem<MoveLookTarget> ("moveTo");
+
+		if (mlt != null)
+			ai.WorkingMemory.SetItem<MoveLookTarget> ("newMoveTo", mlt);
+
         base.Start(ai);
     }
 
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
-		BasicMind mind = (BasicMind) ai.Mind;
-		
-		BTAsset elfBT = Resources.Load <BTAsset>("ElfAI");
-		mind.SetBehavior (elfBT, null);
-
-		ai.WorkingMemory.SetItem<int> ("MaxCooldown", 100);
-
         return ActionResult.SUCCESS;
     }
 

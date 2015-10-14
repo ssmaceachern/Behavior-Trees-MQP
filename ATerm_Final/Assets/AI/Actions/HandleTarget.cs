@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using RAIN.Action;
 using RAIN.Core;
+using RAIN.Entities;
+using RAIN.Entities.Aspects;
 
 [RAINAction]
 public class HandleTarget : RAINAction
@@ -39,6 +41,13 @@ public class HandleTarget : RAINAction
 					myKingg.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Greed", oldGreed+30);
 				}
 
+				
+				myTrap.SetActive(false);
+				
+				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
+				myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("Target", ANull);
+
 			} else if (itsType == 2) { // Spike trap
 	
 				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
@@ -54,17 +63,73 @@ public class HandleTarget : RAINAction
 					}
 				}
 
+				
+				myTrap.SetActive(false);
+				
+				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
+				myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("Target", ANull);
+
 			} else if (itsType == 3) { // Normal Food
 			
 				ai.WorkingMemory.SetItem<int> ("Hunger", 0);
-			}
 
+				myTrap.SetActive(false);
+				
+				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
+				myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("Target", ANull);
+
+			} else if (itsType == 4) { // Normal Tavern
+				
+				ai.WorkingMemory.SetItem<int> ("Hunger", 0);
+				ai.WorkingMemory.SetItem<int> ("Health", 101);
+
+				EntityRig pEnt = myTrap.GetComponentInChildren<AIRig> ().AI.Body.GetComponentInChildren<EntityRig> ();
+
+				pEnt.Entity.DeactivateEntity();
+				
+				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+
+			} else if (itsType == 5) { // bribed "Drunk" Tavern
+				
+				ai.WorkingMemory.SetItem<int> ("Hunger", 0);
+				ai.WorkingMemory.SetItem<int> ("Health", 101);
+				ai.WorkingMemory.SetItem<int> ("WalkSpeed", 2);
+
+				EntityRig pEnt = myTrap.GetComponentInChildren<AIRig> ().AI.Body.GetComponentInChildren<EntityRig> ();
+				
+				pEnt.Entity.DeactivateEntity();
+
+				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+
+			} else if (itsType == 6) { // bribed "poisoned beer" Tavern
 			
-			myTrap.SetActive(false);
+				ai.WorkingMemory.SetItem<int> ("Hunger", 0);
+				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth - 40);
+
+				EntityRig pEnt = myTrap.GetComponentInChildren<AIRig> ().AI.Body.GetComponentInChildren<EntityRig> ();
+				
+				pEnt.Entity.DeactivateEntity();
+
+				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
 			
-			ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
-			GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
-			myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("Target", ANull);
+			} else if (itsType == 7) { // bribed "Disloyal gossip" Tavern
+				
+				ai.WorkingMemory.SetItem<int> ("Hunger", 0);
+				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth + 20);
+				int oldLoyal = ai.WorkingMemory.GetItem<int> ("Loyalty");
+				ai.WorkingMemory.SetItem<int> ("Loyalty", oldLoyal - 40);
+
+				EntityRig pEnt = myTrap.GetComponentInChildren<AIRig> ().AI.Body.GetComponentInChildren<EntityRig> ();
+				
+				pEnt.Entity.DeactivateEntity();
+
+				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+				
+			}
 
 		} else { // the king is greedy and activates the trap himself
 
