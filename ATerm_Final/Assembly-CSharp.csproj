@@ -74,7 +74,6 @@
      <Compile Include="Assets\Scripts\FlockingController.cs" />
      <Compile Include="Assets\Scripts\FreezeGameplay.cs" />
      <Compile Include="Assets\Scripts\HirePeasant.cs" />
-     <Compile Include="Assets\Scripts\HirePeasantAndSetTrapLocation.cs" />
      <Compile Include="Assets\Scripts\HireUnit.cs" />
      <Compile Include="Assets\Scripts\HireUnitSetLocation.cs" />
      <Compile Include="Assets\Scripts\InitPosition.cs" />
@@ -113,17 +112,11 @@
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/Users/Zackery/Desktop/Behavior-Trees-MQP-feature-final2.0/ATerm_Final/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
- <Reference Include="UnityEngine.Advertisements">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="RAIN">
  <HintPath>C:/Users/Zackery/Desktop/Behavior-Trees-MQP-feature-final2.0/ATerm_Final/Assets/RAIN/RAIN.dll</HintPath>
