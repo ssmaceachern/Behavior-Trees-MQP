@@ -26,6 +26,9 @@ public class Die : RAINAction
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
 
 			ai.Body.SetActive (false);
+
+			Application.LoadLevel (2);
+
 			return ActionResult.SUCCESS;
 
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Knight") { // if you're a guard

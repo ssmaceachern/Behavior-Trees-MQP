@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using RAIN.Action;
 using RAIN.Core;
 
+// Deal damage to the current enemy
 [RAINAction]
 public class AttackTarget : RAINAction
 {
@@ -14,37 +15,45 @@ public class AttackTarget : RAINAction
 
     public override ActionResult Execute(RAIN.Core.AI ai)
 	{
-		
 		GameObject myEnemy = ai.WorkingMemory.GetItem<GameObject> ("Enemy");
-		
-		if (myEnemy==null || !myEnemy.activeSelf) {
+		MessageDispatcher dispatch = ai.Body.GetComponent<MessageDispatcher> ();
+
+		// Make sure there is a valid enemy to attack
+		if (myEnemy==null || !myEnemy.activeSelf) 
+		{
 			ai.WorkingMemory.SetItem<GameObject> ("Enemy", null);
-			return ActionResult.SUCCESS;
+			return ActionResult.FAILURE;
 		}
 
+		/* We don't want an attack every frame, so keep a cooldown value */
 		int cooldown = ai.WorkingMemory.GetItem<int> ("Cooldown");
 
-		if (cooldown>0) {
+		// If we shouldn't attack this frame, decrement our cooldown value 
+		if (cooldown > 0) 
+		{
 			ai.WorkingMemory.SetItem<int> ("Cooldown", cooldown-1);
 			return ActionResult.SUCCESS;
 		}
 
-		int maxCd=ai.WorkingMemory.GetItem<int> ("MaxCooldown");
+		/* Attack the enemy and reset the cool down, so we don't attack next frame as well */
+		int maxCd = ai.WorkingMemory.GetItem<int> ("MaxCooldown");
 		ai.WorkingMemory.SetItem<int> ("Cooldown", maxCd);
 
-		int oldHp=myEnemy.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Health");
+		/* Decrease the enemy's health by the amount of damage we deal */
+		int myDamage = ai.WorkingMemory.GetItem<int>("Damage");
 
-		int myDamage=ai.WorkingMemory.GetItem<int>("Damage");
-		if (myDamage != 0) {
+		// Default to 10 damage if no damage amount specified
+		if (myDamage == 0) 
+		{
+			myDamage = 10;
+		} 
 
-			myEnemy.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Health", oldHp-myDamage);
-
-		} else {
-
-			// default ten damage if normal damage = 0 = null
-			myEnemy.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Health", oldHp-10);
-
-		}
+		// Tell the enemy how much damage we are dealing to them
+		dispatch.SendMsg (0.0f,
+		                  ai.Body,
+		                  myEnemy,
+		                  (int)MessageTypes.MsgType.DealDamage,
+		                  myDamage);        
 
         return ActionResult.SUCCESS;
     }

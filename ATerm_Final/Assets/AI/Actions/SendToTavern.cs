@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using RAIN.Action;
 using RAIN.Core;
 
+// Give an order for the guards to go to the tavern.
 [RAINAction]
 public class SendToTavern : RAINAction
 {
@@ -14,26 +15,36 @@ public class SendToTavern : RAINAction
 
     public override ActionResult Execute(RAIN.Core.AI ai)
 	{
-		GameObject ANull = ai.WorkingMemory.GetItem<GameObject> ("ANull");
 		GameObject myTavern = ai.WorkingMemory.GetItem<GameObject> ("Tavern");
 		GameObject mySlave = ai.WorkingMemory.GetItem<GameObject> ("PossibleSlave");
+		MessageDispatcher dispatch = ai.Body.GetComponent<MessageDispatcher> ();
 
-		if(mySlave==ANull) {
-
-			return ActionResult.SUCCESS;
+		// Ensure we have a slave to order around.
+		if(mySlave == null) 
+		{
+			return ActionResult.FAILURE;
 		}
 
+		/* Check that the guard is capable of going to the tavern */
 		bool isFleeing = mySlave.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<bool> ("Fleeing");
 		int hisHp = mySlave.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Health");
 		
-		if(isFleeing || hisHp<=0) {
-
-			ai.WorkingMemory.SetItem<GameObject> ("PossibleSlave", ANull);
-			return ActionResult.SUCCESS;
-
+		if(isFleeing || hisHp<=0) 
+		{
+			ai.WorkingMemory.SetItem<GameObject> ("PossibleSlave", null);
+			return ActionResult.FAILURE;
 		}
 
-		mySlave.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("Target", myTavern);
+		/* Send a message to the guard to set his target */
+		// Ensure the guard is capable of receiving messages.
+		if (mySlave.GetComponent<MessageReceiver>() != null)
+		{
+			dispatch.SendMsg (0.0f,
+		    	              ai.Body,
+		        	          mySlave,
+		            	      (int)MessageTypes.MsgType.SetTarget,
+		                	  myTavern);
+		}
 
         return ActionResult.SUCCESS;
     }

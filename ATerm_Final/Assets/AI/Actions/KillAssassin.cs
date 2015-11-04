@@ -15,7 +15,7 @@ public class KillAssassin : RAINAction
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
 		GameObject myTarget = ai.WorkingMemory.GetItem<GameObject> ("Assassin");
-		myTarget.SetActive (false);
+		GameObject.Destroy (myTarget);
 
         return ActionResult.SUCCESS;
     }

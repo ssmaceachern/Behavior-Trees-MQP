@@ -19,36 +19,52 @@ public class GiveRallyLoc : RAINAction
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
 		GameObject MyMerc = ai.WorkingMemory.GetItem<GameObject> ("Merc");
-		GameObject aNull = ai.WorkingMemory.GetItem<GameObject> ("ANull");
+		MessageDispatcher dispatch = ai.Body.GetComponent <MessageDispatcher> ();
 
-		if (MyMerc == aNull) {
-			
-			ai.WorkingMemory.SetItem<GameObject> ("Merc", aNull);
-			return ActionResult.SUCCESS;
-			
-		} else {
-
+		// Ensure we have a merc to give a location to.
+		if (MyMerc == null) 
+		{	
+			ai.WorkingMemory.SetItem<GameObject> ("Merc", null);
+			return ActionResult.SUCCESS;	
+		} 
+		else 
+		{
 			int hisHp = MyMerc.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Health");
-			
-			if (hisHp<=0) {
-				
-				ai.WorkingMemory.SetItem<GameObject> ("Merc", aNull);
-				return ActionResult.SUCCESS;
+
+			// Ensure the merc is still alive
+			if (hisHp<=0) 
+			{	
+				ai.WorkingMemory.SetItem<GameObject> ("Merc", null);
+				return ActionResult.FAILURE;
 			}
 		}
 
+		// Add some randomness to the selected point, so the mercenaries don't pile up on the same spot.
 		Vector3 rallyPoint =  ai.WorkingMemory.GetItem<Vector3> ("Location");
 		rallyPoint.x += (Random.value * 4 - 2);
 		rallyPoint.z += (Random.value * 4 - 2);
 
 		string command= ai.WorkingMemory.GetItem<string> ("Command");
 
-		MyMerc.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<Vector3> ("Location", rallyPoint);
-		MyMerc.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<string> ("Command", command);
+		// Send messages indicating the point to go to, and the command given
+		dispatch.SendMsg (0.0f,
+		                  ai.Body,
+		                  MyMerc,
+		                  (int)MessageTypes.MsgType.MoveTo,
+		                  rallyPoint);
 
-		EntityRig pEnt = MyMerc.GetComponentInChildren<AIRig>().AI.Body.GetComponentInChildren<EntityRig> ();
-		
-		pEnt.Entity.GetAspect("Good").IsActive=true;
+		dispatch.SendMsg (0.0f,
+		                  ai.Body,
+		                  MyMerc,
+		                  (int)MessageTypes.MsgType.GiveCommand,
+		                  command);
+
+		// Allow the merc to be detected now that he is hired.
+		dispatch.SendMsg (0.0f,
+		                  ai.Body,
+		                  MyMerc,
+		                  (int)MessageTypes.MsgType.ActivateEntity,
+		                  null);
 
         return ActionResult.SUCCESS;
     }

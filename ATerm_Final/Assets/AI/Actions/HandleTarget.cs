@@ -17,9 +17,9 @@ public class HandleTarget : RAINAction
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
 		GameObject myTrap = ai.WorkingMemory.GetItem<GameObject> ("Target");
-		GameObject ANull = ai.WorkingMemory.GetItem<GameObject> ("ANull");
+		MessageDispatcher dispatch = ai.Body.GetComponent<MessageDispatcher> ();
 
-		if (myTrap == ANull) {
+		if (myTrap == null) {
 			return ActionResult.SUCCESS;
 		}
 
@@ -35,76 +35,102 @@ public class HandleTarget : RAINAction
 				ai.WorkingMemory.SetItem<int> ("Loyalty", oldLoyalty-oldHunger);
 				ai.WorkingMemory.SetItem<int> ("Hunger", 0);
 
-				GameObject myKingg = ai.WorkingMemory.GetItem<GameObject> ("Master");
-				if(myKingg!=ANull)
-				{
-					int oldGreed=myKingg.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Greed");
-					myKingg.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Greed", oldGreed+30);
-				}
-
-				
-				myTrap.SetActive(false);
-				
-				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
 				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
-				myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("Target", ANull);
-				myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("WorkingSlave", ANull);
+
+				if(myKing != null)
+				{
+					int oldGreed=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Greed");
+					myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Greed", oldGreed+30);
+
+					// Increase the King's greed by a set amount
+					dispatch.SendMsg (0.0f,
+					                  ai.Body,
+					                  myKing,
+					                  (int)MessageTypes.MsgType.MakeGreedy,
+					                  30);
+
+					// Now that the task is complete, let the king know he can select other guards for other tasks
+					dispatch.SendMsg (0.0f,
+					                  ai.Body,
+					                  myKing,
+					                  (int)MessageTypes.MsgType.CheckTrap,
+					                  null);
+				}
+				// Deactivate the trap and forget about it.
+				myTrap.SetActive(false);				
+				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
 			} else if (itsType == "Spike") { // Spike trap
 	
 				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
 				ai.WorkingMemory.SetItem<int> ("Health", oldHealth - 30);
 				
-				GameObject myKingg = ai.WorkingMemory.GetItem<GameObject> ("Master");
-				if(myKingg!=ANull)
+				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
+
+				// Ensure we have a master
+				if(myKing != null)
 				{
-					int oldGreed=myKingg.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Greed");
-					if(oldGreed>=10)
-					{
-						myKingg.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Greed", oldGreed-10);
-					}
+					// Make the king less greedy since he just saw a guard get hurt
+					dispatch.SendMsg (0.0f,
+					                  ai.Body,
+					                  myKing,
+					                  (int)MessageTypes.MsgType.MakeGreedy,
+					                  -10);
+
+					// Now that the task is complete, let the king know he can select other guards for other tasks
+					dispatch.SendMsg (0.0f,
+					                  ai.Body,
+					                  myKing,
+					                  (int)MessageTypes.MsgType.CheckTrap,
+					                  null);
 				}
 
-				
-				myTrap.SetActive(false);
-				
-				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
-				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
-				myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("Target", ANull);
-				myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("WorkingSlave", ANull);
+				// Deactivate the trap and forget about it
+				myTrap.SetActive(false);				
+				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
 			} else if (itsType == "Food") { // Normal Food
 			
 				ai.WorkingMemory.SetItem<int> ("Hunger", 0);
 
-				myTrap.SetActive(false);
-				
-				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+				// Deactivate the trap and forget about it
+				myTrap.SetActive(false);	
+				ai.WorkingMemory.SetItem<GameObject>("Target", null);
+
 				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
-				myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("Target", ANull);
-				myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("WorkingSlave", ANull);
+				// Now that the task is complete, let the king know he can select other guards for other tasks
+				dispatch.SendMsg (0.0f,
+				                  ai.Body,
+				                  myKing,
+				                  (int)MessageTypes.MsgType.CheckTrap,
+				                  null);
 				
 			} else if (itsType == "Vomit") { // Vomit trap
 				
 				ai.WorkingMemory.SetItem<bool> ("Puking", true);
-				
-				myTrap.SetActive(false);
-				
-				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+
+				// Deactivate the trap and forget about it
+				myTrap.SetActive(false);			
+				ai.WorkingMemory.SetItem<GameObject>("Target", null);
+
 				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
-				myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("Target", ANull);
-				myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("WorkingSlave", ANull);
+				dispatch.SendMsg (0.0f,
+				                  ai.Body,
+				                  myKing,
+				                  (int)MessageTypes.MsgType.CheckTrap,
+				                  null);
 
 			} else if (itsType == "Tavern") { // Normal Tavern
 				
 				ai.WorkingMemory.SetItem<int> ("Hunger", 0);
 				ai.WorkingMemory.SetItem<int> ("Health", 101);
 
+				// Should this really be how we want to do it?  Shouldn't they have the ability to go to the tavern
+				// multiple times?
 				EntityRig pEnt = myTrap.GetComponentInChildren<AIRig> ().AI.Body.GetComponentInChildren<EntityRig> ();
-
 				pEnt.Entity.DeactivateEntity();
 				
-				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
 			} else if (itsType == "DrunkTavern") { // bribed "Drunk" Tavern
 				
@@ -116,7 +142,7 @@ public class HandleTarget : RAINAction
 				
 				pEnt.Entity.DeactivateEntity();
 
-				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
 			} else if (itsType == "PoisonTavern") { // bribed "poisoned beer" Tavern
 			
@@ -128,7 +154,7 @@ public class HandleTarget : RAINAction
 				
 				pEnt.Entity.DeactivateEntity();
 
-				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 			
 			} else if (itsType == "DisloyalTavern") { // bribed "Disloyal gossip" Tavern
 				
@@ -142,7 +168,7 @@ public class HandleTarget : RAINAction
 				
 				pEnt.Entity.DeactivateEntity();
 
-				ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 				
 			}
 
@@ -180,7 +206,7 @@ public class HandleTarget : RAINAction
 
 			myTrap.SetActive(false);
 
-			ai.WorkingMemory.SetItem<GameObject>("Target", ANull);
+			ai.WorkingMemory.SetItem<GameObject>("Target", null);
 		}
 
         return ActionResult.SUCCESS;
