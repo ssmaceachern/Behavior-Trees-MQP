@@ -17,13 +17,18 @@ public class CameraMouseMove : MonoBehaviour {
     private Transform followTarget;
     private Vector3 velocity = Vector3.zero;
 
-    public GameObject KnightUI;
+    private GameObject KnightUI;
 
     // Use this for initialization
     void Start () {
         ScreenWidth = Screen.width;
         ScreenHeight = Screen.height;
-        KnightUI.SetActive(false);
+        KnightUI = GameObject.Find("KnightHUD");
+
+        if(KnightUI != null)
+        {
+            KnightUI.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -131,7 +136,10 @@ public class CameraMouseMove : MonoBehaviour {
 					else
 					{
 						isFollowing = false;
-                        KnightUI.SetActive(false);
+                        if(KnightUI != null)
+                        {
+                            KnightUI.SetActive(false);
+                        }
                     }
 				}
             } else

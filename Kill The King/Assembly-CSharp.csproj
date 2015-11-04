@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\BribeTavern.cs" />
      <Compile Include="Assets\Scripts\CameraMouseMove.cs" />
      <Compile Include="Assets\Scripts\FaceCamera.cs" />
+     <Compile Include="Assets\Scripts\FadeQuestUI.cs" />
      <Compile Include="Assets\Scripts\Flocking.cs" />
      <Compile Include="Assets\Scripts\FlockingController.cs" />
      <Compile Include="Assets\Scripts\FreezeGameplay.cs" />
@@ -87,6 +88,7 @@
      <Compile Include="Assets\Scripts\PieMenu\TestCommand.cs" />
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\ResetSpeechBubble.cs" />
+     <Compile Include="Assets\Scripts\SpawnAssassin.cs" />
      <Compile Include="Assets\Scripts\SpawnPeasant.cs" />
      <Compile Include="Assets\Scripts\SpeechOptions.cs" />
      <Compile Include="Assets\Scripts\UI\LevelLoad.cs" />
