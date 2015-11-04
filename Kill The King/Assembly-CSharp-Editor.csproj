@@ -6,7 +6,7 @@
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
 	<RootNamespace></RootNamespace>
-	<ProjectGuid>{BAAF071B-D6F0-C57C-2845-FE9392EEBF7E}</ProjectGuid>
+	<ProjectGuid>{905238E5-55DE-C923-8D77-28A8022098D3}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -66,10 +66,10 @@
      <None Include="Assets\RAIN\Editor\Shaders\NavMeshColliderShader.shader" />
      <None Include="Assets\Plugins\RAIN\Editor\Shaders\NavMeshColliderShader.shader" />
  <Reference Include="Assembly-Boo-firstpass">
- <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/ATerm_Final/Library/ScriptAssemblies/Assembly-Boo-firstpass.dll</HintPath>
+ <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/Kill The King/Library/ScriptAssemblies/Assembly-Boo-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/ATerm_Final/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/Kill The King/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -87,16 +87,16 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
  </Reference>
  <Reference Include="RAIN">
- <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/ATerm_Final/Assets/RAIN/RAIN.dll</HintPath>
+ <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/Kill The King/Assets/RAIN/RAIN.dll</HintPath>
  </Reference>
  <Reference Include="RAINMetaform">
- <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/ATerm_Final/Assets/RAIN/RAINMetaform.dll</HintPath>
+ <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/Kill The King/Assets/RAIN/RAINMetaform.dll</HintPath>
  </Reference>
  <Reference Include="RAINEditor">
- <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/ATerm_Final/Assets/RAIN/Editor/RAINEditor.dll</HintPath>
+ <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/Kill The King/Assets/RAIN/Editor/RAINEditor.dll</HintPath>
  </Reference>
  <Reference Include="RAINMetaformEditor">
- <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/ATerm_Final/Assets/RAIN/Editor/RAINMetaformEditor.dll</HintPath>
+ <HintPath>C:/Users/Sean/Workspace/Behavior-Trees-MQP/Kill The King/Assets/RAIN/Editor/RAINMetaformEditor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
@@ -140,9 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{1E5A04D1-326B-AE5F-8C34-C488B2060864}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{371EBC21-952B-F546-2411-EDBC1571A2BC}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{CCD6B4C8-3055-99CF-3F36-2DA594EA23FD}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{B4497805-A379-8123-A5FC-AD869DE62C84}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
