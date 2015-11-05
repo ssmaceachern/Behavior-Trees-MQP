@@ -12,5 +12,13 @@ public class KnightMessageReceiver : MessageReceiver
 
 			knightAI.AI.WorkingMemory.SetItem<GameObject>("Target", (GameObject)msg.info);
 		}
+		if (msg.msgType == (int)MessageTypes.MsgType.DealDamage)
+		{
+			AIRig knightAI = GetComponentInChildren<AIRig>();
+
+			int oldHealth = knightAI.AI.WorkingMemory.GetItem<int>("Health");
+
+			knightAI.AI.WorkingMemory.SetItem<int>("Health", oldHealth - (int)msg.info);
+		}
 	}
 }

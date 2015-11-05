@@ -1,19 +1,35 @@
 Base path: C:/Program Files/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-26840
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-6704
 Cmd: getPlatforms
+Cmd: preprocess
+  insize=1185 outsize=407 ok=1
+Cmd: preprocess
+  insize=1601 outsize=192 ok=1
+Cmd: preprocess
+  insize=1159 outsize=381 ok=1
+Cmd: preprocess
+  insize=787 outsize=189 ok=1
+Cmd: preprocess
+  insize=137 outsize=137 ok=1
+Cmd: preprocess
+  insize=1048 outsize=208 ok=1
+Cmd: preprocess
+  insize=1601 outsize=192 ok=1
+Cmd: preprocess
+  insize=1185 outsize=407 ok=1
+Cmd: preprocess
+  insize=766 outsize=215 ok=1
+Cmd: preprocess
+  insize=1048 outsize=208 ok=1
+Cmd: preprocess
+  insize=766 outsize=215 ok=1
+Cmd: preprocess
+  insize=137 outsize=137 ok=1
+Cmd: preprocess
+  insize=1159 outsize=381 ok=1
+Cmd: preprocess
+  insize=787 outsize=189 ok=1
 Cmd: compileSnippet
-  api=4 type=0 insize=982 outsize=4337 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF pd= ok=1
+  api=4 type=0 insize=982 outsize=3979 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _EMISSION ok=1
 Cmd: compileSnippet
-  api=4 type=1 insize=982 outsize=10926 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=1145 outsize=916 kw= pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=1145 outsize=518 kw= pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=982 outsize=3979 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _EMISSION pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=982 outsize=10829 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _EMISSION pd= ok=1
-Cmd: compileSnippet
-  api=4 type=0 insize=982 outsize=4337 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _EMISSION pd= ok=1
-Cmd: compileSnippet
-  api=4 type=1 insize=982 outsize=11138 kw=DIRECTIONAL SHADOWS_SCREEN LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _EMISSION pd= ok=1
+  api=4 type=1 insize=982 outsize=10772 kw=DIRECTIONAL SHADOWS_OFF LIGHTMAP_OFF DIRLIGHTMAP_OFF DYNAMICLIGHTMAP_OFF _EMISSION ok=1

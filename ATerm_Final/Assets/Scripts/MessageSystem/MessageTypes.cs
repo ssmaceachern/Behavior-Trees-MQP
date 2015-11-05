@@ -13,6 +13,7 @@ public class MessageTypes : MonoBehaviour
 		MoveTo,
 		GiveCommand,
 		ActivateEntity,
-		MakeGreedy
+		MakeGreedy,
+		ResetAI
 	};
 }
