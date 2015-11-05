@@ -37,5 +37,11 @@ public class KingMessageReceiver : MessageReceiver
 			kingAI.AI.WorkingMemory.SetItem<GameObject> ("Target", null);
 			kingAI.AI.WorkingMemory.SetItem<GameObject> ("WorkingSlave", null);
 		}
+		if (msg.msgType == (int) MessageTypes.MsgType.ResetAI)
+		{
+			AIRig kingAI = GetComponentInChildren<AIRig>();
+
+			kingAI.AI.Mind.AIInit ();
+		}
 	}
 }
