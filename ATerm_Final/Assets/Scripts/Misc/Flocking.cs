@@ -8,10 +8,23 @@ public class Flocking : MonoBehaviour
 
     IEnumerator Start()
     {
+        
         while (true)
         {
+            //Debug.Log(controller.IsActive);
+
             if (controller)
             {
+                //Debug.Log("Here");
+
+                if (controller.IsActive)
+                {
+                    
+                    controller.AddBoid(this);
+                }
+
+                //Debug.Log("Here");
+
                 GetComponent<Rigidbody>().velocity += steer() * Time.deltaTime;
 
                 // enforce minimum and maximum speeds for the boids
@@ -25,9 +38,19 @@ public class Flocking : MonoBehaviour
                     GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * controller.minVelocity;
                 }
             }
+            else
+            {
+                controller = (FlockingController)FindObjectOfType(typeof(FlockingController));
+                Debug.Log(controller.IsActive);
+            }
             float waitTime = Random.Range(0.3f, 0.5f);
             yield return new WaitForSeconds(waitTime);
         }
+    }
+
+    public void SetController(FlockingController fc)
+    {
+        this.controller = fc;
     }
 
     Vector3 steer()

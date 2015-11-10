@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class FlockingController : MonoBehaviour
 {
+    public bool IsActive = false;
     public float minVelocity = 5;
     public float maxVelocity = 20;
     public float randomness = 1;
@@ -18,16 +19,19 @@ public class FlockingController : MonoBehaviour
 
     void Start()
     {
+        this.IsActive = true;
+        //boids2 = GameObject.FindGameObjectsWithTag("Guard") as Flocking[];
         for (int i = 0; i < flockSize; i++)
         {
-            Flocking boid = Instantiate(prefab, transform.position, transform.rotation) as Flocking;
-            boid.transform.parent = transform;
-            boid.transform.localPosition = new Vector3(
-                            Random.value * GetComponent<Collider>().bounds.size.x,
-                            1,
-                            Random.value * GetComponent<Collider>().bounds.size.z) - GetComponent<Collider>().bounds.extents;
-            boid.controller = this;
-            boids.Add(boid);
+            //Flocking boid = Instantiate(prefab, transform.position, transform.rotation) as Flocking;
+            //boid.transform.parent = transform;
+            //boid.transform.localPosition = new Vector3(
+            //                Random.value * GetComponent<Collider>().bounds.size.x,
+            //                1,
+            //                Random.value * GetComponent<Collider>().bounds.size.z) - GetComponent<Collider>().bounds.extents;
+            //guards[i].controller = this;
+
+            //boids.Add(boid);
         }
     }
 
@@ -42,6 +46,17 @@ public class FlockingController : MonoBehaviour
         }
         flockCenter = center / flockSize;
         flockVelocity = velocity / flockSize;
+    }
+
+    public void AddBoid(Flocking flockingEntity)
+    {
+        
+        if (flockingEntity != null && !boids.Contains(flockingEntity))
+        {
+            Debug.Log("Added to Controller");
+            flockingEntity.controller = this;
+            boids.Add(flockingEntity);
+        }
     }
 }
 

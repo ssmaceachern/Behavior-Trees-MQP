@@ -8,7 +8,14 @@ using RAIN.BehaviorTrees;
 public class FreezeGameplay : MonoBehaviour 
 {
 	private bool frozen = false;	// Whether the game s currently frozen
-	
+	private GameObject freezeIMG;
+
+    void Start()
+    {
+        freezeIMG = GameObject.Find("FreezeIMG");
+        freezeIMG.SetActive(false);
+    }
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -22,6 +29,11 @@ public class FreezeGameplay : MonoBehaviour
 			{
 				ais[i].AI.IsActive = false;
 			}
+
+            if (freezeIMG)
+            {
+                freezeIMG.SetActive(true);
+            }
 		}
 		else if (Input.GetKeyDown ("space") && frozen)
 		{
@@ -31,6 +43,11 @@ public class FreezeGameplay : MonoBehaviour
 			{
 				ais[i].AI.IsActive = true;
 			}
-		}
+
+            if (freezeIMG)
+            {
+                freezeIMG.SetActive(false);
+            }
+        }
 	}
 }

@@ -5,20 +5,46 @@ using RAIN.Entities;
 using RAIN.Entities.Aspects;
 using RAIN.Minds;
 using RAIN.BehaviorTrees;
+using System.IO;
 
 public class HireUnitSetLocation : MonoBehaviour {
 
 	private bool givePosition = false;
-	
-	// Use this for initialization
-	void Start () {
-		
-	}
+
+    Texture2D mouseCursorTexture;
+
+    public static Texture2D LoadPNG(string filePath)
+    {
+
+        Texture2D tex = null;
+        byte[] fileData;
+
+        if (File.Exists(filePath))
+        {
+            //Debug.Log("File Found");
+            fileData = File.ReadAllBytes(filePath);
+            tex = new Texture2D(2, 2);
+            tex.LoadImage(fileData);
+        }
+        return tex;
+    } 
+
+    // Use this for initialization
+    void Start () {
+        mouseCursorTexture = LoadPNG("Assets/Textures/Target.png");
+    }
 	
 	// Update is called once per frame
 	void Update () 
-	{	
-		if (Input.GetMouseButtonDown(0) && givePosition)
+	{
+        //Cursor.SetCursor(mouseCursorTexture, Vector2.zero, CursorMode.Auto);
+
+        if (givePosition)
+        {
+            Cursor.SetCursor(mouseCursorTexture, Vector2.zero, CursorMode.Auto);
+        }
+
+        if (Input.GetMouseButtonDown(0) && givePosition)
 		{
 			//.Log ("Clicking");
 			
@@ -28,7 +54,8 @@ public class HireUnitSetLocation : MonoBehaviour {
 			if (Physics.Raycast(ray, out hit, 200.0f) != false)
 			{
 				GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<Vector3>("Location", hit.point);
-				givePosition = false;
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+                givePosition = false;
 			}
 
 			EntityRig pEnt = GetComponentInChildren<AIRig>().AI.Body.GetComponentInChildren<EntityRig> ();
