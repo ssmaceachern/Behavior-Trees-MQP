@@ -76,10 +76,10 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="RAIN">
- <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/BTermStart/ATerm_Final/Assets/RAIN/RAIN.dll</HintPath>
+ <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/ATerm_Final/Assets/RAIN/RAIN.dll</HintPath>
  </Reference>
  <Reference Include="RAINMetaform">
- <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/BTermStart/ATerm_Final/Assets/RAIN/RAINMetaform.dll</HintPath>
+ <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/ATerm_Final/Assets/RAIN/RAINMetaform.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

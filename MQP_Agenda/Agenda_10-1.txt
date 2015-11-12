@@ -1,0 +1,10 @@
+Weekly Agenda October 1
+
+- Show design document
+	- Discuss any suggested changes
+
+- Talk about what's planned for the next week
+	- Start work on game
+		- Camera system
+		- King and guards 
+		- Peasants

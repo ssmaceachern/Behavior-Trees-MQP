@@ -123,10 +123,10 @@
      <None Include="Assets\RAIN\Editor\Shaders\NavMeshColliderShader.shader" />
      <None Include="Assets\Plugins\RAIN\Editor\Shaders\NavMeshColliderShader.shader" />
  <Reference Include="Assembly-Boo-firstpass">
- <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/BTermStart/ATerm_Final/Library/ScriptAssemblies/Assembly-Boo-firstpass.dll</HintPath>
+ <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/ATerm_Final/Library/ScriptAssemblies/Assembly-Boo-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/BTermStart/ATerm_Final/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/ATerm_Final/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -138,10 +138,10 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="RAIN">
- <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/BTermStart/ATerm_Final/Assets/RAIN/RAIN.dll</HintPath>
+ <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/ATerm_Final/Assets/RAIN/RAIN.dll</HintPath>
  </Reference>
  <Reference Include="RAINMetaform">
- <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/BTermStart/ATerm_Final/Assets/RAIN/RAINMetaform.dll</HintPath>
+ <HintPath>C:/Users/Anthony/Documents/WPI Senior Year Classes/MQP/ATerm_Final/Assets/RAIN/RAINMetaform.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

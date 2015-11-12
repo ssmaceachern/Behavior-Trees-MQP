@@ -1,0 +1,16 @@
+Things we need:
+	1 Trap
+		- Kill guard
+	An assassin character
+	Guards
+		- Bribe guard to ignore assassin/kill king
+	King
+	Peasant to distract guards
+		- Distract guard
+		- Hire peasants to lay traps
+	1 Blockade
+		- Destroy bridge
+
+Gameplay:
+	Top down
+		- Orthographic camera

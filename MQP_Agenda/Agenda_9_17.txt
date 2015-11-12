@@ -1,0 +1,33 @@
+Weekly Agenda September 17
+
+- Show prototypes 
+
+	- Kill the king
+		- Discuss communication system
+		- Discuss gameplay system
+			- Top down gameplay
+			- No physical player
+				- One assassin token that must be used wisely
+			- Multiple little levels that grow on each other
+			- Or one big level with a procedurely generated map (later goal)
+			- Puzzle based levels or free-form levels?
+			- Way for the player to learn about guards by spending resources
+				- Crystal ball
+				- Bribe guards for rumors
+				- Or just have player know everything about the guards outright
+			
+	- Scavenger
+		- Discuss leader-follower relationship
+			- Follower getting hungry/scared as master makes him do work
+		- Possible endings:
+			- Trying to reach paradise area with plentiful resources
+			- Waves of enemies attack at night. Survive long enough to kill big boss enemy. 
+			- Get X number of resources to build spaceship to leave planet.
+		- Worried that the scope might get too large
+		
+- Discuss goal for next week
+
+	- Proof of concept for Kill the king
+		- One king and two guards
+		- One assassin token
+		- Either bribe guards to ignore assassin or scare away/kill guards
