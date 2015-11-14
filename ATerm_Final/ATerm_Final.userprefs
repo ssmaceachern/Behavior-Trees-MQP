@@ -1,11 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BlowUp.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\AI\Actions\Die.cs">
     <Files>
-      <File FileName="Assets\Scripts\BlowUp.cs" Line="18" Column="39" />
-      <File FileName="Assets\Scripts\MessageSystem\MessageTypes.cs" Line="1" Column="1" />
-      <File FileName="Assets\AI\Actions\DestroyBuilding.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ResetKingAI.cs" Line="14" Column="27" />
+      <File FileName="Assets\Scripts\Units\UnitMsgRcvrs\MercMessageReceiver.cs" Line="2" Column="26" />
+      <File FileName="Assets\Scripts\Units\UnitMsgRcvrs\CreepAIMessageReciever.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Units\UnitMsgRcvrs\KnightMessageReceiver.cs" Line="1" Column="1" />
+      <File FileName="Assets\AI\Actions\NoEnemy.cs" Line="1" Column="1" />
+      <File FileName="Assets\AI\Actions\HasEnemy.cs" Line="1" Column="1" />
+      <File FileName="Assets\AI\Actions\RigidOn.cs" Line="1" Column="1" />
+      <File FileName="Assets\AI\Actions\RigidOff.cs" Line="19" Column="29" />
+      <File FileName="Assets\AI\Actions\Die.cs" Line="90" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

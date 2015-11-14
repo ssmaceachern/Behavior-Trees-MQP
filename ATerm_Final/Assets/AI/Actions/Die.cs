@@ -58,6 +58,21 @@ public class Die : RAINAction
 		
 		ai.Body.SetActive (false);
 		return ActionResult.SUCCESS;
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Goblin") { // if you're a Goblin
+			
+			ai.WorkingMemory.SetItem<int> ("Health", -1);
+			
+			ai.Body.SetActive (false);
+			return ActionResult.SUCCESS;
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Dragon") { // if you're a Dragon
+			
+			ai.WorkingMemory.SetItem<int> ("Health", -1);
+			
+			ai.Body.SetActive (false);
+
+			//TODO: send a message to everyone around you to take x damage
+
+			return ActionResult.SUCCESS;
 		}
 		
 		Debug.Log("Please make a Die() entry for unit type: " + ai.WorkingMemory.GetItem<string> ("UnitType"));
