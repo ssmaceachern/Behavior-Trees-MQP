@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using RAIN.Action;
 using RAIN.Core;
 using RAIN.Representation;
+using RAIN.Entities;
+using RAIN.Entities.Aspects;
+using RAIN.Minds;
 
 [RAINAction]
 public class SetTrap : RAINAction
@@ -12,12 +15,12 @@ public class SetTrap : RAINAction
 	public Expression trapRotation = new Expression ();
 	public Expression trapToLay = new Expression ();
 
-	private GameObject trap;
+	private string trap;
 	private Vector3 trapPos;
 
     public override void Start(RAIN.Core.AI ai)
     {
-		trap = trapToLay.Evaluate<GameObject> (ai.DeltaTime, ai.WorkingMemory);
+		trap = trapToLay.Evaluate<string> (ai.DeltaTime, ai.WorkingMemory);
 		trapPos = trapPosition.Evaluate<Vector3> (ai.DeltaTime, ai.WorkingMemory);
 
         base.Start(ai);
@@ -27,10 +30,13 @@ public class SetTrap : RAINAction
     {
 		Quaternion rotation = Quaternion.Euler (trapRotation.Evaluate <Vector3> (ai.DeltaTime, ai.WorkingMemory));
 
-		GameObject newTrap = GameObject.Instantiate<GameObject> (trap);
+		GameObject newTrap = (GameObject)GameObject.Instantiate (Resources.Load (trap));
 
 		newTrap.transform.position = trapPos;
 		newTrap.transform.rotation = rotation;
+		
+		EntityRig pEnt = ai.Body.GetComponentInChildren<EntityRig> ();
+		pEnt.Entity.GetAspect("Good").IsActive=false;
 
         return ActionResult.SUCCESS;
     }
