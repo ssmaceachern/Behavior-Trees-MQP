@@ -73,6 +73,12 @@ public class Die : RAINAction
 			//TODO: send a message to everyone around you to take x damage
 
 			return ActionResult.SUCCESS;
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Bear") { // if you're a Bear
+			
+			ai.WorkingMemory.SetItem<int> ("Health", -1);
+			
+			ai.Body.SetActive (false);
+			return ActionResult.SUCCESS;
 		}
 		
 		Debug.Log("Please make a Die() entry for unit type: " + ai.WorkingMemory.GetItem<string> ("UnitType"));

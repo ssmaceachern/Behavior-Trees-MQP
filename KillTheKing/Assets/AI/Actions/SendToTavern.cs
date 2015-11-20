@@ -46,6 +46,8 @@ public class SendToTavern : RAINAction
 		                	  myTavern);
 		}
 
+		ai.WorkingMemory.SetItem<GameObject> ("PossibleSlave", null);
+
         return ActionResult.SUCCESS;
     }
 
