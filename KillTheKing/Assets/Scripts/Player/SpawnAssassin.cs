@@ -35,10 +35,14 @@ public class SpawnAssassin : MonoBehaviour
 						GameObject newAssassin = (GameObject) GameObject.Instantiate (Resources.Load ("Assassin"));
 
 						newAssassin.transform.position = hit.point;
+
+						GameObject chars = GameObject.FindGameObjectWithTag ("Characters");
+
+						newAssassin.transform.parent = chars.transform;
+
+						this.enabled = false;
 					}
 				}
-
-				buttonClicked = false;
 			}
 		}
 	}
