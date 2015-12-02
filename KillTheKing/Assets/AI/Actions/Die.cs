@@ -79,6 +79,19 @@ public class Die : RAINAction
 			
 			ai.Body.SetActive (false);
 			return ActionResult.SUCCESS;
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Peasant") { // if you're a Peasant
+			
+			ai.WorkingMemory.SetItem<int> ("Health", -1);
+			
+			ai.Body.SetActive (false);
+			return ActionResult.SUCCESS;
+
+			//TODO: care more if a peasant dies that can be put here, or should that be a per-level script attached to them?
+
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "unitSpawner") { // if you're a unitSpawner
+			
+			ai.Body.SetActive (false);
+			return ActionResult.SUCCESS;
 		}
 		
 		Debug.Log("Please make a Die() entry for unit type: " + ai.WorkingMemory.GetItem<string> ("UnitType"));
