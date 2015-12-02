@@ -20,5 +20,13 @@ public class KnightMessageReceiver : MessageReceiver
 
 			knightAI.AI.WorkingMemory.SetItem<int>("Health", oldHealth - (int)msg.info);
 		}
+		if (msg.msgType == (int)MessageTypes.MsgType.GetSpooked)
+		{
+			AIRig knightAI = GetComponentInChildren<AIRig>();
+
+			int oldParanoia = knightAI.AI.WorkingMemory.GetItem<int>("Paranoia");
+
+			knightAI.AI.WorkingMemory.SetItem<int>("Paranoia", oldParanoia + (int)msg.info);
+		}
 	}
 }

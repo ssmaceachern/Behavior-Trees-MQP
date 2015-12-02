@@ -43,5 +43,13 @@ public class KingMessageReceiver : MessageReceiver
 
 			kingAI.AI.Mind.AIInit ();
 		}
+		if (msg.msgType == (int)MessageTypes.MsgType.GetSpooked)
+		{
+			AIRig kingAI = GetComponentInChildren<AIRig>();
+			
+			int oldParanoia = kingAI.AI.WorkingMemory.GetItem<int>("Paranoia");
+			
+			kingAI.AI.WorkingMemory.SetItem<int>("Paranoia", oldParanoia + (int)msg.info);
+		};
 	}
 }

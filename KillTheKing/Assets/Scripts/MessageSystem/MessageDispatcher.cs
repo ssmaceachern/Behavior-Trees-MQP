@@ -32,7 +32,6 @@ public class MessageDispatcher : MonoBehaviour
 	// Send a message to every available object within a given radius from a given point
 	public void BroadcastMsg(float delay,
 	                         GameObject sender,
-	                         GameObject receiver,
 	                         Vector3 broadcastSource,
 	                         float radius,
 	                         int msgType,

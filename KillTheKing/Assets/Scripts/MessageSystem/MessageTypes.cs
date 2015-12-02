@@ -16,6 +16,9 @@ public class MessageTypes : MonoBehaviour
 		MakeGreedy,
 		ResetAI,
 		ChangeGold,
-		DestroyBuilding
+		DestroyBuilding,
+		GetSpooked,
+		FollowMe,
+		Saved
 	};
 }

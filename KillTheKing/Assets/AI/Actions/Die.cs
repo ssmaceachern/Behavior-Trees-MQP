@@ -54,15 +54,15 @@ public class Die : RAINAction
 			return ActionResult.SUCCESS;
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Trapper") { // if you're a trapper
 		
-		ai.WorkingMemory.SetItem<int> ("Health", -1);
+			ai.WorkingMemory.SetItem<int> ("Health", -1);
 		
-		ai.Body.SetActive (false);
-		return ActionResult.SUCCESS;
+			ai.Body.SetActive (false);
+			return ActionResult.SUCCESS;
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Goblin") { // if you're a Goblin
 			
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
 			
-			ai.Body.SetActive (false);
+			GameObject.Destroy (ai.Body);
 			return ActionResult.SUCCESS;
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Dragon") { // if you're a Dragon
 			
@@ -76,9 +76,20 @@ public class Die : RAINAction
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Bear") { // if you're a Bear
 			
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
-			
+
+			GameObject spawner = GameObject.FindGameObjectWithTag("GoblinRespawn");
+
+			if (spawner != null)
+			{
+				spawner.GetComponent<SpawnGoblin>().spawnAGoblin();
+			}
+
 			ai.Body.SetActive (false);
 			return ActionResult.SUCCESS;
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Ghost") { // if you're a ghost
+
+			ai.Body.SetActive (false);
+
 		}
 		
 		Debug.Log("Please make a Die() entry for unit type: " + ai.WorkingMemory.GetItem<string> ("UnitType"));
