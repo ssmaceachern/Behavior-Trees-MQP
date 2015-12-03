@@ -86,7 +86,7 @@ public class Die : RAINAction
 
 			ai.Body.SetActive (false);
 			return ActionResult.SUCCESS;
-<<<<<<< HEAD
+
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Peasant") { // if you're a Peasant
 			
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
@@ -104,12 +104,10 @@ public class Die : RAINAction
 			
 			ai.Body.SetActive (false);
 			return ActionResult.SUCCESS;
-=======
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Ghost") { // if you're a ghost
 
 			ai.Body.SetActive (false);
 
->>>>>>> 7929b9c9e06e870441d4ad809f4212bbe4773351
 		}
 		
 		Debug.Log("Please make a Die() entry for unit type: " + ai.WorkingMemory.GetItem<string> ("UnitType"));

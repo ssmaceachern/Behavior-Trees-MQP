@@ -12,7 +12,8 @@ public class DisplayKnightAttributes : MonoBehaviour {
 		Health 		= 2,
 		Greed 		= 3
 	};
-	int DisplayModeSize = Enum.GetNames(typeof(DisplayMode)).Length;
+
+    //int DisplayModeSize = Enum.GetNames(typeof(DisplayMode)).Length;
 	
 	//The AIRig of the parent knight object
 	AIRig tRig;
