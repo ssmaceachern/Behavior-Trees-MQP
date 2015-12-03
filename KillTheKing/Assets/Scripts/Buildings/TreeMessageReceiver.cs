@@ -28,6 +28,18 @@ public class TreeMessageReceiver : MessageReceiver
 
 			// Remove the associated waypoint
 			wpr.WaypointSet.RemoveWaypointAt (waypointIndex);
+
+			// Let the king know the route has changed
+			GameObject king = GameObject.FindGameObjectWithTag("King");
+
+			if (king != null)
+			{
+				GetComponent<MessageDispatcher>().SendMsg (0.0f,
+				                                           this.gameObject,
+				                                           king,
+				                                           (int)MessageTypes.MsgType.ResetAI,
+				                                           null);
+			}
 		}
 
 	}
