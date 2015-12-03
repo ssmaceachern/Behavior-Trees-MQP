@@ -21,7 +21,6 @@ public class FreezeGameplay : MonoBehaviour
 	{
 		if (Input.GetKeyDown ("space") && !frozen)
 		{
-			Debug.Log("Frozen!");
 			frozen = true;
 
 			AIRig[] ais = GetComponentsInChildren<AIRig>();
@@ -49,5 +48,10 @@ public class FreezeGameplay : MonoBehaviour
                 freezeIMG.SetActive(false);
             }
         }
+	}
+
+	public bool IsFrozen()
+	{
+		return frozen;
 	}
 }

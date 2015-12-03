@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using RAIN.Core;
 
 public class SpawnWave : MonoBehaviour 
 {
@@ -10,6 +11,7 @@ public class SpawnWave : MonoBehaviour
 	private float currentTimeTilWave;	// The current time left to spawn a wave
 	private float currentWarningTimer;	// The current timer for the warning
 	private MeshRenderer warningMesh;	// The mesh renderer of our warning arrow
+	private GameObject charPar;			// The charaters game object, so our waves will stop when the game is frozen
 
 	// Use this for initialization
 	void Start () 
@@ -19,6 +21,8 @@ public class SpawnWave : MonoBehaviour
 
 		currentTimeTilWave = timeTilWave;
 		currentWarningTimer = 0.0f;
+
+		charPar = GameObject.FindGameObjectWithTag ("Characters");
 	}
 	
 	// Update is called once per frame
@@ -47,9 +51,15 @@ public class SpawnWave : MonoBehaviour
 			GameObject newWave = (GameObject)Instantiate (Resources.Load ("Wave"));
 			
 			newWave.transform.position = transform.position;
+			newWave.transform.parent = charPar.transform;
 
 			currentTimeTilWave = timeTilWave;
 			spawnWave = false;
+
+			if (charPar.GetComponent<FreezeGameplay>().IsFrozen ())
+			{
+				newWave.GetComponentInChildren<AIRig>().AI.IsActive = false;
+			}
 		}
 	}
 

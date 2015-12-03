@@ -7,15 +7,18 @@ public class ToggleTutorials : MonoBehaviour {
     public int MoveDistance = 1350;
     int toggle = -1;
 
-	public void LoadLevelSelector()
+	public void LoadLevelSelector(string whichGroup)
     {
-        MainMenuGroup = GameObject.Find("MainMenuGroup");
+		MainMenuGroup = GameObject.Find(whichGroup);
 
-        if(MainMenuGroup != null)
-        {
-            transform.position = new Vector3(transform.position.x + (MoveDistance * toggle),
-                transform.position.y,
-                transform.position.z);
-        }
+		Debug.Log (whichGroup);
+		if (MainMenuGroup != null)
+		{
+			for (int i = 0; i < MainMenuGroup.transform.childCount; i++)
+			{
+				MainMenuGroup.transform.GetChild(i).gameObject.SetActive (true);
+			}
+			this.gameObject.SetActive (false);
+		}
     }
 }
