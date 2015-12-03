@@ -26,7 +26,6 @@ public class CameraMouseMove : MonoBehaviour {
     void Start () {
         ScreenWidth = Screen.width;
         ScreenHeight = Screen.height;
-        KnightUI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -85,28 +84,6 @@ public class CameraMouseMove : MonoBehaviour {
             goalPos.y = transform.position.y;
             transform.position = Vector3.SmoothDamp(transform.position, goalPos, ref velocity, 0.03f);
 
-            if (followTarget.name == "Knight")
-            {
-                //Debug.Log("Activate GUI");
-                KnightUI.SetActive(true);
-
-                AIRig tRig = followTarget.GetComponentInChildren<AIRig>();
-
-                if (tRig != null)
-                {
-                    int knightHealth = (int)tRig.AI.WorkingMemory.GetItem("Health");
-                    int knightLoyalty = (int)tRig.AI.WorkingMemory.GetItem("Loyalty");
-                    int knightHunger = (int)tRig.AI.WorkingMemory.GetItem("Hunger");
-
-                    Slider healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
-                    Slider loyaltySlider = GameObject.Find("LoyaltySlider").GetComponent<Slider>();
-                    Slider hungerSlider = GameObject.Find("HungerSlider").GetComponent<Slider>();
-
-                    healthSlider.value = knightHealth;
-                    loyaltySlider.value = knightLoyalty;
-                    hungerSlider.value = knightHunger;
-                }
-            }
         }
 
         /*
@@ -159,7 +136,7 @@ public class CameraMouseMove : MonoBehaviour {
 					else
 					{
 						isFollowing = false;
-                        KnightUI.SetActive(false);
+                        
                     }
 				}
             } else
