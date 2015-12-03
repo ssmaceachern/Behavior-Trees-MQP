@@ -170,6 +170,20 @@ public class HandleTarget : RAINAction
 
 				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 				
+			} else if(itsType == "Spooky") {
+				// Deactivate the trap and forget about it
+				myTrap.SetActive(false);	
+				ai.WorkingMemory.SetItem<GameObject>("Target", null);
+				
+				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
+				// Now that the task is complete, let the king know he can select other guards for other tasks
+				dispatch.SendMsg (0.0f,
+				                  ai.Body,
+				                  myKing,
+				                  (int)MessageTypes.MsgType.CheckTrap,
+				                  null);
+			} else { 
+				Debug.Log("Knight encountered an unusual trap");
 			}
 
 		} else if(myType=="King") { // the king is greedy and activates the trap himself
@@ -202,10 +216,72 @@ public class HandleTarget : RAINAction
 				
 				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
 				ai.WorkingMemory.SetItem<int> ("Health", oldHealth + 30);
+				
+			} else if (itsType == "Spooky") { // Spooky trap
+
+				ai.WorkingMemory.SetItem<int> ("Greed", 0);
+
+			} else { 
+				Debug.Log("King encountered an unusual trap");
 			}
+
 
 			myTrap.SetActive(false);
 
+			ai.WorkingMemory.SetItem<GameObject>("Target", null);
+
+		} else if(myType=="Bear") { // a bear comes over and activates the trap
+			
+			if (itsType == "FoodBribe") { // Food bribe trap
+				
+				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth + 10);
+			} else if (itsType == "Spike") { // Spike trap
+				
+				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth - 90);
+			} else if (itsType == "Vomit") { // Vomit trap
+				
+				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth - 10);
+				
+			} else if (itsType == "Food") { // Normal Food
+				
+				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth + 30);
+			} else { 
+				Debug.Log("Bear encountered an unusual trap");
+			}
+			
+			myTrap.SetActive(false);
+			
+			ai.WorkingMemory.SetItem<GameObject>("Target", null);
+
+		} else if(myType=="Peasant") { // a peasant sees a trap and rushes over to activate it
+			
+			if (itsType == "FoodBribe") { // Food bribe trap
+				
+				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth + 10);
+			} else if (itsType == "Spike") { // Spike trap
+				
+				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth - 90);
+			} else if (itsType == "Vomit") { // Vomit trap
+				
+				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth - 10);
+				
+			} else if (itsType == "Food") { // Normal Food
+				
+				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth + 20);
+			} else { 
+				Debug.Log("Peasant encountered an unusual trap");
+			}
+			
+			myTrap.SetActive(false);
+			
 			ai.WorkingMemory.SetItem<GameObject>("Target", null);
 		}
 

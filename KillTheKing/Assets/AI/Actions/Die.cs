@@ -54,10 +54,10 @@ public class Die : RAINAction
 			return ActionResult.SUCCESS;
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Trapper") { // if you're a trapper
 		
-		ai.WorkingMemory.SetItem<int> ("Health", -1);
+			ai.WorkingMemory.SetItem<int> ("Health", -1);
 		
-		ai.Body.SetActive (false);
-		return ActionResult.SUCCESS;
+			ai.Body.SetActive (false);
+			return ActionResult.SUCCESS;
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Goblin") { // if you're a Goblin
 			
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
@@ -72,6 +72,29 @@ public class Die : RAINAction
 
 			//TODO: send a message to everyone around you to take x damage
 
+			return ActionResult.SUCCESS;
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Bear") { // if you're a Bear
+			
+			ai.WorkingMemory.SetItem<int> ("Health", -1);
+			
+			ai.Body.SetActive (false);
+			return ActionResult.SUCCESS;
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Peasant") { // if you're a Peasant
+			
+			ai.WorkingMemory.SetItem<int> ("Health", -1);
+			
+			ai.Body.SetActive (false);
+			return ActionResult.SUCCESS;
+
+			//TODO: care more if a peasant dies that can be put here, or should that be a per-level script attached to them?
+
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "unitSpawner") { // if you're a unitSpawner
+			
+			ai.Body.SetActive (false);
+			return ActionResult.SUCCESS;
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Assassin") { // if you're an assasssin
+			
+			ai.Body.SetActive (false);
 			return ActionResult.SUCCESS;
 		}
 		
