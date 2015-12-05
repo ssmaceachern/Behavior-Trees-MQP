@@ -14,6 +14,11 @@ public class MessageTypes : MonoBehaviour
 		GiveCommand,
 		ActivateEntity,
 		MakeGreedy,
-		ResetAI
+		ResetAI,
+		ChangeGold,
+		DestroyBuilding,
+		GetSpooked,
+		FollowMe,
+		Saved
 	};
 }

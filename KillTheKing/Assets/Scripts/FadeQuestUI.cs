@@ -25,8 +25,8 @@ public class FadeQuestUI : MonoBehaviour
     {
         if (TimeLeft < 0)
         {
-            FadeOutDuration -= Time.deltaTime;
-            QuestUI.alpha = FadeOutDuration;
+            Fade -= Time.deltaTime;
+            QuestUI.alpha = Fade;
         }
         else
         {
