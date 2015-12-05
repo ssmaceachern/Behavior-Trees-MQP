@@ -39,8 +39,8 @@ public class HandleTarget : RAINAction
 
 				if(myKing != null)
 				{
-					int oldGreed=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Greed");
-					myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Greed", oldGreed+30);
+					//int oldGreed=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Greed");
+					//myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Greed", oldGreed+30);
 
 					// Increase the King's greed by a set amount
 					dispatch.SendMsg (0.0f,
