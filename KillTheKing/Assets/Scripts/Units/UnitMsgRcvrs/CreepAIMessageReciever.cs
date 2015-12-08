@@ -6,8 +6,6 @@ public class CreepAIMessageReciever : MessageReceiver {
 
 	public override void ReceiveMessage (Message msg)
 	{
-		Debug.Log ("Message received");
-
 		if (msg.msgType == (int)MessageTypes.MsgType.SetTarget)
 		{
 			AIRig creepAI = GetComponentInChildren<AIRig>();
