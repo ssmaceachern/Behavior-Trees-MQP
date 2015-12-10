@@ -32,7 +32,11 @@ public class EditTarget : RAINAction
 			Vector3 newLoc=ai.WorkingMemory.GetItem<Vector3> ("newVec");
 			myTarget.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<Vector3> ("MoveTarget", newLoc);
 		}
-		
+
+		// Set the parent of the object
+		GameObject charPar = GameObject.FindGameObjectWithTag ("Characters");
+		myTarget.transform.parent = charPar.transform;
+
 		int oldUnitsLeft = ai.WorkingMemory.GetItem<int> ("unitsLeft");
 		ai.WorkingMemory.SetItem<int> ("unitsLeft", oldUnitsLeft-1);
 

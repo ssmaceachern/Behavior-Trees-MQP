@@ -19,6 +19,8 @@ public class MessageTypes : MonoBehaviour
 		DestroyBuilding,
 		GetSpooked,
 		FollowMe,
-		Saved
+		Saved,
+		SelectUnit,
+		DeselectUnit
 	};
 }
