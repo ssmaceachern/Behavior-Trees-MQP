@@ -1,0 +1,4 @@
+LevelTitle=[Picking Off Stragglers]
+LevelDescription=[The commander has guards coming along numerous separate paths heading towards his bunker. Together, the guards have enough force to cause your units to lose. However, if you take your units and pick off the guards one by one, you will be able to circumvent the Commander’s forces and kill him when he leaves his bunker.]
+ObjectiveTitle=[Kill The Commander]
+ObjectiveDescription=[Assassinate the Leader.]

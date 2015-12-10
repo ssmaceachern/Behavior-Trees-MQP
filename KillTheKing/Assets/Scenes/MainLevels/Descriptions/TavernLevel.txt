@@ -1,0 +1,4 @@
+LevelTitle=[Taverns]
+LevelDescription=[The hero and his knights fight some creeps at the beginning of the level, taking some damage in the process. They decide to stop by the tavern to rest before going back to the castle. You can bribe the tavern owner to harm the guards in different ways.]
+ObjectiveTitle=[Use the Tavern]
+ObjectiveDescription=[Bribe the tavern owner to do one of three things to the guards: get them drunk to slow them down, get the wenches to make the guards disloyal, or poison the guards.]
