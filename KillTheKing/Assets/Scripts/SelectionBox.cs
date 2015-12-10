@@ -5,40 +5,90 @@ using UnityEngine.UI;
 // Script for drawing a rectangle and selecting all units that lie within it
 public class SelectionBox : MonoBehaviour 
 {
-	private RectTransform selectRect = new RectTransform();	// The rectangle we will use to select our units.
+	public float unitSpacing = 5f;
 
+	private RectTransform selectRect = new RectTransform();	// The rectangle we will use to select our units
 	private Vector2 initClickPos = new Vector2();		// The positon of the initial click
 	private Vector2 currentMousePos = new Vector2();	// The current position of the mouse
 	private Vector2 difference = new Vector2();			// How far the mouse has moved in one frame
 	private Vector2 currentAnchor = new Vector2();		// The anchor point at any given frame
-	private GameObject[] selectedUnits = new GameObject[20];	// All units selected from the rectangle
-	private Image selectionImg;
-	private GameObject charPar;
-	private PieMenu[] pieMenus;
-	private GameObject[] selectableUnits = new GameObject[20];
+	private Image selectionImg;							// The image used for the selection box. Should be 1 pixel big
+	private GameObject charPar;							// The parent class of the characters we can select
+	private MessageReceiver[] rcvrs;					// The list of message receivers we can use to select units
+	private MessageDispatcher dispatch;					// A reference to our own message dispatcher, so we can select units
 
 	void Start()
 	{
+		// Set up our references
 		selectRect = GetComponent<RectTransform> ();
+		dispatch = GetComponent<MessageDispatcher> ();
 		selectionImg = GetComponent<Image> ();
-		selectionImg.enabled = false;
+		charPar = GameObject.FindGameObjectWithTag("Characters");
+		selectionImg.enabled = false;					// Only enable the image while the player is clicking.
+
+		/* 
+		 * If we don't have a message dispatcher then we can't select units, so print an error message
+		 * and deactivate this component.
+		 */
+		if (dispatch == null)
+		{
+			Debug.LogError (this.gameObject.name + " needs a messageDispatcher");
+			enabled = false;
+		}
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
+		// Send a move command to all selected units when user presses RMB
+		if (Input.GetMouseButtonDown(1))
+		{
+			// Get the list of receivers to send to
+			rcvrs = charPar.GetComponentsInChildren<MessageReceiver>();
+
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+			if (Physics.Raycast(ray, out hit, 1000.0f) != false)
+			{
+				Vector3 movePoint = hit.point;
+
+				// Send the desired location to all units
+				foreach (MessageReceiver rcvr in rcvrs)
+				{
+					dispatch.SendMsg (0.0f,
+					                  this.gameObject,
+					                  rcvr.gameObject,
+					                  (int) MessageTypes.MsgType.MoveTo,
+					                  RandomizePoint (movePoint));
+				}
+			}
+
+			// Deselect all units
+			foreach (MessageReceiver rcvr in rcvrs)
+			{
+				dispatch.SendMsg(0.0f,
+				                 this.gameObject,
+				                 rcvr.gameObject,
+				                 (int) MessageTypes.MsgType.DeselectUnit,
+				                 null);
+			}
+		}
+
 		// Check to see if the player clicked the mouse button
 		if (Input.GetMouseButtonDown (0))
 		{
-			// We only want to select units that have pie menus
-			charPar = GameObject.FindGameObjectWithTag("Characters");
-			pieMenus = charPar.GetComponentsInChildren<PieMenu>();
+			// We only want to select units that have message receivers
+			rcvrs = charPar.GetComponentsInChildren<MessageReceiver>();
 
-			/* Select units */
-			for (int i = 0; i < pieMenus.Length; i++)
+			// Deselect all units
+			foreach (MessageReceiver rcvr in rcvrs)
 			{
-				selectableUnits[i] = pieMenus[i].gameObject;
-				selectableUnits[i].GetComponent<SelectUnit>().Deselect();
+				dispatch.SendMsg(0.0f,
+				                 this.gameObject,
+				                 rcvr.gameObject,
+				                 (int) MessageTypes.MsgType.DeselectUnit,
+				                 null);
 			}
 
 			// Set the initial position
@@ -80,17 +130,14 @@ public class SelectionBox : MonoBehaviour
 		else if (Input.GetMouseButtonUp (0))
 		{
 			/* Select units */
-			int numSelected = 0;
-			for (int i = 0; i < pieMenus.Length; i++)
+			rcvrs = charPar.GetComponentsInChildren<MessageReceiver>();
+			foreach (MessageReceiver rcvr in rcvrs)
 			{
-				// Check to see if the units lie within the RectTransform
-				if (IsSelected (selectableUnits[i]))
-				{
-					selectedUnits[numSelected] = selectableUnits[i];
-					selectedUnits[numSelected].GetComponent<SelectUnit>().MakeSelected ();
-
-					numSelected++;
-				}
+				dispatch.SendMsg (0.0f,
+				                  this.gameObject,
+				                  rcvr.gameObject,
+				                  (int) MessageTypes.MsgType.SelectUnit,
+				                  null);
 			}
 
 			// Reset
@@ -102,7 +149,7 @@ public class SelectionBox : MonoBehaviour
 	}
 
 	// Check to see if the given game object lies within the current transform
-	private bool IsSelected(GameObject testObj)
+	public bool IsSelected(GameObject testObj)
 	{
 		Vector2 screenPos = Camera.main.WorldToScreenPoint (testObj.transform.position);
 
@@ -118,5 +165,18 @@ public class SelectionBox : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	private Vector3 RandomizePoint(Vector3 initPoint)
+	{
+		float randomX = initPoint.x;
+		float randomZ = initPoint.z;
+
+		randomX = Random.Range (randomX - unitSpacing, randomX + unitSpacing);
+		randomZ = Random.Range (randomZ - unitSpacing, randomZ + unitSpacing);
+
+		Vector3 newPoint = new Vector3 (randomX, initPoint.y, randomZ);
+
+		return newPoint;
 	}
 }
