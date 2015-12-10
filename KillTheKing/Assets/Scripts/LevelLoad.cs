@@ -9,7 +9,12 @@ public class LevelLoad : MonoBehaviour
         Application.LoadLevel(level);
     }
 
-	public void LoadLastLevel()
+    public void LoadLevel(string level)
+    {
+        Application.LoadLevel(level);
+    }
+
+    public void LoadLastLevel()
 	{
 		Application.LoadLevel (PlayerPrefs.GetInt ("LastLevel"));
 	}
