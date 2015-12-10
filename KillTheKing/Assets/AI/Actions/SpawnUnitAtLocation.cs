@@ -18,8 +18,9 @@ public class SpawnUnitAtLocation : RAINAction
 
 		if (toSpawn != "") 
 		{
+
 			GameObject newUnit = (GameObject)GameObject.Instantiate (Resources.Load (toSpawn));
-			
+
 			newUnit.transform.position = ai.WorkingMemory.GetItem<Vector3> ("spawnLoc");
 			
 			ai.WorkingMemory.SetItem<GameObject> ("Target", newUnit);

@@ -109,6 +109,11 @@ public class HandleTarget : RAINAction
 				
 				ai.WorkingMemory.SetItem<bool> ("Puking", true);
 
+				
+				int oldHunger = ai.WorkingMemory.GetItem<int> ("Hunger");
+				ai.WorkingMemory.SetItem<int> ("Hunger", oldHunger+15);
+
+
 				// Deactivate the trap and forget about it
 				myTrap.SetActive(false);			
 				ai.WorkingMemory.SetItem<GameObject>("Target", null);

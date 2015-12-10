@@ -16,6 +16,7 @@ public class BreakBuilding : RAINAction
     {
 		GameObject target = ai.WorkingMemory.GetItem<GameObject> ("BuildTarget");
 
+		Debug.Log ("got here");
 		if (target != null && target.GetComponent<MessageReceiver>() != null)
 		{
 			ai.Body.GetComponent<MessageDispatcher>().SendMsg (0.0f,
@@ -24,7 +25,8 @@ public class BreakBuilding : RAINAction
 			                                                   (int)MessageTypes.MsgType.DestroyBuilding,
 			                                                   null);
 		}
-
+		
+		Debug.Log ("and here");
         return ActionResult.SUCCESS;
     }
 
