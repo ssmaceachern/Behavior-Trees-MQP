@@ -11,13 +11,7 @@ public class LevelCoordinator : MonoBehaviour {
     static Dictionary<string, LevelInfo> LevelRegistry;
 
     //Holds index of scene to be loaded
-    private int LevelToBeLoaded
-    {
-        set
-        {
-            LevelToBeLoaded = value;
-        }
-    }
+    private string LevelToBeLoaded;
 
     static public bool isActive
     {
@@ -49,44 +43,51 @@ public class LevelCoordinator : MonoBehaviour {
 
     void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
         LevelRegistry = new Dictionary<string, LevelInfo>();
+        PopulateLevelRegistry();
     }
 
     void PopulateLevelRegistry()
-    {
-        
+    {        
         string LevelRegistryPath = Application.dataPath + "/Scenes/MainLevels/";
-        Debug.Log(LevelRegistryPath);
-
         string[] MainLevelNames = Directory.GetFiles(LevelRegistryPath, "*.unity");
-        Debug.Log(MainLevelNames);
+
+        //Used for holding a reference to MainLevelName
+        string tmp;
 
         foreach(string MainLevelName in MainLevelNames)
         {
-            Debug.Log(MainLevelName);
-            LevelRegistry.Add(MainLevelName, new LevelInfo(MainLevelName));
+            tmp = MainLevelName.Substring(MainLevelName.LastIndexOf("/") + 1);
+            LevelRegistry.Add(tmp, new LevelInfo(tmp));
         }
 
-        Debug.Log(LevelRegistry.Count);
     }
 
-    void LoadLevel(int level)
+    public void LoadLevelScene(string levelToBeLoaded)
     {
-        PlayerPrefs.SetInt("LastLevel", level);
-        Application.LoadLevel(level);
+        LevelToBeLoaded = levelToBeLoaded;
+        Application.LoadLevel("LevelLoad");
     }
 
-    void LoadLevel(string level)
+    public void LoadLevelToBeLoaded()
     {
-        Application.LoadLevel(level);
+        Application.LoadLevel(LevelToBeLoaded);
+    }
+
+    public Dictionary<string, LevelInfo> GetLevelRegistry()
+    {
+        return LevelRegistry;
+    }
+
+    public string GetLevelToBeLoaded()
+    {
+        return LevelToBeLoaded;
     }
 
     // Use this for initialization
     void Start () {
-        PopulateLevelRegistry();
-        //Debug.Log(instance == null);
-	}
+        DontDestroyOnLoad(transform.gameObject);
+    }
 	
 	// Update is called once per frame
 	void Update () {
