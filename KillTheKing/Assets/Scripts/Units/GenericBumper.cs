@@ -41,7 +41,7 @@ public class GenericBumper : MonoBehaviour
 
 
 		if (col.gameObject.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<string> ("UnitType") == "Assassin" && ai.AI.WorkingMemory.GetItem<string> ("UnitType") == "King") {
-			Debug.Log ("This king is about to die");
+			//Debug.Log ("This king is about to die");
 			
 			return;
 		}
@@ -65,7 +65,7 @@ public class GenericBumper : MonoBehaviour
 			return;
 		}
 
-		Debug.Log (ai.AI.WorkingMemory.GetItem<string>("Team"));
+		//Debug.Log (ai.AI.WorkingMemory.GetItem<string>("Team"));
 
 
 
