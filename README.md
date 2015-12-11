@@ -2,8 +2,8 @@
 MQP for Behavior Trees in Unity using Rain
 
 Sean MacEachern
-Chris Ginnis
-Zach Mason
+Chris Gillis
+Zack Mason
 
 Master - Holds the final version of the project at the end of a term.
 
