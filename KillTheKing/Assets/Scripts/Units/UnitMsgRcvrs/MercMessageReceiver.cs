@@ -24,6 +24,14 @@ public class MercMessageReceiver : MessageReceiver
 			{
 				if (!selected)
 					return;
+
+				EntityRig pEnt = GetComponentInChildren<AIRig>().AI.Body.GetComponentInChildren<EntityRig> ();
+				
+				if(pEnt!=null)
+				{
+					pEnt.Entity.GetAspect("Good").IsActive=true;
+					//pEnt.Entity.ActivateEntity();
+				}
 			}
 
 			AIRig mercAI = GetComponentInChildren<AIRig>();
@@ -45,7 +53,13 @@ public class MercMessageReceiver : MessageReceiver
 		else if (msg.msgType == (int) MessageTypes.MsgType.SelectUnit)
 		{
 			SelectionBox selectBox = msg.sender.GetComponent<SelectionBox>();
-			MeshRenderer selectMesh = transform.FindChild("SelectionIndicator").GetComponent<MeshRenderer>();
+			Transform indicatorTransform = transform.FindChild ("SelectionIndicator");
+			MeshRenderer selectMesh = null;
+
+			if (indicatorTransform != null)
+			{
+				selectMesh = indicatorTransform.GetComponent<MeshRenderer>();
+			}
 
 			// Perform whatever tasks we need to as a selected unit
 			if (selectBox.IsSelected (this.gameObject))
@@ -59,7 +73,13 @@ public class MercMessageReceiver : MessageReceiver
 		}
 		else if (msg.msgType == (int) MessageTypes.MsgType.DeselectUnit)
 		{
-			MeshRenderer selectMesh = transform.FindChild("SelectionIndicator").GetComponent<MeshRenderer>();
+			Transform indicatorTransform = transform.FindChild ("SelectionIndicator");
+			MeshRenderer selectMesh = null;
+			
+			if (indicatorTransform != null)
+			{
+				selectMesh = indicatorTransform.GetComponent<MeshRenderer>();
+			}
 
 			if (selectMesh != null)
 			{
