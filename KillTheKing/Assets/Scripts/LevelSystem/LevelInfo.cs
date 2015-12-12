@@ -21,38 +21,46 @@ public class LevelInfo {
     {
         GenerateFileLoc(SceneName);
 
-        //Debug.Log(path + SceneName);
-        if (File.Exists(FileLoc))
+		Debug.Log(FileLoc);
+
+		if (Resources.Load(FileLoc) != null)
         {
-            ParseLevelDescriptionFile(path);
+            ParseLevelDescriptionFile(FileLoc);
         }
         else
         {
+			Debug.Log(Resources.Load("BearLevel.txt", typeof(TextAsset)));
             Debug.LogWarning("Levels file does not exist, no level names available at run-time.");
-        }
+		}
 
     }
 
     void GenerateFileLoc(string SceneName)
     {
-        string DescriptionFileName = SceneName.Substring(0, SceneName.IndexOf(".")) + ".txt";
+        string DescriptionFileName = SceneName.Substring(0, SceneName.IndexOf("."));
         //Debug.Log(DescriptionFileName);
 
-        FileLoc = path + DescriptionFileName;
+        FileLoc = "Descriptions/" + DescriptionFileName;
     }
 
     void ParseLevelDescriptionFile(string path)
     {
         // Read the names of all levels from the levels file.
-        using (FileStream stream = File.Open(FileLoc, FileMode.Open, FileAccess.Read))
-        {
-            using (StreamReader reader = new StreamReader(stream))
-            {
+        //using (FileStream stream = File.Open(FileLoc, FileMode.Open, FileAccess.Read))
+        //{
+            //using (StreamReader reader = new StreamReader(stream))
+            //{
                 //File.SetAttributes(FileLoc, FileAttributes.Normal);
                 // Possibly use ReadToEnd and string.Split(fileContent, Environment.NewLine).
-                while (!reader.EndOfStream)
-                {
-                    string line = reader.ReadLine();
+                //while (!reader.EndOfStream)
+                //{
+
+		TextAsset ta = Resources.Load(FileLoc) as TextAsset;
+		string[] lines = ta.text.Split('\n');
+		Debug.Log(ta.text);
+		foreach(string line in lines)
+		{
+					Debug.Log(line);
 
                     //tokens[0] = Variable
                     //tokens[1] = [Description]
@@ -76,9 +84,9 @@ public class LevelInfo {
                         Debug.LogWarning("Unknown Information is in the file.");
                         break;
                     }
-                        
-                }
-            }
-        }
+		} 
+                //}
+            //}
+        //}
     }
 }
