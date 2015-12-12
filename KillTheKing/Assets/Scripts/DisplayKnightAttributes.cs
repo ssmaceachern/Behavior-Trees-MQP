@@ -8,8 +8,8 @@ public class DisplayKnightAttributes : MonoBehaviour {
 
 	private enum DisplayMode{
 		None 		= 0,
-		Hunger 		= 1,
-		Health 		= 2,
+        Health      = 1,
+        Hunger 		= 2,
 		Greed 		= 3
 	};
 
@@ -44,23 +44,22 @@ public class DisplayKnightAttributes : MonoBehaviour {
 
 		switch(currentMode){
 		case DisplayMode.None:
-			//TODO Replace this.
-			//currentModeValue = 0;
+			
 			currentModeName = "None";
 			FillReference.color = Color.black;
 			break;
 		case DisplayMode.Hunger:
-			//currentModeValue = KnightHunger;
+			
 			currentModeName = "Hunger";
 			FillReference.color = Color.green;
 			break;
 		case DisplayMode.Health:
-			//currentModeValue = KnightHealth;
+			
 			currentModeName = "Health";
 			FillReference.color = Color.red;
 			break;
 		case DisplayMode.Greed:
-			//currentModeValue = KnightLoyalty;
+			
 			currentModeName = "Loyalty";
 			FillReference.color = Color.blue;
 			break;
@@ -81,6 +80,10 @@ public class DisplayKnightAttributes : MonoBehaviour {
             {
                 currentMode--;
             }
+            else
+            {
+                currentMode = DisplayMode.Greed;
+            }
 
 			SwitchMode();
 		}
@@ -91,8 +94,12 @@ public class DisplayKnightAttributes : MonoBehaviour {
             {
                 currentMode++;
             }
+            else
+            {
+                currentMode = DisplayMode.Health;
+            }
 
-			SwitchMode();
+            SwitchMode();
 		}
 
 		SliderReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>(currentModeName);
