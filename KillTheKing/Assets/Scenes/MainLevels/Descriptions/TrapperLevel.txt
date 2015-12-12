@@ -1,4 +1,4 @@
 LevelTitle=[Only Have Trappers]
-LevelDescription=[The King is walking with a contingent of guards down a haunted forest with spooky traps. You have a number of trappers at your disposal, but the king has lots of guards. The goal is to weaken the King and his forces with food traps so that he becomes greedy enough to check some of the traps himself. Spooky traps don’t do damage but decreases greed and increases paranoia so you need to time your traps right.]
+LevelDescription=[The King is walking with a contingent of guards down a haunted forest with spooky traps. You have a number of trappers at your disposal, but the king has lots of guards. The goal is to weaken the King and his forces with food traps so that he becomes greedy enough to check some of the traps himself.]
 ObjectiveTitle=[Kill the Commander]
 ObjectiveDescription=[Spook him]

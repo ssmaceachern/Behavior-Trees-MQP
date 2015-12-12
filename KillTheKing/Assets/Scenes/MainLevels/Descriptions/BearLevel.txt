@@ -1,4 +1,4 @@
 LevelTitle=[Bear Level]
-LevelDescription=[The guard is walking along a path near a river. There are several trappers near a bear cave who is notorious for hating guards. The trappers lay down food traps to lead the bear into the path of the guard who kills him easily.]
+LevelDescription=[The guard is walking along a path near a river. There are several trappers near a bear's cave who is notorious for hating guards. Use the trappers to lay down food traps to lead the bear into the path of the guard who kills him easily.]
 ObjectiveTitle=[Unable to Bear it]
 ObjectiveDescription=[Use food traps to lead bear into the path of the gate guard.]

@@ -1,4 +1,4 @@
 LevelTitle=[Save the Bridge Maker]
-LevelDescription=[The hero is tasked with killing a band of goblins, but begins to flee from the area when he sees just how many of them there are. The goblins are set to ambush a cart carrying a bridge maker to a nearby village. You can either save the bridgemaker or divert your forces to slay the hero.]
+LevelDescription=[The hero is tasked with killing a band of goblins, but begins to flee from the area when he sees just how many of them there are. The goblins are set to ambush a cart carrying a bridge maker to a nearby village. You have enough forces to easily overwhelm the king, but can you save the helpless peasant, too?]
 ObjectiveTitle=[Kill the Commander]
 ObjectiveDescription=[Assassinate the Leader]
