@@ -22,7 +22,7 @@ public class DisplayKnightAttributes : MonoBehaviour {
 	DisplayMode currentMode;
 
 	//Holds the name of the current mode
-	string currentModeName = "None";
+	string currentModeName;
 
 	//Holds the value of the parameter specified by
 	//the current mode.
@@ -35,9 +35,10 @@ public class DisplayKnightAttributes : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		currentMode = DisplayMode.None;
+		currentMode = DisplayMode.Health;
 		tRig = transform.parent.parent.GetComponentInChildren<AIRig>();
-	}
+        SwitchMode();
+    }
 
 	void SwitchMode(){
 
@@ -76,18 +77,20 @@ public class DisplayKnightAttributes : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Q)){
 
-			currentMode--;
-
-			CheckCurrentModeOverflow(currentMode);
+            if((int)currentMode > 1)
+            {
+                currentMode--;
+            }
 
 			SwitchMode();
 		}
 
 		if(Input.GetKeyDown(KeyCode.E)){
 
-			currentMode++;
-
-			CheckCurrentModeOverflow(currentMode);
+            if ((int)currentMode < 3)
+            {
+                currentMode++;
+            }
 
 			SwitchMode();
 		}
@@ -95,17 +98,4 @@ public class DisplayKnightAttributes : MonoBehaviour {
 		SliderReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>(currentModeName);
 	}
 
-	void CheckCurrentModeOverflow(DisplayMode currentMode){
-		//Handles the wrap around
-		//Debug.Log((int)currentMode);
-
-		if((int)currentMode < 0){
-			currentMode++;
-		}
-		else if((int)currentMode > 3){
-			currentMode--;
-		}
-
-		Debug.Log((int)currentMode);
-	}
 }
