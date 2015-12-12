@@ -25,11 +25,11 @@ public class LevelCoordinator : MonoBehaviour {
     {
         get
         {
-            if(_instance == null)
+            if (_instance == null)
             {
                 _instance = FindObjectOfType(typeof(LevelCoordinator)) as LevelCoordinator;
 
-                if(_instance == null)
+                if (_instance == null)
                 {
                     GameObject lc = new GameObject("Level Coordinator");
                     DontDestroyOnLoad(lc);
@@ -87,6 +87,15 @@ public class LevelCoordinator : MonoBehaviour {
     // Use this for initialization
     void Start () {
         DontDestroyOnLoad(transform.gameObject);
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        Debug.Log(LevelToBeLoaded);
+        if(GameObject.Find("LevelCoordinator") == true && GameObject.Find("LevelCoordinator") != transform.gameObject)
+        {
+            Destroy(GameObject.Find("LevelCoordinator"));
+        }
     }
 	
 	// Update is called once per frame

@@ -1,4 +1,4 @@
-LevelTitle=[Bear Level]
-LevelDescription=[The guard is walking along a path near a river. There are several trappers near a bear cave who is notorious for hating guards. The trappers lay down food traps to lead the bear into the path of the guard who kills him easily.]
-ObjectiveTitle=[Unable to Bear it]
-ObjectiveDescription=[Use food traps to lead bear into the path of the gate guard.]
+LevelTitle=[Spooky Forest Level]
+LevelDescription=[The hero is walking along the path near a spooky forest. You must use builders in order to chop down trees and block the nice, easy path the hero is walking on. This causes the hero and his knights to enter the spooky forest which gradually increases the level of paranoia of the group. At a high enough paranoia, the guards will run in terror leaving the hero alone to be easily killed by the assassin.]
+ObjectiveTitle=[Too Spooked to Continue]
+ObjectiveDescription=[Keep the hero in the spooky forest long enough for you to kill him and his guards.]
