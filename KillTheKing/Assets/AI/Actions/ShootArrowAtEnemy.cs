@@ -34,7 +34,7 @@ public class ShootArrowAtEnemy : RAINAction
 		newArrow.transform.position = ai.Body.transform.position;
 
 		GameObject myEnemy=ai.WorkingMemory.GetItem<GameObject> ("Enemy");
-		newArrow.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("Enemy", myEnemy);
+		newArrow.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<GameObject> ("Opponent", myEnemy);
 
         return ActionResult.SUCCESS;
     }
