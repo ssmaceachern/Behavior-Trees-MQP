@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class LevelCoordinator : MonoBehaviour {
 
+    public string[] MainLevelNames;
+
     static LevelCoordinator _instance;
 
     //Dictionary<Scene Name, Scene Level Info>
@@ -49,16 +51,16 @@ public class LevelCoordinator : MonoBehaviour {
 
     void PopulateLevelRegistry()
     {        
-        string LevelRegistryPath = Application.dataPath + "/Scenes/MainLevels/";
-        string[] MainLevelNames = Directory.GetFiles(LevelRegistryPath, "*.unity");
+        //string LevelRegistryPath = Application.dataPath + "/Scenes/MainLevels/";
+        //string[] MainLevelNames = Directory.GetFiles(LevelRegistryPath, "*.unity");
 
         //Used for holding a reference to MainLevelName
         string tmp;
 
         foreach(string MainLevelName in MainLevelNames)
         {
-            tmp = MainLevelName.Substring(MainLevelName.LastIndexOf("/") + 1);
-            LevelRegistry.Add(tmp, new LevelInfo(tmp));
+            //tmp = MainLevelName.Substring(MainLevelName.LastIndexOf("/") + 1);
+            LevelRegistry.Add(MainLevelName, new LevelInfo(MainLevelName));
         }
 
     }
@@ -74,16 +76,6 @@ public class LevelCoordinator : MonoBehaviour {
         Application.LoadLevel(LevelToBeLoaded);
     }
 
-    public Dictionary<string, LevelInfo> GetLevelRegistry()
-    {
-        return LevelRegistry;
-    }
-
-    public string GetLevelToBeLoaded()
-    {
-        return LevelToBeLoaded;
-    }
-
     // Use this for initialization
     void Start () {
         DontDestroyOnLoad(transform.gameObject);
@@ -97,9 +89,14 @@ public class LevelCoordinator : MonoBehaviour {
             Destroy(GameObject.Find("LevelCoordinator"));
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    public Dictionary<string, LevelInfo> GetLevelRegistry()
+    {
+        return LevelRegistry;
+    }
+
+    public string GetLevelToBeLoaded()
+    {
+        return LevelToBeLoaded;
+    }
 }

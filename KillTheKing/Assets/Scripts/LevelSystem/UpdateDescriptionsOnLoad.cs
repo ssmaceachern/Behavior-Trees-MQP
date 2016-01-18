@@ -23,7 +23,7 @@ public class UpdateDescriptionsOnLoad : MonoBehaviour
             //Get a reference to the LevelCoordinator script.
             LevelCoordinator = GameObject.Find("LevelCoordinator").GetComponent<LevelCoordinator>();
             Debug.Log(LevelCoordinator.GetLevelRegistry().Count);
-            if(LevelCoordinator.GetLevelRegistry().TryGetValue(LevelCoordinator.GetLevelToBeLoaded() + ".unity", out LevelInfo))
+            if(LevelCoordinator.GetLevelRegistry().TryGetValue(LevelCoordinator.GetLevelToBeLoaded(), out LevelInfo))
             {
                 UpdateDescriptions();
             }

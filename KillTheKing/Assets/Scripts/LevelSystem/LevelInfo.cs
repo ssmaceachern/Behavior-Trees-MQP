@@ -37,10 +37,10 @@ public class LevelInfo {
 
     void GenerateFileLoc(string SceneName)
     {
-        string DescriptionFileName = SceneName.Substring(0, SceneName.IndexOf("."));
+        //string DescriptionFileName = SceneName.Substring(0, SceneName.IndexOf("."));
         //Debug.Log(DescriptionFileName);
 
-        FileLoc = "Descriptions/" + DescriptionFileName;
+        FileLoc = "Descriptions/" + SceneName;
     }
 
     void ParseLevelDescriptionFile(string path)
