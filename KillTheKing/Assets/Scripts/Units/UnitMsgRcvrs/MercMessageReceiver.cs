@@ -17,6 +17,15 @@ public class MercMessageReceiver : MessageReceiver
 
 			// Decrement our health by the amount of damage contained in the message
 			mercAI.AI.WorkingMemory.SetItem<int>("Health", (currentHealth - (int)msg.info));
+
+			GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
+			particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+			Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+			Vector3 nudgeForce = new Vector3 ();
+			nudgeForce.x = (Random.value*200-100);
+			nudgeForce.y = 300;
+			nudgeForce.z = (Random.value*200-100);
+			hisBod.AddForce(nudgeForce);
 		}
 		else if (msg.msgType == (int) MessageTypes.MsgType.MoveTo)
 		{
