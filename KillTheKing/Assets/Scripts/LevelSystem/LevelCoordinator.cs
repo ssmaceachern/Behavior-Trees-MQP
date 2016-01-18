@@ -5,22 +5,21 @@ using System.Collections.Generic;
 
 public class LevelCoordinator : MonoBehaviour {
 
+    //Public array to hold the names of the levels to be put into the Level Registry
+    public string[] MainLevelNames;
+
+    //Instance for other scripts and managers to access
     static LevelCoordinator _instance;
 
-    //Dictionary<Scene Name, Scene Level Info>
+    //Dictionary to hold pairs of Level Names and their Description Files
     static Dictionary<string, LevelInfo> LevelRegistry;
 
     //Holds index of scene to be loaded
     private string LevelToBeLoaded;
 
-    static public bool isActive
-    {
-        get
-        {
-            return _instance != null;
-        }
-    }
-
+    /// <summary>
+    /// Singleton Pattern
+    /// </summary>
     static public LevelCoordinator instance
     {
         get
@@ -47,41 +46,36 @@ public class LevelCoordinator : MonoBehaviour {
         PopulateLevelRegistry();
     }
 
+    /// <summary>
+    /// Fills the LevelRegistry with pairs of Level Names and their Description Files
+    /// </summary>
     void PopulateLevelRegistry()
     {        
-        string LevelRegistryPath = Application.dataPath + "/Scenes/MainLevels/";
-        string[] MainLevelNames = Directory.GetFiles(LevelRegistryPath, "*.unity");
-
-        //Used for holding a reference to MainLevelName
-        string tmp;
-
         foreach(string MainLevelName in MainLevelNames)
         {
-            tmp = MainLevelName.Substring(MainLevelName.LastIndexOf("/") + 1);
-            LevelRegistry.Add(tmp, new LevelInfo(tmp));
+            //tmp = MainLevelName.Substring(MainLevelName.LastIndexOf("/") + 1);
+            LevelRegistry.Add(MainLevelName, new LevelInfo(MainLevelName));
         }
 
     }
 
+    /// <summary>
+    /// Loads the Level Description scene while assigning the name of the 
+    /// scene to be loaded to a private string.
+    /// </summary>
+    /// <param name="levelToBeLoaded">Name of the level to get a description of</param>
     public void LoadLevelScene(string levelToBeLoaded)
     {
         LevelToBeLoaded = levelToBeLoaded;
         Application.LoadLevel("LevelLoad");
     }
 
+    /// <summary>
+    /// Loads the scene when in the LevelLoad scene.
+    /// </summary>
     public void LoadLevelToBeLoaded()
     {
         Application.LoadLevel(LevelToBeLoaded);
-    }
-
-    public Dictionary<string, LevelInfo> GetLevelRegistry()
-    {
-        return LevelRegistry;
-    }
-
-    public string GetLevelToBeLoaded()
-    {
-        return LevelToBeLoaded;
     }
 
     // Use this for initialization
@@ -97,9 +91,24 @@ public class LevelCoordinator : MonoBehaviour {
             Destroy(GameObject.Find("LevelCoordinator"));
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    /*---GETTERS---*/
+
+    public Dictionary<string, LevelInfo> GetLevelRegistry()
+    {
+        return LevelRegistry;
+    }
+
+    public string GetLevelToBeLoaded()
+    {
+        return LevelToBeLoaded;
+    }
+
+    static public bool isActive
+    {
+        get
+        {
+            return _instance != null;
+        }
+    }
 }
