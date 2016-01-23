@@ -11,7 +11,7 @@ public class HireUnitSetLocation : MonoBehaviour {
 
 	private bool givePosition = false;
 
-    Texture2D mouseCursorTexture;
+    private static Texture2D mouseCursorTexture;
 
     public static Texture2D LoadPNG(string filePath)
     {
@@ -31,7 +31,7 @@ public class HireUnitSetLocation : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        mouseCursorTexture = LoadPNG("Assets/Textures/Target.png");
+        mouseCursorTexture = Resources.Load("target") as Texture2D;
     }
 	
 	// Update is called once per frame
