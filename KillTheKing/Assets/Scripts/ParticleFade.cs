@@ -22,8 +22,8 @@ public class ParticleFade : MonoBehaviour {
 			this.GetComponent<Rigidbody>().useGravity=true;
 		}
 
-		if (followTarget != null) {
-			;
+		if (followTarget != null && timeTillFade>=0) {
+			this.transform.position = new Vector3 (followTarget.transform.position.x, followTarget.transform.position.y + 5.0f, followTarget.transform.position.z);
 		}
 	}
 }
