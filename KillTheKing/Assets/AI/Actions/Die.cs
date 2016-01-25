@@ -39,30 +39,6 @@ public class Die : RAINAction
 
 			ai.Body.SetActive (false);
 
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Thug") { // if you're a thug
-		
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-		
-			ai.Body.SetActive (false);
-
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Archer") { // if you're an archer
-			
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-			
-			ai.Body.SetActive (false);
-
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Trapper") { // if you're a trapper
-		
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-		
-			ai.Body.SetActive (false);
-
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Goblin") { // if you're a Goblin
-			
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-			
-			GameObject.Destroy (ai.Body);
-
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Dragon") { // if you're a Dragon
 			
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
@@ -70,13 +46,6 @@ public class Die : RAINAction
 			ai.Body.SetActive (false);
 
 			//TODO: send a message to everyone around you to take x damage
-
-
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Bear") { // if you're a Bear
-			
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-
-			ai.Body.SetActive (false);
 
 
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Peasant") { // if you're a Peasant
@@ -92,23 +61,14 @@ public class Die : RAINAction
 			ai.Body.SetActive (false);
 			return ActionResult.SUCCESS;
 
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Assassin") { // if you're an assasssin
-			
-			ai.Body.SetActive (false);
-
-
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Ghost") { // if you're a ghost
 
 			ai.Body.SetActive (false);
 			return ActionResult.SUCCESS;
 
-		} else {
-			Debug.Log("Please make a Die() entry for unit type: " + ai.WorkingMemory.GetItem<string> ("UnitType"));
-			
-			// how did i get here?
-			
+		} else { // If you're something that dies with a generic blood spout
+
 			ai.Body.SetActive (false);
-			return ActionResult.FAILURE;
 		}
 
 

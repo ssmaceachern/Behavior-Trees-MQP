@@ -6,7 +6,7 @@ using RAIN.Core;
 
 // Deal damage to the current enemy
 [RAINAction]
-public class AttackTarget : RAINAction
+public class AttackEnemy : RAINAction
 {
     public override void Start(RAIN.Core.AI ai)
     {

@@ -80,6 +80,21 @@ public class GenericBumper : MonoBehaviour
 			nudgeForce.x = (col.gameObject.transform.position.x-this.gameObject.transform.position.x)*3;
 			nudgeForce.z = (col.gameObject.transform.position.z-this.gameObject.transform.position.z)*3;
 
+			if(Mathf.Abs(nudgeForce.x)>=Mathf.Abs(nudgeForce.z))
+			{
+				nudgeForce.z+=nudgeForce.x;
+			}
+			else
+			{
+				nudgeForce.x+=nudgeForce.z;
+			}
+
+			if(this.gameObject.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<GameObject> ("Opponent") !=null)
+			{
+				nudgeForce.x *=3;
+				nudgeForce.z *=3;
+			}
+
 			hisBod.AddForce(nudgeForce);
 
 			return;

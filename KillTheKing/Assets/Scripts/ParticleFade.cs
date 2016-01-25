@@ -22,8 +22,21 @@ public class ParticleFade : MonoBehaviour {
 			this.GetComponent<Rigidbody>().useGravity=true;
 		}
 
-		if (followTarget != null && timeTillFade>=0) {
+		if (followTarget != null && timeTillFade >= 0) 
+		{
 			this.transform.position = new Vector3 (followTarget.transform.position.x, followTarget.transform.position.y + 5.0f, followTarget.transform.position.z);
+		} 
+		else if (followTarget != null && timeTillFade <= 0) 
+		{
+			followTarget=null;
+			
+			Rigidbody myBod = this.GetComponent<Rigidbody> ();
+			Vector3 nudgeForce = new Vector3 ();
+			nudgeForce.x = (Random.value*300-150);
+			nudgeForce.y = 100;
+			nudgeForce.z = (Random.value*300-150);
+			myBod.AddForce(nudgeForce);
+			myBod.angularVelocity=new Vector3 (Random.value*10-5, Random.value*10-5, Random.value*10-5);
 		}
 	}
 }
