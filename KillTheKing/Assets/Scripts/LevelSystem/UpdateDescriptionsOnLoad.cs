@@ -17,11 +17,11 @@ public class UpdateDescriptionsOnLoad : MonoBehaviour
 
     void Start()
     {
-        if (GameObject.Find("LevelCoordinator") != null)
+        if (GameObject.Find("GameManager") != null)
         {
 
             //Get a reference to the LevelCoordinator script.
-            LevelCoordinator = GameObject.Find("LevelCoordinator").GetComponent<LevelCoordinator>();
+            LevelCoordinator = GameObject.Find("GameManager").GetComponent<LevelCoordinator>();
             Debug.Log(LevelCoordinator.GetLevelRegistry().Count);
             if(LevelCoordinator.GetLevelRegistry().TryGetValue(LevelCoordinator.GetLevelToBeLoaded(), out LevelInfo))
             {
