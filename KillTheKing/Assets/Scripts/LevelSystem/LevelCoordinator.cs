@@ -44,9 +44,12 @@ public class LevelCoordinator : MonoBehaviour {
 
     void Awake()
     {
+        //Grab instance of the GameManager and set the state change handler to a 
+        //Custom function.
         GM = GameManager.instance;
         GM.OnStateChange += HandleOnStateChange;
 
+        //Populate the registry with level description files
         LevelRegistry = new Dictionary<string, LevelInfo>();
         PopulateLevelRegistry();
 
@@ -124,6 +127,6 @@ public class LevelCoordinator : MonoBehaviour {
 
     public void HandleOnStateChange()
     {
-        Debug.Log("Handling state change to: " + GM.gameState);
+        Debug.Log("Handling state change from " + GM.previousGameState + " to: " + GM.gameState);
     }
 }
