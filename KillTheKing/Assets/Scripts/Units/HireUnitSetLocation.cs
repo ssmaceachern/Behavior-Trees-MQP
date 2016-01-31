@@ -64,6 +64,10 @@ public class HireUnitSetLocation : MonoBehaviour {
 			{
 				pEnt.Entity.GetAspect("Good").IsActive=true;
 				//pEnt.Entity.ActivateEntity();
+				if(GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<string>("UnitType")=="Assassin")
+				{
+					pEnt.Entity.GetAspect("Assassin").IsActive=true;
+				}
 			}
 		}
 	}
