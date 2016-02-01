@@ -18,6 +18,7 @@ public class LevelCoordinator : MonoBehaviour {
 
     //Holds index of scene to be loaded
     private string LevelToBeLoaded;
+    public string currentLevel { get; private set; }
 
     /// <summary>
     /// Singleton Pattern
@@ -88,6 +89,7 @@ public class LevelCoordinator : MonoBehaviour {
     public void LoadLevelToBeLoaded()
     {
         GM.SetGameState(GameState.Play);
+        currentLevel = LevelToBeLoaded;
         Application.LoadLevel(LevelToBeLoaded);
     }
 

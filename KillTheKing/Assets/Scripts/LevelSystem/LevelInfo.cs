@@ -7,6 +7,8 @@ public class LevelInfo {
     //Info to be loaded
     int index;
 
+    public bool isComplete { get; private set; }
+
     public string  FileLoc,
             LevelTitle,
             LevelDescription,
@@ -16,6 +18,8 @@ public class LevelInfo {
     //Constructor
     public LevelInfo(string SceneName)
     {
+        isComplete = false;
+
         FileLoc = "Descriptions/" + SceneName;
 
         if (Resources.Load(FileLoc) != null)
@@ -62,4 +66,6 @@ public class LevelInfo {
                     }
 		} 
     }
+
+    public void setComplete(bool val) { isComplete = val; }
 }

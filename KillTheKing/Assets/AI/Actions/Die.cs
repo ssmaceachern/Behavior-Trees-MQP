@@ -27,6 +27,16 @@ public class Die : RAINAction
 
 			ai.Body.SetActive (false);
 
+            if (LevelCoordinator.instance.GetLevelRegistry().ContainsKey(LevelCoordinator.instance.currentLevel))
+            {
+                LevelCoordinator.instance.GetLevelRegistry()[LevelCoordinator.instance.currentLevel].setComplete(true);
+                Debug.Log(LevelCoordinator.instance.currentLevel + ": " + 
+                    LevelCoordinator.instance.GetLevelRegistry()[LevelCoordinator.instance.currentLevel].isComplete);
+            }
+            else{
+                Debug.LogError("Could not update level information");
+            }
+
 			Application.LoadLevel (2);
 
 			return ActionResult.SUCCESS;
