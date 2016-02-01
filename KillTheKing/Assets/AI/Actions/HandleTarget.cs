@@ -11,6 +11,11 @@ public class HandleTarget : RAINAction
 {
     public override void Start(RAIN.Core.AI ai)
     {
+		if (ai.WorkingMemory.GetItem<string> ("UnitType") == "King")
+		{
+			GameObject thoughtBubble = ai.Body.transform.FindChild ("ThoughtBubble").gameObject;
+			thoughtBubble.GetComponent<DisplayThoughts>().TurnOn (0, 0, 0);
+		}
         base.Start(ai);
     }
 
@@ -256,6 +261,9 @@ public class HandleTarget : RAINAction
 			myTrap.SetActive(false);
 
 			ai.WorkingMemory.SetItem<GameObject>("Target", null);
+
+			GameObject thoughtBubble = ai.Body.transform.FindChild ("ThoughtBubble").gameObject;
+			thoughtBubble.GetComponent<DisplayThoughts>().TurnOff();
 
 		} else if(myType=="Bear") { // a bear comes over and activates the trap
 			

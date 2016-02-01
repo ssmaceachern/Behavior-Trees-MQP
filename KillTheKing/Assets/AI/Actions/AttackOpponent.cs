@@ -10,6 +10,27 @@ public class AttackOpponent : RAINAction
 {
 	public override void Start(RAIN.Core.AI ai)
 	{
+		GameObject myEnemy = ai.WorkingMemory.GetItem<GameObject> ("Opponent");
+		string enemyType = myEnemy.GetComponent<AIRig> ().AI.WorkingMemory.GetItem<string> ("UnitType");
+		int unitType = 0;
+		switch(enemyType)
+		{
+		case "Archer":
+			unitType = 1;
+			break;
+		case "Thug":
+			unitType = 2;
+			break;
+		case "Assassin":
+			unitType = 4;
+			break;
+		default:
+			unitType = 0;
+			break;
+		}
+		GameObject thoughtBubble = ai.Body.transform.FindChild ("ThoughtBubble").gameObject;
+		thoughtBubble.GetComponent<DisplayThoughts>().TurnOn (0, unitType, 1);
+
 		base.Start(ai);
 	}
 	
@@ -58,6 +79,8 @@ public class AttackOpponent : RAINAction
 	
 	public override void Stop(RAIN.Core.AI ai)
 	{
+		GameObject thoughtBubble = ai.Body.transform.FindChild ("ThoughtBubble").gameObject;
+		thoughtBubble.GetComponent<DisplayThoughts> ().TurnOff ();
 		base.Stop(ai);
 	}
 }

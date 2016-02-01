@@ -15,6 +15,7 @@ public class GiveOrders : RAINAction
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
 		GameObject workSlave = ai.WorkingMemory.GetItem<GameObject> ("WorkingSlave");
+		GameObject thoughtBubble = ai.Body.transform.FindChild ("ThoughtBubble").gameObject;
 		MessageDispatcher dispatch = ai.Body.GetComponent<MessageDispatcher> ();
 
 		bool alreadyGiven = true;
@@ -63,6 +64,9 @@ public class GiveOrders : RAINAction
 		                  mySlave,
 		                  (int)MessageTypes.MsgType.SetTarget,
 		                  myTrap);
+
+		// Turn on our thought bubble
+		thoughtBubble.GetComponent<DisplayThoughts> ().TurnOn (1, 0, 0);
 
         return ActionResult.SUCCESS;
     }

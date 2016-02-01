@@ -45,6 +45,9 @@ public class KingMessageReceiver : MessageReceiver
 
 			kingAI.AI.WorkingMemory.SetItem<GameObject> ("Target", null);
 			kingAI.AI.WorkingMemory.SetItem<GameObject> ("WorkingSlave", null);
+
+			GameObject thoughtBubble = transform.FindChild ("ThoughtBubble").gameObject;
+			thoughtBubble.GetComponent<DisplayThoughts>().TurnOff();
 		}
 		if (msg.msgType == (int) MessageTypes.MsgType.ResetAI)
 		{
