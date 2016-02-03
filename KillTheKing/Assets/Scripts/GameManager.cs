@@ -81,4 +81,12 @@ public class GameManager : MonoBehaviour {
             OnStateChange();
         }
     }
+
+    void OnLevelWasLoaded(int level)
+    {
+        if (GameObject.Find("GameManager") == true && GameObject.Find("GameManager") != transform.gameObject)
+        {
+            Destroy(GameObject.Find("GameManager"));
+        }
+    }
 }
