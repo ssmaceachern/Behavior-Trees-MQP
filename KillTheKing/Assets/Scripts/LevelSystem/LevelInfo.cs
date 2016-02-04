@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class LevelInfo {
 
-    //Filepath
-    string path = Application.dataPath + "/Scenes/MainLevels/Descriptions/";
-
     //Info to be loaded
     int index;
 
@@ -19,51 +16,30 @@ public class LevelInfo {
     //Constructor
     public LevelInfo(string SceneName)
     {
-        GenerateFileLoc(SceneName);
+        FileLoc = "Descriptions/" + SceneName;
 
-		Debug.Log(FileLoc);
-
-		if (Resources.Load(FileLoc) != null)
+        if (Resources.Load(FileLoc) != null)
         {
             ParseLevelDescriptionFile(FileLoc);
         }
         else
         {
-			Debug.Log(Resources.Load("BearLevel.txt", typeof(TextAsset)));
             Debug.LogWarning("Levels file does not exist, no level names available at run-time.");
 		}
 
     }
 
-    void GenerateFileLoc(string SceneName)
+    /// <summary>
+    /// Parses a level's description file for relevant details
+    /// </summary>
+    /// <param name="FileLoc">Location of the text file in the Resources Folder</param>
+    void ParseLevelDescriptionFile(string FileLoc)
     {
-        string DescriptionFileName = SceneName.Substring(0, SceneName.IndexOf("."));
-        //Debug.Log(DescriptionFileName);
-
-        FileLoc = "Descriptions/" + DescriptionFileName;
-    }
-
-    void ParseLevelDescriptionFile(string path)
-    {
-        // Read the names of all levels from the levels file.
-        //using (FileStream stream = File.Open(FileLoc, FileMode.Open, FileAccess.Read))
-        //{
-            //using (StreamReader reader = new StreamReader(stream))
-            //{
-                //File.SetAttributes(FileLoc, FileAttributes.Normal);
-                // Possibly use ReadToEnd and string.Split(fileContent, Environment.NewLine).
-                //while (!reader.EndOfStream)
-                //{
 
 		TextAsset ta = Resources.Load(FileLoc) as TextAsset;
 		string[] lines = ta.text.Split('\n');
-		Debug.Log(ta.text);
 		foreach(string line in lines)
 		{
-					Debug.Log(line);
-
-                    //tokens[0] = Variable
-                    //tokens[1] = [Description]
                     string[] tokens = line.Split('=');
 
                     switch (tokens[0])
@@ -85,8 +61,5 @@ public class LevelInfo {
                         break;
                     }
 		} 
-                //}
-            //}
-        //}
     }
 }

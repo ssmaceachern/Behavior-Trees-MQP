@@ -38,32 +38,7 @@ public class Die : RAINAction
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
 
 			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
 
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Thug") { // if you're a thug
-		
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-		
-			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Archer") { // if you're an archer
-			
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-			
-			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Trapper") { // if you're a trapper
-		
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-		
-			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Goblin") { // if you're a Goblin
-			
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-			
-			GameObject.Destroy (ai.Body);
-			return ActionResult.SUCCESS;
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Dragon") { // if you're a Dragon
 			
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
@@ -72,27 +47,12 @@ public class Die : RAINAction
 
 			//TODO: send a message to everyone around you to take x damage
 
-			return ActionResult.SUCCESS;
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Bear") { // if you're a Bear
-			
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-
-			GameObject spawner = GameObject.FindGameObjectWithTag("GoblinRespawn");
-
-			if (spawner != null)
-			{
-				spawner.GetComponent<SpawnGoblin>().spawnAGoblin();
-			}
-
-			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
 
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Peasant") { // if you're a Peasant
 			
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
 			
 			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
 
 			//TODO: care more if a peasant dies that can be put here, or should that be a per-level script attached to them?
 
@@ -100,22 +60,31 @@ public class Die : RAINAction
 			
 			ai.Body.SetActive (false);
 			return ActionResult.SUCCESS;
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Assassin") { // if you're an assasssin
-			
-			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
+
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Ghost") { // if you're a ghost
 
 			ai.Body.SetActive (false);
+			return ActionResult.SUCCESS;
 
+		} else { // If you're something that dies with a generic blood spout
+
+			ai.Body.SetActive (false);
 		}
-		
-		Debug.Log("Please make a Die() entry for unit type: " + ai.WorkingMemory.GetItem<string> ("UnitType"));
 
-		// how did i get here?
 
+		for (int i=0; i<6; i++) {
+			GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
+			particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+			Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+			Vector3 nudgeForce = new Vector3 ();
+			nudgeForce.x = (Random.value*300-150);
+			nudgeForce.y = 400;
+			nudgeForce.z = (Random.value*300-150);
+			hisBod.AddForce(nudgeForce);
+		}
+	
 		ai.Body.SetActive (false);
-        return ActionResult.FAILURE;
+        return ActionResult.SUCCESS;
     }
 
     public override void Stop(RAIN.Core.AI ai)

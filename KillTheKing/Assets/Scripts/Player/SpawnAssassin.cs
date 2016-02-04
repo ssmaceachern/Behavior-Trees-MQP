@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using RAIN.Core;
 
 public class SpawnAssassin : MonoBehaviour 
 {
@@ -39,6 +40,12 @@ public class SpawnAssassin : MonoBehaviour
 						GameObject chars = GameObject.FindGameObjectWithTag ("Characters");
 
 						newAssassin.transform.parent = chars.transform;
+
+						// Start the assassin off frozen if the player has the game frozen.
+						if (chars.GetComponent<FreezeGameplay>().IsFrozen ())
+						{
+							newAssassin.GetComponentInChildren<AIRig>().AI.IsActive = false;
+						}
 
 						this.enabled = false;
 					}

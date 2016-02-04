@@ -57,6 +57,8 @@ public class GiveOrders : RAINAction
 
 		GameObject myTrap = ai.WorkingMemory.GetItem<GameObject> ("Target");
 
+		mySlave.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Rooted", 0);
+
 		// Send a message to the slave to check out the trap.
 		dispatch.SendMsg (0.0f,
 		                  ai.Body,

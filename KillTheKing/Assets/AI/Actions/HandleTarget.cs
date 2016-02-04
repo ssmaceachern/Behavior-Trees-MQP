@@ -89,6 +89,17 @@ public class HandleTarget : RAINAction
 				myTrap.SetActive(false);				
 				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
+				for (int i=0; i<3; i++) {
+					GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
+					particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+					Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+					Vector3 nudgeForce = new Vector3 ();
+					nudgeForce.x = (Random.value*300-150);
+					nudgeForce.y = 400;
+					nudgeForce.z = (Random.value*300-150);
+					hisBod.AddForce(nudgeForce);
+				}
+
 			} else if (itsType == "Food") { // Normal Food
 			
 				ai.WorkingMemory.SetItem<int> ("Hunger", 0);
@@ -104,7 +115,23 @@ public class HandleTarget : RAINAction
 				                  myKing,
 				                  (int)MessageTypes.MsgType.CheckTrap,
 				                  null);
+
+			} else if (itsType == "Snare") { // Ensnaring trap
 				
+				ai.WorkingMemory.SetItem<int> ("Rooted", 15);
+				
+				// Deactivate the trap and forget about it
+				myTrap.SetActive(false);	
+				ai.WorkingMemory.SetItem<GameObject>("Target", null);
+				
+				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
+				// Now that the task is complete, let the king know he can select other guards for other tasks
+				dispatch.SendMsg (0.0f,
+				                  ai.Body,
+				                  myKing,
+				                  (int)MessageTypes.MsgType.CheckTrap,
+				                  null);
+
 			} else if (itsType == "Vomit") { // Vomit trap
 				
 				ai.WorkingMemory.SetItem<bool> ("Puking", true);
@@ -208,6 +235,17 @@ public class HandleTarget : RAINAction
 				
 				int oldGreed=ai.WorkingMemory.GetItem<int> ("Greed");
 				ai.WorkingMemory.SetItem<int> ("Greed", oldGreed-10);
+
+				for (int i=0; i<3; i++) {
+					GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
+					particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+					Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+					Vector3 nudgeForce = new Vector3 ();
+					nudgeForce.x = (Random.value*300-150);
+					nudgeForce.y = 400;
+					nudgeForce.z = (Random.value*300-150);
+					hisBod.AddForce(nudgeForce);
+				}
 				
 			} else if (itsType == "Vomit") { // Vomit trap
 				
@@ -222,6 +260,13 @@ public class HandleTarget : RAINAction
 				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
 				ai.WorkingMemory.SetItem<int> ("Health", oldHealth + 30);
 				
+			} else if (itsType == "Snare") { // ensnaring trap
+				
+				int oldGreed = ai.WorkingMemory.GetItem<int> ("Greed");
+				ai.WorkingMemory.SetItem<int> ("Greed", oldGreed - 30);
+				
+				ai.WorkingMemory.SetItem<int> ("Rooted", 7);
+
 			} else if (itsType == "Spooky") { // Spooky trap
 
 				ai.WorkingMemory.SetItem<int> ("Greed", 0);
@@ -254,6 +299,11 @@ public class HandleTarget : RAINAction
 				
 				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
 				ai.WorkingMemory.SetItem<int> ("Health", oldHealth + 30);
+				
+			} else if (itsType == "Snare") { // Snare trap
+
+				ai.WorkingMemory.SetItem<int> ("Rooted", 15);
+
 			} else { 
 				Debug.Log("Bear encountered an unusual trap");
 			}
