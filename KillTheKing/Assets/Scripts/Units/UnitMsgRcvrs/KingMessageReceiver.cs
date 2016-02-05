@@ -7,7 +7,7 @@ public class KingMessageReceiver : MessageReceiver
 	public override void ReceiveMessage (Message msg)
 	{
 		// Subtract from the king's health by some amount
-		if (msg.msgType == (int) MessageTypes.MsgType.DealDamage)
+		if (msg.msgType == (int) MessageTypes.MsgType.DealDamage || msg.msgType == (int)MessageTypes.MsgType.GhoulBomb)
 		{
 			AIRig kingAI = GetComponentInChildren<AIRig>();
 
@@ -18,9 +18,10 @@ public class KingMessageReceiver : MessageReceiver
 			particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 			Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
 			Vector3 nudgeForce = new Vector3 ();
-			nudgeForce.x = (Random.value*200-100);
+			nudgeForce=(transform.position-msg.sender.transform.position)*50;
+			nudgeForce.x += (Random.value*100-50);
 			nudgeForce.y = 300;
-			nudgeForce.z = (Random.value*200-100);
+			nudgeForce.z += (Random.value*100-50);
 			hisBod.AddForce(nudgeForce);
 
 		}
@@ -59,6 +60,36 @@ public class KingMessageReceiver : MessageReceiver
 			int oldParanoia = kingAI.AI.WorkingMemory.GetItem<int>("Paranoia");
 			
 			kingAI.AI.WorkingMemory.SetItem<int>("Paranoia", oldParanoia + (int)msg.info);
-		};
+		}
+
+		if (msg.msgType == (int)MessageTypes.MsgType.PriestHeal)
+		{
+			AIRig kingAI = GetComponentInChildren<AIRig>();
+			
+			int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
+
+			//TODO suspicion?
+			
+		}
+
+		if (msg.msgType == (int)MessageTypes.MsgType.BlueSong)
+		{
+			AIRig kingAI = GetComponentInChildren<AIRig>();
+			
+			int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
+			
+			//TODO suspicion?
+			
+		}
+
+		if (msg.msgType == (int)MessageTypes.MsgType.GreenSong)
+		{
+			AIRig kingAI = GetComponentInChildren<AIRig>();
+			
+			int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
+			
+			//TODO suspicion?
+			
+		}
 	}
 }

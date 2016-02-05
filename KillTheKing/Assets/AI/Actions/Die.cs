@@ -66,6 +66,33 @@ public class Die : RAINAction
 			ai.Body.SetActive (false);
 			return ActionResult.SUCCESS;
 
+			
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Ghoul") { // if you're an explosive ghoul
+			
+			ai.Body.SetActive (false);
+		
+			MessageDispatcher dispatch = ai.Body.GetComponent<MessageDispatcher> ();
+
+			dispatch.BroadcastMsg (0.0f,
+			                  		ai.Body,
+			                  		ai.Body.transform.position,
+			                       	15,
+			                  		(int)MessageTypes.MsgType.GhoulBomb,
+			                  		20);
+
+			for (int i=0; i<40; i++) {
+				GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Bile"));
+				particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+				Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+				Vector3 nudgeForce = new Vector3 ();
+				nudgeForce.x = (Random.value*500-250);
+				nudgeForce.y = 300;
+				nudgeForce.z = (Random.value*500-250);
+				hisBod.AddForce(nudgeForce);
+			}
+
+			return ActionResult.SUCCESS;
+
 		} else { // If you're something that dies with a generic blood spout
 
 			ai.Body.SetActive (false);

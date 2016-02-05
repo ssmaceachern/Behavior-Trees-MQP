@@ -10,7 +10,7 @@ public class MercMessageReceiver : MessageReceiver
 
 	public override void ReceiveMessage (Message msg)
 	{
-		if (msg.msgType == (int) MessageTypes.MsgType.DealDamage)
+		if (msg.msgType == (int) MessageTypes.MsgType.DealDamage  || msg.msgType == (int)MessageTypes.MsgType.GhoulBomb)
 		{
 			AIRig mercAI = GetComponentInChildren<AIRig>();
 			int currentHealth = mercAI.AI.WorkingMemory.GetItem<int>("Health");
@@ -22,9 +22,10 @@ public class MercMessageReceiver : MessageReceiver
 			particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 			Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
 			Vector3 nudgeForce = new Vector3 ();
-			nudgeForce.x = (Random.value*200-100);
+			nudgeForce=(transform.position-msg.sender.transform.position)*50;
+			nudgeForce.x += (Random.value*100-50);
 			nudgeForce.y = 300;
-			nudgeForce.z = (Random.value*200-100);
+			nudgeForce.z += (Random.value*100-50);
 			hisBod.AddForce(nudgeForce);
 		}
 		else if (msg.msgType == (int) MessageTypes.MsgType.MoveTo)
@@ -94,6 +95,46 @@ public class MercMessageReceiver : MessageReceiver
 			{
 				selectMesh.enabled = false;
 				selected = false;
+			}
+		}
+		else if (msg.msgType == (int)MessageTypes.MsgType.PriestHeal)
+		{
+			AIRig mercAi = GetComponentInChildren<AIRig>();
+			
+			int oldHealth = mercAi.AI.WorkingMemory.GetItem<int>("Health");
+			
+			if(oldHealth<100)
+			{
+				mercAi.AI.WorkingMemory.SetItem<int>("Health", oldHealth + 10);
+				
+				GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Heart"));
+				particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+				Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+				Vector3 nudgeForce = new Vector3 ();
+				nudgeForce.x = (Random.value*100-50);
+				nudgeForce.y = 300;
+				nudgeForce.z = (Random.value*100-50);
+				hisBod.AddForce(nudgeForce);
+			}
+		}
+		else if (msg.msgType == (int)MessageTypes.MsgType.GreenSong)
+		{
+			AIRig mercAi = GetComponentInChildren<AIRig>();
+			
+			int oldHealth = mercAi.AI.WorkingMemory.GetItem<int>("Health");
+			
+			if(oldHealth<100)
+			{
+				mercAi.AI.WorkingMemory.SetItem<int>("Health", oldHealth + 10);
+				
+				GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Heart"));
+				particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+				Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+				Vector3 nudgeForce = new Vector3 ();
+				nudgeForce.x = (Random.value*100-50);
+				nudgeForce.y = 300;
+				nudgeForce.z = (Random.value*100-50);
+				hisBod.AddForce(nudgeForce);
 			}
 		}
 	}

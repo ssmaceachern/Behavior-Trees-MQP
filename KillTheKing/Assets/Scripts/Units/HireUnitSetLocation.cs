@@ -63,6 +63,7 @@ public class HireUnitSetLocation : MonoBehaviour {
 			if(pEnt!=null)
 			{
 				pEnt.Entity.GetAspect("Good").IsActive=true;
+				pEnt.Entity.GetAspect("Stalker").IsActive=true;
 				//pEnt.Entity.ActivateEntity();
 				if(GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<string>("UnitType")=="Assassin")
 				{

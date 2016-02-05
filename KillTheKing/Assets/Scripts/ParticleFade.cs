@@ -5,11 +5,7 @@ public class ParticleFade : MonoBehaviour {
 
 	public int timeTillFade=1000;
 	public GameObject followTarget;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
+	public bool expanding=false;
 	
 	// Update is called once per frame
 	void Update () {
@@ -22,14 +18,22 @@ public class ParticleFade : MonoBehaviour {
 			this.GetComponent<Rigidbody>().useGravity=true;
 		}
 
+		if (expanding) 
+		{
+			Vector3 oldScale=this.gameObject.transform.localScale;
+			oldScale.x+=0.6f;
+			oldScale.z+=0.6f;
+			this.gameObject.transform.localScale=oldScale;
+		}
+
 		if (followTarget != null && timeTillFade >= 0) 
 		{
-			this.transform.position = new Vector3 (followTarget.transform.position.x, followTarget.transform.position.y + 5.0f, followTarget.transform.position.z);
+			this.transform.position = new Vector3 (followTarget.transform.position.x, followTarget.transform.position.y, followTarget.transform.position.z);
 		} 
-		else if (followTarget != null && timeTillFade <= 0) 
+		else if (followTarget != null && timeTillFade <= 0 && !expanding) 
 		{
 			followTarget=null;
-			
+
 			Rigidbody myBod = this.GetComponent<Rigidbody> ();
 			Vector3 nudgeForce = new Vector3 ();
 			nudgeForce.x = (Random.value*300-150);

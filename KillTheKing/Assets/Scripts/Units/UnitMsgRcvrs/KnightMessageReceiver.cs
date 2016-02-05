@@ -12,7 +12,8 @@ public class KnightMessageReceiver : MessageReceiver
 
 			knightAI.AI.WorkingMemory.SetItem<GameObject>("Target", (GameObject)msg.info);
 		}
-		if (msg.msgType == (int)MessageTypes.MsgType.DealDamage)
+
+		if (msg.msgType == (int)MessageTypes.MsgType.DealDamage || msg.msgType == (int)MessageTypes.MsgType.GhoulBomb)
 		{
 			AIRig knightAI = GetComponentInChildren<AIRig>();
 
@@ -24,12 +25,65 @@ public class KnightMessageReceiver : MessageReceiver
 			particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 			Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
 			Vector3 nudgeForce = new Vector3 ();
-			nudgeForce.x = (Random.value*200-100);
+			nudgeForce=(transform.position-msg.sender.transform.position)*50;
+			nudgeForce.x += (Random.value*100-50);
 			nudgeForce.y = 300;
-			nudgeForce.z = (Random.value*200-100);
+			nudgeForce.z += (Random.value*100-50);
 			hisBod.AddForce(nudgeForce);
 
 		}
+
+		if (msg.msgType == (int)MessageTypes.MsgType.PriestHeal)
+		{
+			AIRig knightAI = GetComponentInChildren<AIRig>();
+			
+			int oldHealth = knightAI.AI.WorkingMemory.GetItem<int>("Health");
+
+			if(oldHealth<100)
+			{
+				knightAI.AI.WorkingMemory.SetItem<int>("Health", oldHealth + 10);
+
+				int oldLoyal = knightAI.AI.WorkingMemory.GetItem<int>("Loyalty");
+				knightAI.AI.WorkingMemory.SetItem<int>("Loyalty", oldLoyal - 10);
+				
+				GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Heart"));
+				particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+				Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+				Vector3 nudgeForce = new Vector3 ();
+				nudgeForce.x = (Random.value*100-50);
+				nudgeForce.y = 300;
+				nudgeForce.z = (Random.value*100-50);
+				hisBod.AddForce(nudgeForce);
+			}
+			
+		}
+
+		if (msg.msgType == (int)MessageTypes.MsgType.BlueSong)
+		{
+			AIRig knightAI = GetComponentInChildren<AIRig>();
+			
+			int oldLoyal = knightAI.AI.WorkingMemory.GetItem<int>("Loyalty");
+			
+			knightAI.AI.WorkingMemory.SetItem<int>("Loyalty", oldLoyal - 5);
+
+			GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Heart"));
+			particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+			Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+			Vector3 nudgeForce = new Vector3 ();
+			nudgeForce.x = (Random.value*100-50);
+			nudgeForce.y = 300;
+			nudgeForce.z = (Random.value*100-50);
+			hisBod.AddForce(nudgeForce);
+		}
+
+		if (msg.msgType == (int)MessageTypes.MsgType.GreenSong)
+		{
+			AIRig knightAI = GetComponentInChildren<AIRig>();
+			
+			knightAI.AI.WorkingMemory.SetItem<int>("WalkSpeed", 2);
+
+		}
+		
 		if (msg.msgType == (int)MessageTypes.MsgType.GetSpooked)
 		{
 			AIRig knightAI = GetComponentInChildren<AIRig>();
