@@ -13,8 +13,12 @@ public class KingMessageReceiver : MessageReceiver
 
 			int currentHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
 			kingAI.AI.WorkingMemory.SetItem<int>("Health", (currentHealth - ((int) msg.info)));
-
-			GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
+            // Check that we're not already dead.
+            if (GetComponent<KingDeath>().IsDead())
+            {
+                return;
+            }
+            GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
 			particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 			Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
 			Vector3 nudgeForce = new Vector3 ();
@@ -24,6 +28,11 @@ public class KingMessageReceiver : MessageReceiver
 			nudgeForce.z += (Random.value*100-50);
 			hisBod.AddForce(nudgeForce);
 
+            // Check to see if the it was the assassin that killed us, if so die immediately
+            if (msg.sender.GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<string>("UnitType") == "Assassin")
+            {
+                kingAI.AI.WorkingMemory.SetItem<int>("Health", -1);
+            }
 		}
 		// Add to the king's greed by some amount
 		if (msg.msgType == (int) MessageTypes.MsgType.MakeGreedy)

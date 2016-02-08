@@ -25,9 +25,10 @@ public class Die : RAINAction
 
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
 
-			ai.Body.SetActive (false);
-
-			Application.LoadLevel (2);
+            // Start spewing blood
+            ai.Body.GetComponent<KingDeath>().MakeDead();
+            // Deactivate our AI
+            ai.IsActive = false;
 
 			return ActionResult.SUCCESS;
 

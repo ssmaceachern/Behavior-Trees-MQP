@@ -10,7 +10,7 @@ public class ParticleFade : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (this.gameObject.transform.position.y <= -5) {
-			this.gameObject.SetActive(false);
+			Destroy(this.gameObject);
 		}
 
 		timeTillFade--;
