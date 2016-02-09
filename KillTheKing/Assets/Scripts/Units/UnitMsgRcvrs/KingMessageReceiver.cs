@@ -100,5 +100,30 @@ public class KingMessageReceiver : MessageReceiver
 			//TODO suspicion?
 			
 		}
+
+		if (msg.msgType == (int) MessageTypes.MsgType.SpikeTrap)
+		{
+			AIRig kingAI = GetComponentInChildren<AIRig>();
+			
+			int currentHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
+			kingAI.AI.WorkingMemory.SetItem<int>("Health", (currentHealth - ((int) msg.info)));
+
+		//	int currentFear = kingAI.AI.WorkingMemory.GetItem<int>("Fear");
+		//	kingAI.AI.WorkingMemory.SetItem<int>("Fear", (currentFear + 35));
+
+			for(int i=0;i<3;i++)
+			{
+				GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
+				particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+				Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+				Vector3 nudgeForce = new Vector3 ();
+				nudgeForce=(transform.position-msg.sender.transform.position)*50;
+				nudgeForce.x += (Random.value*100-50);
+				nudgeForce.y = 300;
+				nudgeForce.z += (Random.value*100-50);
+				hisBod.AddForce(nudgeForce);
+			}
+			
+		}
 	}
 }

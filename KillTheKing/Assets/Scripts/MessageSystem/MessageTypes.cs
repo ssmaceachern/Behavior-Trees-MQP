@@ -26,6 +26,7 @@ public class MessageTypes : MonoBehaviour
 		PriestHeal,
 		BlueSong,
 		GreenSong,
-        Deactivate
+        Deactivate,
+        SpikeTrap
 	};
 }
