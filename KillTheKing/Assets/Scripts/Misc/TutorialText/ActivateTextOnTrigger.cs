@@ -7,8 +7,7 @@ public class ActivateTextOnTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger Entered");
-        /* TODO: Check that the gameObject is the right one. */
+        /* TODO: Check that the gameObject is the right one. i.e. The King */
 
         MessageDispatcher dispatch = GetComponent<MessageDispatcher>();
 
@@ -17,5 +16,8 @@ public class ActivateTextOnTrigger : MonoBehaviour
                          textToActivate,
                          (int)MessageTypes.MsgType.ActivateEntity,
                          null);
+
+		// Freeze the gameplay so the player can read the message.
+		GameObject.FindGameObjectWithTag ("Characters").GetComponent<FreezeGameplay> ().Freeze ();
     }
 }
