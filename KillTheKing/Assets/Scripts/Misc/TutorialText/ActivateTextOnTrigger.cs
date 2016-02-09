@@ -19,5 +19,8 @@ public class ActivateTextOnTrigger : MonoBehaviour
 
 		// Freeze the gameplay so the player can read the message.
 		GameObject.FindGameObjectWithTag ("Characters").GetComponent<FreezeGameplay> ().Freeze ();
+
+        // Lastly, delete ourselves so we don't trigger again.
+        Destroy(this.gameObject);
     }
 }

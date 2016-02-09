@@ -4,6 +4,7 @@ using System.Collections;
 public class DeactivateTextOnButton : MonoBehaviour
 {
     private MessageDispatcher dispatch;
+
 	// Use this for initialization
 	void Start ()
     {
