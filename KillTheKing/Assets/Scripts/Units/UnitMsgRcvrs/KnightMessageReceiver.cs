@@ -13,7 +13,7 @@ public class KnightMessageReceiver : MessageReceiver
 			knightAI.AI.WorkingMemory.SetItem<GameObject>("Target", (GameObject)msg.info);
 		}
 
-		if (msg.msgType == (int)MessageTypes.MsgType.DealDamage || msg.msgType == (int)MessageTypes.MsgType.GhoulBomb)
+		if (msg.msgType == (int)MessageTypes.MsgType.DealDamage || msg.msgType == (int)MessageTypes.MsgType.GhoulBomb || msg.msgType == (int)MessageTypes.MsgType.SpikeTrap)
 		{
 			AIRig knightAI = GetComponentInChildren<AIRig>();
 
@@ -30,7 +30,6 @@ public class KnightMessageReceiver : MessageReceiver
 			nudgeForce.y = 300;
 			nudgeForce.z += (Random.value*100-50);
 			hisBod.AddForce(nudgeForce);
-
 		}
 
 		if (msg.msgType == (int)MessageTypes.MsgType.PriestHeal)

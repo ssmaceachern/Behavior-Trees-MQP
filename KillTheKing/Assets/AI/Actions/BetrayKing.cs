@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using RAIN.Action;
 using RAIN.Core;
+using RAIN.Entities;
+using RAIN.Entities.Aspects;
 
 // Turn against the king if we are unloyal enough
 [RAINAction]
@@ -15,20 +17,24 @@ public class BetrayKing : RAINAction
 
     public override ActionResult Execute(RAIN.Core.AI ai)
 	{
-		GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
-		int myHealth = ai.WorkingMemory.GetItem<int> ("Health");
-		MessageDispatcher dispatch = ai.Body.GetComponent<MessageDispatcher> ();
+		GameObject newTator = (GameObject)GameObject.Instantiate (Resources.Load ("Traitor"));
 
-		/* Kill the king along with ourselves */
-		// Try to kill the king
-		dispatch.SendMsg (0.0f,
-		                  ai.Body,
-		                  myKing,
-		                  (int)MessageTypes.MsgType.DealDamage,
-		                  myHealth);
+		newTator.transform.position = ai.Body.transform.position;
 
-		// Kill ourselves
-		ai.WorkingMemory.SetItem<int> ("Health", -1);
+		EntityRig pEnt = newTator.GetComponentInChildren<AIRig>().AI.Body.GetComponentInChildren<EntityRig> ();
+		pEnt.Entity.GetAspect("Good").IsActive=true;
+
+
+
+		GameObject myKing= GameObject.FindGameObjectWithTag ("King");
+		newTator.GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<Vector3>("Location", myKing.transform.position);
+
+		newTator.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Health", ai.WorkingMemory.GetItem<int>("Health"));
+
+
+
+
+		ai.Body.SetActive (false);
 
         return ActionResult.SUCCESS;
     }

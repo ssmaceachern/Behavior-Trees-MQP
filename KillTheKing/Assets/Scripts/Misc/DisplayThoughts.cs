@@ -55,7 +55,7 @@ public class DisplayThoughts : MonoBehaviour
 		GameObject enemy = parentAI.AI.WorkingMemory.GetItem<GameObject> ("Enemy");
 
 		if (enemy != null) {
-			Debug.Log ("WTF");
+			//Debug.Log ("WTF");
 			string enemyType = enemy.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<string> ("UnitType");
 			int unitType = 0;
 
@@ -81,7 +81,7 @@ public class DisplayThoughts : MonoBehaviour
 		} else if (target != null) {
 			TurnOn (0, 0, 0);
 		} else {
-			Debug.Log ("No Enemy");
+			//Debug.Log ("No Enemy");
 		}
 		timeLeft -= Time.deltaTime;
 

@@ -25,6 +25,7 @@ public class MessageTypes : MonoBehaviour
 		GhoulBomb,
 		PriestHeal,
 		BlueSong,
-		GreenSong
+		GreenSong,
+		SpikeTrap
 	};
 }
