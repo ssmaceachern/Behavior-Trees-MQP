@@ -16,12 +16,6 @@ public class CameraMouseMove : MonoBehaviour {
     private int ScreenWidth;
     private int ScreenHeight;
 
-    private bool isFollowing = false;
-    private Transform followTarget;
-    private Vector3 velocity = Vector3.zero;
-
-    public GameObject KnightUI;
-
     // Use this for initialization
     void Start () {
         ScreenWidth = Screen.width;

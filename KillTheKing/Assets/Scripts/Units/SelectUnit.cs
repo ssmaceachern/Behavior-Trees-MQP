@@ -1,39 +1,44 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SelectUnit : MonoBehaviour 
+public class SelectUnit : MonoBehaviour
 {
-	private MeshRenderer selectMesh;	// The mesh that is displayed when a unit is selected
-	private bool selected;
+    private MeshRenderer selectMesh;    // The mesh that is displayed when a unit is selected
+    private bool selected;
 
-	void Start()
-	{
-		selectMesh = transform.FindChild ("SelectionIndicator").GetComponent<MeshRenderer>();
-		selectMesh.enabled = false;
-		selected = false;
-	}
+    void Start()
+    {
+        selectMesh = transform.FindChild("SelectionIndicator").GetComponent<MeshRenderer>();
+        selectMesh.enabled = false;
+        selected = false;
+    }
 
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
+    // Update is called once per frame
+    void Update()
+    {
 
-	public void MakeSelected()
-	{
-		// Show the player the unit is selected
-		selected = true;
+    }
 
-		selectMesh.enabled = true;
+    public void MakeSelected()
+    {
+        // Show the player the unit is selected
+        selected = true;
 
-		// Do other tasks for a selected unit
-	}
+        selectMesh.enabled = true;
 
-	public void Deselect()
-	{
-		// Hide the selection indicator
-		selected = false;
+        // Do other tasks for a selected unit
+    }
 
-		selectMesh.enabled = false;
-	}
+    public void Deselect()
+    {
+        // Hide the selection indicator
+        selected = false;
+
+        selectMesh.enabled = false;
+    }
+
+    public bool IsSelected()
+    {
+        return selected;
+    }
 }
