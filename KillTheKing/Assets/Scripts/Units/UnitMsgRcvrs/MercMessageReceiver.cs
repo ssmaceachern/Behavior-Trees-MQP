@@ -34,20 +34,14 @@ public class MercMessageReceiver : MessageReceiver
 			{
 				if (!selected)
 					return;
-
-				EntityRig pEnt = GetComponentInChildren<AIRig>().AI.Body.GetComponentInChildren<EntityRig> ();
-				
-				if(pEnt!=null)
-				{
-					pEnt.Entity.GetAspect("Good").IsActive=true;
-					//pEnt.Entity.ActivateEntity();
-				}
 			}
 
 			AIRig mercAI = GetComponentInChildren<AIRig>();
 
 			mercAI.AI.WorkingMemory.SetItem<Vector3>("Location", (Vector3)msg.info);
-		}
+            mercAI.AI.WorkingMemory.SetItem<bool>("Moving", true);
+
+        }
 		else if (msg.msgType == (int) MessageTypes.MsgType.GiveCommand)
 		{
 			AIRig mercAI = GetComponentInChildren<AIRig>();
