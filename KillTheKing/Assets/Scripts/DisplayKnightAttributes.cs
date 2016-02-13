@@ -31,6 +31,12 @@ public class DisplayKnightAttributes : MonoBehaviour {
 
 	//A reference to the slider object this is attached to.
 	public Slider SliderReference;
+
+	public Scrollbar HealthScrollbarReference;
+	public Scrollbar LoyaltyScrollbarReference;
+	public Scrollbar HungerScrollbarReference;
+	public Scrollbar FearScrollbarReference;
+
 	public Image FillReference;
 
 	// Use this for initialization
@@ -69,6 +75,7 @@ public class DisplayKnightAttributes : MonoBehaviour {
 
 		//currentModeName = Enum.GetName(typeof(DisplayMode), Convert.ChangeType(currentMode, currentMode.GetTypeCode()));
 		SliderReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>(currentModeName);
+
 		Debug.Log(currentModeName);
 	}
 
@@ -103,6 +110,10 @@ public class DisplayKnightAttributes : MonoBehaviour {
 		}
 
 		SliderReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>(currentModeName);
+		HealthScrollbarReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>("Health") / (100f * 5f);
+		LoyaltyScrollbarReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>("Loyalty") / (100f * 5f);
+		HungerScrollbarReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>("Hunger") / (100f * 5f);
+		FearScrollbarReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>("Fear") / (100f * 5f);
 	}
 
 }
