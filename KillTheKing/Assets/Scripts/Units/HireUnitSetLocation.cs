@@ -54,27 +54,9 @@ public class HireUnitSetLocation : MonoBehaviour {
 			if (Physics.Raycast(ray, out hit, 200.0f) != false)
 			{
 				GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<Vector3>("Location", hit.point);
+                GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<bool>("Moving", true);
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
                 givePosition = false;
-			}
-
-			EntityRig pEnt = GetComponentInChildren<AIRig>().AI.Body.GetComponentInChildren<EntityRig> ();
-
-			if(pEnt!=null)
-			{
-                if (pEnt.Entity.GetAspect("Good") != null)
-                {
-                    pEnt.Entity.GetAspect("Good").IsActive = true;
-                }
-                if (pEnt.Entity.GetAspect("Stalker") != null)
-                {
-                    pEnt.Entity.GetAspect("Stalker").IsActive = true;
-                }
-				//pEnt.Entity.ActivateEntity();
-				if(GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<string>("UnitType")=="Assassin")
-				{
-					pEnt.Entity.GetAspect("Assassin").IsActive=true;
-				}
 			}
 		}
 	}

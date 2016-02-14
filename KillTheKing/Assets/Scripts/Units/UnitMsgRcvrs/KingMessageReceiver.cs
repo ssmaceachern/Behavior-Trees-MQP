@@ -108,8 +108,8 @@ public class KingMessageReceiver : MessageReceiver
 			int currentHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
 			kingAI.AI.WorkingMemory.SetItem<int>("Health", (currentHealth - ((int) msg.info)));
 
-		//	int currentFear = kingAI.AI.WorkingMemory.GetItem<int>("Fear");
-		//	kingAI.AI.WorkingMemory.SetItem<int>("Fear", (currentFear + 35));
+			int currentFear = kingAI.AI.WorkingMemory.GetItem<int>("Fear");
+			kingAI.AI.WorkingMemory.SetItem<int>("Fear", (currentFear + 35));
 
 			for(int i=0;i<3;i++)
 			{
