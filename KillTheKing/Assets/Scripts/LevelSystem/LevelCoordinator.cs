@@ -11,11 +11,14 @@ public class LevelCoordinator : MonoBehaviour {
     //Instance for other scripts and managers to access
     static LevelCoordinator _instance;
 
+    private GameManager GM;
+
     //Dictionary to hold pairs of Level Names and their Description Files
     static Dictionary<string, LevelInfo> LevelRegistry;
 
     //Holds index of scene to be loaded
     private string LevelToBeLoaded;
+    public string currentLevel { get; private set; }
 
     /// <summary>
     /// Singleton Pattern
@@ -42,8 +45,16 @@ public class LevelCoordinator : MonoBehaviour {
 
     void Awake()
     {
+        //Grab instance of the GameManager and set the state change handler to a 
+        //Custom function.
+        GM = GameManager.instance;
+        GM.OnStateChange += HandleOnStateChange;
+
+        //Populate the registry with level description files
         LevelRegistry = new Dictionary<string, LevelInfo>();
         PopulateLevelRegistry();
+
+        GM.SetGameState(GameState.Menu);
     }
 
     /// <summary>
@@ -66,6 +77,8 @@ public class LevelCoordinator : MonoBehaviour {
     /// <param name="levelToBeLoaded">Name of the level to get a description of</param>
     public void LoadLevelScene(string levelToBeLoaded)
     {
+        GM.SetGameState(GameState.Loading);
+
         LevelToBeLoaded = levelToBeLoaded;
         Application.LoadLevel("LevelLoad");
     }
@@ -75,6 +88,8 @@ public class LevelCoordinator : MonoBehaviour {
     /// </summary>
     public void LoadLevelToBeLoaded()
     {
+        GM.SetGameState(GameState.Play);
+        currentLevel = LevelToBeLoaded;
         Application.LoadLevel(LevelToBeLoaded);
     }
 
@@ -110,5 +125,10 @@ public class LevelCoordinator : MonoBehaviour {
         {
             return _instance != null;
         }
+    }
+
+    public void HandleOnStateChange()
+    {
+        Debug.Log("Handling state change from " + GM.previousGameState + " to: " + GM.gameState);
     }
 }
