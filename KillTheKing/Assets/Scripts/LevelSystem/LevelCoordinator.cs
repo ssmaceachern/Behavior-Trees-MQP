@@ -83,6 +83,13 @@ public class LevelCoordinator : MonoBehaviour {
         Application.LoadLevel("LevelLoad");
     }
 
+	public void LoadLevel(string level)
+	{
+		GM.SetGameState(GameState.Loading);
+
+		Application.LoadLevel(level);
+	}
+
     /// <summary>
     /// Loads the scene when in the LevelLoad scene.
     /// </summary>

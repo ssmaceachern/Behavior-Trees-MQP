@@ -8,7 +8,7 @@ public class ToggleToolTips : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-	
+        toolTips = transform.FindChild("ToolTips").gameObject;
 	}
 	
 	// Update is called once per frame
@@ -20,10 +20,13 @@ public class ToggleToolTips : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 200.0f) != false)
         {
-            if (hit.collider.gameObject == transform.parent.gameObject)
+            if (hit.collider.gameObject == this.gameObject)
             {
-
+                toolTips.SetActive(true);
+                return;
             }
         }
+
+        toolTips.SetActive(false);
     }
 }

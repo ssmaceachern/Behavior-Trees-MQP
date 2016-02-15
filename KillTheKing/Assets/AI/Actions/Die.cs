@@ -30,6 +30,16 @@ public class Die : RAINAction
             // Deactivate our AI
             ai.IsActive = false;
 
+			if (LevelCoordinator.instance.GetLevelRegistry().ContainsKey(LevelCoordinator.instance.currentLevel))
+			{
+				LevelCoordinator.instance.GetLevelRegistry()[LevelCoordinator.instance.currentLevel].setComplete(true);
+				Debug.Log(LevelCoordinator.instance.currentLevel + ": " + 
+				          LevelCoordinator.instance.GetLevelRegistry()[LevelCoordinator.instance.currentLevel].isComplete);
+			}
+			else{
+				Debug.LogError("Could not update level information");
+			}
+
 			return ActionResult.SUCCESS;
 
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Knight") { // if you're a guard
