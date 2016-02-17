@@ -53,6 +53,15 @@ public class KnightMessageReceiver : MessageReceiver
 				nudgeForce.y = 300;
 				nudgeForce.z = (Random.value*100-50);
 				hisBod.AddForce(nudgeForce);
+
+				GameObject myMaster = knightAI.AI.WorkingMemory.GetItem<GameObject>("Master");
+				GameObject ANull = knightAI.AI.WorkingMemory.GetItem<GameObject>("ANull");
+
+				if(myMaster!=ANull)
+				{
+					int oldSus=myMaster.GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<int>("Paranoia");
+					myMaster.GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<int>("Paranoia", oldSus+5);
+				}
 			}
 			
 		}
@@ -73,6 +82,15 @@ public class KnightMessageReceiver : MessageReceiver
 			nudgeForce.y = 300;
 			nudgeForce.z = (Random.value*100-50);
 			hisBod.AddForce(nudgeForce);
+
+			GameObject myMaster = knightAI.AI.WorkingMemory.GetItem<GameObject>("Master");
+			GameObject ANull = knightAI.AI.WorkingMemory.GetItem<GameObject>("ANull");
+
+			if(myMaster!=ANull)
+			{
+				int oldSus=myMaster.GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<int>("Paranoia");
+				myMaster.GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<int>("Paranoia", oldSus+5);
+			}
 		}
 
 		if (msg.msgType == (int)MessageTypes.MsgType.GreenSong)

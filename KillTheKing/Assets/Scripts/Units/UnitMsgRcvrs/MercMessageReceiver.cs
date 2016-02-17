@@ -91,10 +91,18 @@ public class MercMessageReceiver : MessageReceiver
 				selected = false;
 			}
 		}
-		else if (msg.msgType == (int)MessageTypes.MsgType.PriestHeal)
+
+
+
+		if (msg.msgType == (int)MessageTypes.MsgType.PriestHeal)
 		{
 			AIRig mercAi = GetComponentInChildren<AIRig>();
-			
+
+			if(mercAi.AI.WorkingMemory.GetItem<string>("UnitType")=="Priest" || mercAi.AI.WorkingMemory.GetItem<string>("UnitType")=="Bard")
+			{
+				return;
+			}
+
 			int oldHealth = mercAi.AI.WorkingMemory.GetItem<int>("Health");
 			
 			if(oldHealth<100)
@@ -114,7 +122,12 @@ public class MercMessageReceiver : MessageReceiver
 		else if (msg.msgType == (int)MessageTypes.MsgType.GreenSong)
 		{
 			AIRig mercAi = GetComponentInChildren<AIRig>();
-			
+
+			if(mercAi.AI.WorkingMemory.GetItem<string>("UnitType")=="Priest" || mercAi.AI.WorkingMemory.GetItem<string>("UnitType")=="Bard")
+			{
+				return;
+			}
+
 			int oldHealth = mercAi.AI.WorkingMemory.GetItem<int>("Health");
 			
 			if(oldHealth<100)

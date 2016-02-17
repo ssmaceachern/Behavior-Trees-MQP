@@ -31,14 +31,19 @@ public class Explode : RAINAction
 			                       ai.Body.transform.position,
 			                       5,
 			                       (int)MessageTypes.MsgType.SpikeTrap,
-			                       30);
+			                       35);
 		} 
 		else if (myType == "SnareTrap") 
 		{
 			GameObject myVictim = ai.WorkingMemory.GetItem<GameObject> ("Victim");
-
-			Debug.Log(myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<string> ("UnitType"));
+;
 			myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Rooted", 15);
+
+			if(myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<string> ("UnitType")=="King")
+			{
+				int oldFear=myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Fear");
+				myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Fear", 10+oldFear);
+			}
 
 		} 
 		else 
