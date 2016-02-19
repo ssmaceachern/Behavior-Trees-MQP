@@ -11,7 +11,7 @@ public class PriestHeal : RAINAction
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
 		
-		GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Halo"));
+		GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("HaloHalo"));
 		particle.GetComponent<ParticleFade> ().followTarget = ai.Body;
 
 

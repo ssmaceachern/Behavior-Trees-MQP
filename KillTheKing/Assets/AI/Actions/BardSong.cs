@@ -16,7 +16,7 @@ public class BardSong : RAINAction
 
 		if(mySong=="BlueSong")
 		{	
-			GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("BlueSong"));
+			GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("BlueHaloSong"));
 			particle.GetComponent<ParticleFade> ().followTarget = ai.Body;
 
 			dispatch.BroadcastMsg (0.0f,
@@ -28,7 +28,7 @@ public class BardSong : RAINAction
 		}
 		else if(mySong=="GreenSong")
 		{	
-			GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("GreenSong"));
+			GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("GreenHaloSong"));
 			particle.GetComponent<ParticleFade> ().followTarget = ai.Body;
 			
 			dispatch.BroadcastMsg (0.0f,
