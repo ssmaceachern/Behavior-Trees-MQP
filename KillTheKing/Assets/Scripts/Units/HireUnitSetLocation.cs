@@ -73,4 +73,9 @@ public class HireUnitSetLocation : MonoBehaviour {
 			givePosition = true;
 		}
 	}
+
+	public bool IsSelected()
+	{
+		return givePosition;
+	}
 }

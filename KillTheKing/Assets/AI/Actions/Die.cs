@@ -9,6 +9,15 @@ public class Die : RAINAction
 {
     public override void Start(RAIN.Core.AI ai)
     {
+		HireUnitSetLocation turnOff = ai.Body.GetComponent<HireUnitSetLocation> ();
+
+		if (turnOff != null &&
+		    turnOff.IsSelected ())
+		{
+
+			Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+		}
+
         base.Start(ai);
     }
 

@@ -8,6 +8,7 @@ public class TutorialTextMessageReceiver : MessageReceiver
     {
         if (msg.msgType == (int) MessageTypes.MsgType.Deactivate)
         {
+			Camera.main.gameObject.GetComponent<CenterCameraOnPoint>().FreeCamera();
             this.gameObject.SetActive(false);
         }
         else if (msg.msgType == (int) MessageTypes.MsgType.ActivateEntity)
@@ -15,17 +16,7 @@ public class TutorialTextMessageReceiver : MessageReceiver
             // Set active and focus the camera
             this.gameObject.SetActive(true);
             
-            // Focus the camera on our position
-            Vector3 newPos = new Vector3(transform.position.x,
-                                         Camera.main.transform.position.y,
-                                         transform.position.z);
-            // Unless otherwise specified
-            if (msg.info != null)
-            {
-                newPos = (Vector3)msg.info;
-            }
-
-            Camera.main.transform.position = newPos;
+			Camera.main.gameObject.GetComponent<CenterCameraOnPoint>().SetPoint (this.gameObject.transform.position);
         }
     }
 
