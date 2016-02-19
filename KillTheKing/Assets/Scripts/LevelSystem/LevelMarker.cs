@@ -14,6 +14,8 @@ public class LevelMarker : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Renderer r = GetComponent<Renderer>();
+
 	    if(Parent == null)
         {
             isRoot = true;
@@ -22,12 +24,19 @@ public class LevelMarker : MonoBehaviour {
         if(LevelCoordinator.instance.GetLevelRegistry().TryGetValue(LevelName, out levelInfo))
         {
             isComplete = levelInfo.isComplete;
+			Debug.Log(LevelName + ": " + levelInfo.isComplete);
         }
         else
         {
             Debug.Log("LevelMarker: Could not get level");
-            
         }
+
+		if(isComplete)
+		{
+			r.material.color = Color.green;
+		}else{
+			r.material.color = Color.gray;
+		}
 
         Debug.Log(levelInfo.isComplete);
     }
