@@ -4,7 +4,7 @@ using System.Collections;
 public class LevelMarker : MonoBehaviour {
 
     public GameObject[] NextLevels;
-    public LevelMarker Parent;
+    public LevelMarker[] Parents;
     private LevelInfo levelInfo;
     public string LevelName;
 
@@ -16,7 +16,7 @@ public class LevelMarker : MonoBehaviour {
 	void Start () {
 		Renderer r = GetComponent<Renderer>();
 
-	    if(Parent == null)
+		if(Parents == null)
         {
             isRoot = true;
         }
@@ -33,12 +33,16 @@ public class LevelMarker : MonoBehaviour {
 
 		if(isComplete)
 		{
-			r.material.color = Color.green;
-		}else{
+			r.material = Resources.Load("Icon-Star") as Material;
+			r.material.color = Color.yellow;
+		}else if(ParentIsComplete() || isRoot){
+			r.material.color = Color.white;
+		}
+		else{
 			r.material.color = Color.gray;
 		}
 
-        Debug.Log(levelInfo.isComplete);
+        //Debug.Log(levelInfo.isComplete);
     }
 	
 	// Update is called once per frame
@@ -62,7 +66,7 @@ public class LevelMarker : MonoBehaviour {
                 LevelCoordinator.instance.LoadLevelScene(LevelName);
             } 
         }
-        else if (Parent.isComplete)
+        else if (ParentIsComplete())
         {
             LevelCoordinator.instance.LoadLevelScene(LevelName);
         }
@@ -73,9 +77,19 @@ public class LevelMarker : MonoBehaviour {
         else
         {
             Debug.Log("Could not load level");
-            Debug.Log(Parent.isComplete);
+            Debug.Log(ParentIsComplete());
         }
         // this object was clicked - do something
         Debug.Log("Level button clicked");
     }
+
+	bool ParentIsComplete(){
+		foreach(LevelMarker Parent in Parents){
+			if(Parent.isComplete){
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
