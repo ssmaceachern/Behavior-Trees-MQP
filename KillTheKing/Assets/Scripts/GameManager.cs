@@ -20,6 +20,9 @@ public delegate void OnStateChangeHandler();
 
 public class GameManager : MonoBehaviour {
 
+	public static int ManagerID = 0;
+	public int GameManagerID;
+
     protected GameManager() { }
     private static GameManager _instance = null;
 
@@ -51,6 +54,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+	void Awake(){
+		Debug.Log("New GameManager Created");
+		ManagerID++;
+		GameManagerID = ManagerID;
+
+		_instance = GameManager.instance;
+		//_GameManagerObject = this.gameObject;
+	}
+
     static public GameManager instance
     {
         get
@@ -64,6 +76,7 @@ public class GameManager : MonoBehaviour {
                     GameObject go = new GameObject("GameManager");
                     DontDestroyOnLoad(go);
                     _instance = go.AddComponent<GameManager>();
+					//_instance._GameManagerObject = go;
                     _instance.previousGameState = GameState.Null;
                 }
             }
@@ -82,11 +95,31 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+	T CopyComponent<T>(T original, GameObject destination) where T : Component
+	{
+		System.Type type = original.GetType();
+		Component copy = destination.AddComponent(type);
+		System.Reflection.FieldInfo[] fields = type.GetFields();
+		foreach (System.Reflection.FieldInfo field in fields)
+		{
+			field.SetValue(copy, field.GetValue(original));
+		}
+		return copy as T;
+	}
+
     void OnLevelWasLoaded(int level)
     {
-        if (GameObject.Find("GameManager") == true && GameObject.Find("GameManager") != transform.gameObject)
-        {
-            Destroy(GameObject.Find("GameManager"));
-        }
+        GameManager[] GameManagerInstances = FindObjectsOfType<GameManager>();
+		if(GameManagerInstances.Length == 1)
+			return;
+
+		GameManager original = GameManager.instance;
+		foreach(GameManager g in GameManagerInstances){
+			if(g.GameManagerID > original.GameManagerID){
+				//Destroy(g.gameObject);
+				Debug.Log("Duplicate GameManager Found");
+			}
+				
+		}
     }
 }

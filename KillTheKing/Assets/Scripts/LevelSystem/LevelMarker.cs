@@ -4,15 +4,19 @@ using System.Collections;
 public class LevelMarker : MonoBehaviour {
 
     public GameObject[] NextLevels;
-    public LevelMarker Parent;
+    public LevelMarker[] Parents;
     private LevelInfo levelInfo;
     public string LevelName;
+
+    public bool isTutorial;
     public bool isComplete;
     public bool isRoot;
 
 	// Use this for initialization
 	void Start () {
-	    if(Parent == null)
+		Renderer r = GetComponent<Renderer>();
+
+		if(Parents == null)
         {
             isRoot = true;
         }
@@ -20,14 +24,25 @@ public class LevelMarker : MonoBehaviour {
         if(LevelCoordinator.instance.GetLevelRegistry().TryGetValue(LevelName, out levelInfo))
         {
             isComplete = levelInfo.isComplete;
+			Debug.Log(LevelName + ": " + levelInfo.isComplete);
         }
         else
         {
             Debug.Log("LevelMarker: Could not get level");
-            
         }
 
-        Debug.Log(levelInfo.isComplete);
+		if(isComplete)
+		{
+			r.material = Resources.Load("Icon-Star") as Material;
+			r.material.color = Color.yellow;
+		}else if(ParentIsComplete() || isRoot){
+			r.material.color = Color.white;
+		}
+		else{
+			r.material.color = Color.gray;
+		}
+
+        //Debug.Log(levelInfo.isComplete);
     }
 	
 	// Update is called once per frame
@@ -41,18 +56,40 @@ public class LevelMarker : MonoBehaviour {
         //if the parent level has been completed, then we load that scene as well
         if (isRoot)
         {
-            LevelCoordinator.instance.LoadLevelScene(LevelName);
+            //This is a corner case for when the first root level is a tutorial
+            if (isTutorial)
+            {
+                LevelCoordinator.instance.LoadLevel(LevelName);
+            }
+            else
+            {
+                LevelCoordinator.instance.LoadLevelScene(LevelName);
+            } 
         }
-        else if (Parent.isComplete)
+        else if (ParentIsComplete())
         {
             LevelCoordinator.instance.LoadLevelScene(LevelName);
+        }
+        else if(isTutorial)
+        {
+            LevelCoordinator.instance.LoadLevel(LevelName);
         }
         else
         {
             Debug.Log("Could not load level");
-            Debug.Log(Parent.isComplete);
+            Debug.Log(ParentIsComplete());
         }
         // this object was clicked - do something
         Debug.Log("Level button clicked");
     }
+
+	bool ParentIsComplete(){
+		foreach(LevelMarker Parent in Parents){
+			if(Parent.isComplete){
+				return true;
+			}
+		}
+
+		return false;
+	}
 }

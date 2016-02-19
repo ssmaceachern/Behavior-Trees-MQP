@@ -55,6 +55,8 @@ public class LevelCoordinator : MonoBehaviour {
         PopulateLevelRegistry();
 
         GM.SetGameState(GameState.Menu);
+
+		Debug.Log("New LevelCoordinator Created");
     }
 
     /// <summary>
@@ -86,7 +88,7 @@ public class LevelCoordinator : MonoBehaviour {
 	public void LoadLevel(string level)
 	{
 		GM.SetGameState(GameState.Loading);
-
+		currentLevel = level;
 		Application.LoadLevel(level);
 	}
 
