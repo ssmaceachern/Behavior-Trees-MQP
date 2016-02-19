@@ -22,11 +22,24 @@ public class ToggleToolTips : MonoBehaviour
         {
             if (hit.collider.gameObject == this.gameObject)
             {
-                toolTips.SetActive(true);
+                if (toolTips.GetComponent<ActivateToolTips>() != null)
+                {
+                    toolTips.GetComponent<ActivateToolTips>().Activate();
+                }
+                else
+                {
+                    toolTips.SetActive(true);
+                }
                 return;
             }
         }
-
-        toolTips.SetActive(false);
+        if (toolTips.GetComponent<ActivateToolTips>() != null)
+        {
+            toolTips.GetComponent<ActivateToolTips>().Deactivate();
+        }
+        else
+        {
+            toolTips.SetActive(false);
+        }
     }
 }
