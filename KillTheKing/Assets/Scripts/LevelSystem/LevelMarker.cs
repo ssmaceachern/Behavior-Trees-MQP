@@ -7,6 +7,8 @@ public class LevelMarker : MonoBehaviour {
     public LevelMarker Parent;
     private LevelInfo levelInfo;
     public string LevelName;
+
+    public bool isTutorial;
     public bool isComplete;
     public bool isRoot;
 
@@ -41,11 +43,23 @@ public class LevelMarker : MonoBehaviour {
         //if the parent level has been completed, then we load that scene as well
         if (isRoot)
         {
-            LevelCoordinator.instance.LoadLevelScene(LevelName);
+            //This is a corner case for when the first root level is a tutorial
+            if (isTutorial)
+            {
+                LevelCoordinator.instance.LoadLevel(LevelName);
+            }
+            else
+            {
+                LevelCoordinator.instance.LoadLevelScene(LevelName);
+            } 
         }
         else if (Parent.isComplete)
         {
             LevelCoordinator.instance.LoadLevelScene(LevelName);
+        }
+        else if(isTutorial)
+        {
+            LevelCoordinator.instance.LoadLevel(LevelName);
         }
         else
         {
