@@ -58,11 +58,11 @@ public class MercMessageReceiver : MessageReceiver
 		{
 			SelectionBox selectBox = msg.sender.GetComponent<SelectionBox>();
 			Transform indicatorTransform = transform.FindChild ("SelectionIndicator");
-			MeshRenderer selectMesh = null;
+			SpriteRenderer selectMesh = null;
 
 			if (indicatorTransform != null)
 			{
-				selectMesh = indicatorTransform.GetComponent<MeshRenderer>();
+				selectMesh = indicatorTransform.GetComponent<SpriteRenderer>();
 			}
 
 			// Perform whatever tasks we need to as a selected unit
@@ -78,11 +78,11 @@ public class MercMessageReceiver : MessageReceiver
 		else if (msg.msgType == (int) MessageTypes.MsgType.DeselectUnit)
 		{
 			Transform indicatorTransform = transform.FindChild ("SelectionIndicator");
-			MeshRenderer selectMesh = null;
+			SpriteRenderer selectMesh = null;
 			
 			if (indicatorTransform != null)
 			{
-				selectMesh = indicatorTransform.GetComponent<MeshRenderer>();
+				selectMesh = indicatorTransform.GetComponent<SpriteRenderer>();
 			}
 
 			if (selectMesh != null)

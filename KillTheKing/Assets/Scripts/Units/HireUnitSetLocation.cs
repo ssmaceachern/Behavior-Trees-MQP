@@ -59,7 +59,12 @@ public class HireUnitSetLocation : MonoBehaviour {
                 givePosition = false;
 			}
 		}
-	}
+        if (Input.GetKeyDown("x") && givePosition)
+        {
+            givePosition = false;
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        }
+    }
 	
 	void OnSelect(string command)
 	{
