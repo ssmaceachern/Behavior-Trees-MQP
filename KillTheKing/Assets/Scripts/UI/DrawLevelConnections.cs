@@ -16,6 +16,8 @@ public class DrawLevelConnections : MonoBehaviour {
 				GameObject connection = new GameObject();
 				LineRenderer line = connection.AddComponent<LineRenderer>();
 
+				line.material = Resources.Load("Unlit") as Material;
+
 				line.SetPosition(0, lm.transform.position);
 				line.SetPosition(1, lm.Parents[i].transform.position);
 				
@@ -24,8 +26,6 @@ public class DrawLevelConnections : MonoBehaviour {
 				}else{
 					line.material.color = Color.gray;
 				}
-
-				line.material.shader = Shader.Find("Unlit/Color");
 			}
 			
 		}
