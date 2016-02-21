@@ -10,6 +10,7 @@ public class KingDeath : MonoBehaviour
     private bool isDead;            // Whether the king has been killed or not.
     private float timeLeftTilEnd;   // The time left until the level actually ends. 
     private int loopsLeftTilBlood;  // The number of updates until we spawn another blood particle
+
 	// Use this for initialization
 	void Start ()
     {

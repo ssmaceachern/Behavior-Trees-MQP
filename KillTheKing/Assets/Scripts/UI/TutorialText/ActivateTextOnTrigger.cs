@@ -9,6 +9,11 @@ public class ActivateTextOnTrigger : MonoBehaviour
     {
         /* TODO: Check that the gameObject is the right one. i.e. The King */
 
+		if (other.gameObject.tag != "King")
+		{
+			return;
+		}
+
         MessageDispatcher dispatch = GetComponent<MessageDispatcher>();
 
         dispatch.SendMsg(0.0f,

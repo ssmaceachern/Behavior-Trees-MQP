@@ -9,7 +9,12 @@ public class LevelLoad : MonoBehaviour
         Application.LoadLevel(level);
     }
 
-    public void LoadLevel(string level)
+	public void LoadLevel(string level)
+	{
+		Application.LoadLevel(level);
+	}
+
+    public static void StaticLoadLevel(string level)
     {
         Application.LoadLevel(level);
     }
