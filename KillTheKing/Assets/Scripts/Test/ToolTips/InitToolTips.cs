@@ -7,8 +7,8 @@ public class InitToolTips : MonoBehaviour
     private PieMenu pm;                 // The pie menu of the object we're on. Used to grab icons for actions.
     private SpriteRenderer[] sprites;   // The sprites of the icons representing actions in the pie menu.
 
-	// Use this for initialization
-	void Start ()
+	// Set up sprites before we deactivate them in ActivateToolTips
+	void Awake ()
     {
         pm = transform.parent.gameObject.GetComponent<PieMenu>();
 

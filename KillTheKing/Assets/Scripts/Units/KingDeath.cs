@@ -35,7 +35,7 @@ public class KingDeath : MonoBehaviour
 
             if (timeLeftTilEnd <= 0.0f)
             {
-                Application.LoadLevel(2);
+                LevelCoordinator.instance.LoadLevel("WinScreen");
             }
 
             if (loopsLeftTilBlood > 0)
