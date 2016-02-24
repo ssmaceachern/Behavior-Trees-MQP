@@ -11,6 +11,9 @@ public class SendKnightAhead : RAINAction
     {
         GameObject mySlave = ai.WorkingMemory.GetItem<GameObject>("PossibleSlave");
 
+        if (mySlave == null)
+            return ActionResult.SUCCESS;
+
         bool Fleeing = mySlave.GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<bool>("Fleeing");
         int Hp = mySlave.GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<int>("Health");
 

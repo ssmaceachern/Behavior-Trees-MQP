@@ -37,16 +37,17 @@ public class KingMessageReceiver : MessageReceiver
 		// Add to the king's greed by some amount
 		if (msg.msgType == (int) MessageTypes.MsgType.MakeGreedy)
 		{
-			AIRig kingAI = GetComponentInChildren<AIRig>();
+			//AIRig kingAI = GetComponentInChildren<AIRig>();
 
-			int currentGreed = kingAI.AI.WorkingMemory.GetItem<int>("Greed");
+            GetComponent<KingAttributeManager>().ChangeAttribute("Greed", (int)msg.info);
+		/*(	int currentGreed = kingAI.AI.WorkingMemory.GetItem<int>("Greed");
 			int newGreed = currentGreed + ((int) msg.info);
 
 			// The king can't become less than not greedy at all.
 			if (newGreed < 0)
 				newGreed = 0;
 
-			kingAI.AI.WorkingMemory.SetItem<int>("Greed", newGreed);
+			kingAI.AI.WorkingMemory.SetItem<int>("Greed", newGreed); */
 		}
 		// Confirm that a guard has handled a trap
 		if (msg.msgType == (int) MessageTypes.MsgType.CheckTrap)
@@ -64,14 +65,17 @@ public class KingMessageReceiver : MessageReceiver
 		}
 		if (msg.msgType == (int)MessageTypes.MsgType.GetSpooked)
 		{
-			AIRig kingAI = GetComponentInChildren<AIRig>();
+			/*AIRig kingAI = GetComponentInChildren<AIRig>();
 			
 			int oldParanoia = kingAI.AI.WorkingMemory.GetItem<int>("Paranoia");
 			
-			kingAI.AI.WorkingMemory.SetItem<int>("Paranoia", oldParanoia + (int)msg.info);
-		}
+			kingAI.AI.WorkingMemory.SetItem<int>("Paranoia", oldParanoia + (int)msg.info); */
 
-		if (msg.msgType == (int)MessageTypes.MsgType.PriestHeal)
+            GetComponent<KingAttributeManager>().ChangeAttribute("Paranoia", (int)msg.info);
+
+        }
+
+        if (msg.msgType == (int)MessageTypes.MsgType.PriestHeal)
 		{
 			AIRig kingAI = GetComponentInChildren<AIRig>();
 			
@@ -107,11 +111,13 @@ public class KingMessageReceiver : MessageReceiver
 			
 			int currentHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
 			kingAI.AI.WorkingMemory.SetItem<int>("Health", (currentHealth - ((int) msg.info)));
-
+/*
 			int currentFear = kingAI.AI.WorkingMemory.GetItem<int>("Fear");
-			kingAI.AI.WorkingMemory.SetItem<int>("Fear", (currentFear + 35));
+			kingAI.AI.WorkingMemory.SetItem<int>("Fear", (currentFear + 35)); */
 
-			for(int i=0;i<3;i++)
+            GetComponent<KingAttributeManager>().ChangeAttribute("Fear", 35);
+
+            for (int i=0;i<3;i++)
 			{
 				GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
 				particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
