@@ -15,8 +15,8 @@ public class ActivateToolTips : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        // Start off with a scale of 0 and deactivated
-        gameObject.SetActive(false);
+        // Start off with a scale of 0 and deactivated children
+        MiscFunctions.DeactivateChildren(gameObject);
         gameObject.transform.localScale = new Vector3(0.0f, 1.0f, 0.0f);
 
         xScale = gameObject.transform.localScale.x;
@@ -26,8 +26,7 @@ public class ActivateToolTips : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        Debug.Log(activated);
-	    if (activated)
+        if (activated)
         {
             
             xScale = Mathf.Lerp(xScale, 1.0f, upScaleSpeed);
@@ -51,20 +50,19 @@ public class ActivateToolTips : MonoBehaviour
 
             if (xScale == 0.0f)
             {
-                gameObject.SetActive(false);
-            }   
+                MiscFunctions.DeactivateChildren(gameObject);
+            }
         }
 	}
 
     public void Activate()
     {
         activated = true;
-        gameObject.SetActive(true);
+        MiscFunctions.ActivateChildren(gameObject);
     }
     
     public void Deactivate()
     {
-        Debug.Log("Deactivating");
         activated = false;
     }
 }
