@@ -77,6 +77,7 @@ public class LevelMarker : MonoBehaviour {
         {
             foreach (Transform child in transform)
             {
+				if(child.GetComponent<LineRenderer>() != null)
                 GameObject.Destroy(child.gameObject);
             }
         }
