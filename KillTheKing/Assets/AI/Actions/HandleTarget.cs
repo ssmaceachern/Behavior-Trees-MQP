@@ -9,8 +9,11 @@ using RAIN.Entities.Aspects;
 [RAINAction]
 public class HandleTarget : RAINAction
 {
+    private KingAttributeManager attMan;
+
     public override void Start(RAIN.Core.AI ai)
     {
+        attMan = ai.Body.GetComponent<KingAttributeManager>();
         base.Start(ai);
     }
 
@@ -27,7 +30,8 @@ public class HandleTarget : RAINAction
 
 		string itsType = myTrap.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<string> ("TrapType");
 
-		if (myType=="Knight") { // if this is a knight that's been ordered to check a trap by the king
+        /************************* Knights's way of handling traps ***********************/
+        if (myType=="Knight") { // if this is a knight that's been ordered to check a trap by the king
 
 			if (itsType == "FoodBribe") { // Food bribe trap
 
@@ -193,51 +197,31 @@ public class HandleTarget : RAINAction
 				Debug.Log("Knight encountered an unusual trap");
 			}
 
-
-
-
-
-
-
-
-
-
-
-
-		} else if(myType=="King") { // the king is greedy and activates the trap himself
+        /************************* King's way of handling traps ***********************/
+        } else if (myType=="King") { // the king is greedy and activates the trap himself
 
 			if (itsType == "FoodBribe") { // Food bribe trap
 
-				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
+                int oldHealth = ai.WorkingMemory.GetItem<int>("Health");
 				ai.WorkingMemory.SetItem<int> ("Health", oldHealth + 10);
 				
-				int oldGreed=ai.WorkingMemory.GetItem<int> ("Greed");
-				ai.WorkingMemory.SetItem<int> ("Greed", oldGreed+30);
+                attMan.ChangeAttribute("Greed", 30);
 
 			} else if (itsType == "GoldBribe") { // A random pile of gold in a chest
 
+                attMan.ChangeAttribute("Greed", 30);
 				
-				int oldGreed=ai.WorkingMemory.GetItem<int> ("Greed");
-				ai.WorkingMemory.SetItem<int> ("Greed", oldGreed+30);
-				
-				int oldFear=ai.WorkingMemory.GetItem<int> ("Fear");
-				ai.WorkingMemory.SetItem<int> ("Fear", oldFear-30);
+                attMan.ChangeAttribute("Fear", -30);
 
-				int oldParanoia=ai.WorkingMemory.GetItem<int> ("Paranoia");
-				ai.WorkingMemory.SetItem<int> ("Paranoia", oldParanoia-30);
-
+                attMan.ChangeAttribute("Paranoia", -30);
 				
 			} else if (itsType == "JackBox") { // Spike trap
 				
+                attMan.ChangeAttribute("Greed", -40);
 				
-				int oldGreed=ai.WorkingMemory.GetItem<int> ("Greed");
-				ai.WorkingMemory.SetItem<int> ("Greed", oldGreed-40);
+                attMan.ChangeAttribute("Fear", 10);
 				
-				int oldFear=ai.WorkingMemory.GetItem<int> ("Fear");
-				ai.WorkingMemory.SetItem<int> ("Fear", oldFear+10);
-				
-				int oldParanoia=ai.WorkingMemory.GetItem<int> ("Paranoia");
-				ai.WorkingMemory.SetItem<int> ("Paranoia", oldParanoia+10);
+                attMan.ChangeAttribute("Paranoia", 10);
 				
 
 			} else if (itsType == "Vomit") { // Vomit trap
@@ -245,8 +229,7 @@ public class HandleTarget : RAINAction
 				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
 				ai.WorkingMemory.SetItem<int> ("Health", oldHealth - 10);
 				
-				int oldGreed=ai.WorkingMemory.GetItem<int> ("Greed");
-				ai.WorkingMemory.SetItem<int> ("Greed", oldGreed-20);
+                attMan.ChangeAttribute("Greed", -20);
 				
 				ai.WorkingMemory.SetItem<int> ("Rooted", 7);
 
@@ -257,7 +240,7 @@ public class HandleTarget : RAINAction
 
 			} else if (itsType == "Spooky") { // Spooky trap
 
-				ai.WorkingMemory.SetItem<int> ("Greed", 0);
+                attMan.ChangeAttribute("Greed", -ai.WorkingMemory.GetItem<int>("Greed"));
 
 			} else { 
 				Debug.Log("King encountered an unusual trap");
@@ -268,16 +251,7 @@ public class HandleTarget : RAINAction
 
 			ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
-
-
-
-
-
-
-
-
-
-
+        /************************* Bear's way of handling traps ***********************/
 		} else if(myType=="Bear") { // a bear comes over and activates the trap
 			
 			if (itsType == "FoodBribe") { // Food bribe trap
