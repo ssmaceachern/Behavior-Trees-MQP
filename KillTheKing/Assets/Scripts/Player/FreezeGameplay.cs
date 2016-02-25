@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityStandardAssets.ImageEffects;
 using System.Collections;
 using RAIN.Core;
 using RAIN.Minds;
@@ -12,8 +13,16 @@ public class FreezeGameplay : MonoBehaviour
 	private bool frozen = false;	// Whether the game s currently frozen
 	private GameObject freezeIMG;
 
+	private Camera mainCamera;
+	EdgeDetectionColor EdgeShaderComponent;
+	public float ShaderTransitionSpeed = 0.01f;
+	private float TransitionVelocity = 0.0f;
+
     void Start()
     {
+		mainCamera = Camera.main;
+		EdgeShaderComponent = mainCamera.GetComponent<EdgeDetectionColor>();
+
         freezeIMG = GameObject.Find("FreezeIMG");
         freezeIMG.SetActive(startFrozen);
 
@@ -27,10 +36,10 @@ public class FreezeGameplay : MonoBehaviour
                 ais[i].AI.IsActive = false;
             }
 
-            if (freezeIMG)
-            {
-                freezeIMG.SetActive(true);
-            }
+			if(EdgeShaderComponent != null){
+				EdgeShaderComponent.enabled = true;
+				EdgeShaderComponent.edgesOnly = Mathf.SmoothDamp(0.0f, 1.0f, ref TransitionVelocity, ShaderTransitionSpeed);
+			}
         }
     }
 
@@ -62,10 +71,10 @@ public class FreezeGameplay : MonoBehaviour
             ais[i].AI.IsActive = false;
         }
 
-        if (freezeIMG)
-        {
-            freezeIMG.SetActive(true);
-        }
+		if(EdgeShaderComponent != null){
+			EdgeShaderComponent.enabled = true;
+			EdgeShaderComponent.edgesOnly = Mathf.SmoothDamp(0.0f, 1.0f, ref TransitionVelocity, ShaderTransitionSpeed);
+		}
     }
 
     public void UnFreeze()
@@ -76,10 +85,12 @@ public class FreezeGameplay : MonoBehaviour
         {
             ais[i].AI.IsActive = true;
         }
+    
+		if(EdgeShaderComponent != null){
+			EdgeShaderComponent.edgesOnly = Mathf.SmoothDamp(1.0f, 0.0f, ref TransitionVelocity, ShaderTransitionSpeed);
+			EdgeShaderComponent.enabled = false;
+		}
+	}
 
-        if (freezeIMG)
-        {
-            freezeIMG.SetActive(false);
-        }
-    }
+
 }
