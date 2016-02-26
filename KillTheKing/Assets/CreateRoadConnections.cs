@@ -8,11 +8,12 @@ using RAIN.Navigation.Waypoints;
 public class CreateRoadConnections : MonoBehaviour {
 
 	WaypointSet levelWaypoints;
-	public GameObject PathBlock;
+	public GameObject PathBlock = Resources.Load("PathBlock", typeof(GameObject)) as GameObject;
 
 	private Vector3 A, B;
 
-	public float lineWidth, lineHeight;
+	public float lineWidth = 3.0f;
+	public float lineHeight = 1.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -43,7 +44,7 @@ public class CreateRoadConnections : MonoBehaviour {
 		
 		GameObject connection = Instantiate( PathBlock, C, Quaternion.identity ) as GameObject; 
 		connection.name = "Road";
-		connection.transform.localScale = new Vector3(lengthC + 0.75f, lineHeight, lineWidth); 
+		connection.transform.localScale = new Vector3(lengthC + lineWidth/2f, lineHeight, lineWidth); 
 		connection.transform.rotation = Quaternion.Euler(0, angleC2, angleC);
 	}
 

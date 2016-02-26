@@ -49,13 +49,14 @@ public class HireUnitSetLocation : MonoBehaviour {
         flagSprite = moveToLineIMG.AddComponent<SpriteRenderer>();
         flagSprite.sprite = Resources.Load("Flag", typeof(Sprite)) as Sprite;
         flagSprite.enabled = false;
-        moveToLineIMG.transform.Rotate(new Vector3(85f, 0f));
+        moveToLineIMG.transform.Rotate(new Vector3(60f, 0f));
 
         line.SetPosition(0, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z));
         line.SetPosition(1, transform.position);
 
-        moveToLine.name = transform.name + " Destination Designator";
-        mouseCursorTexture = Resources.Load("FlagTexture") as Texture2D;
+        moveToLine.name = transform.name + " Destination Line Path";
+		moveToLineIMG.name = transform.name + "Designation Marker";
+        mouseCursorTexture = Resources.Load("target") as Texture2D;
     }
 	
 	// Update is called once per frame

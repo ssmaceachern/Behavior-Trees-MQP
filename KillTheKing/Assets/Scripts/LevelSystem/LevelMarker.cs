@@ -12,6 +12,8 @@ public class LevelMarker : MonoBehaviour {
     public bool isComplete;
     public bool isRoot;
 
+	public bool isDebug;
+
     private bool hasUpdatedParents = false;
 
 	// Use this for initialization
@@ -39,7 +41,7 @@ public class LevelMarker : MonoBehaviour {
 		{
 			r.material = Resources.Load("Icon-Star") as Material;
 			r.material.color = Color.yellow;
-		}else if(ParentIsComplete() || isRoot){
+		}else if(ParentIsComplete() || isRoot || isDebug){
 			r.material.color = Color.white;
 		}
 		else{
@@ -60,7 +62,7 @@ public class LevelMarker : MonoBehaviour {
             r.material = Resources.Load("Icon-Star") as Material;
             r.material.color = Color.yellow;
         }
-        else if (ParentIsComplete() || isRoot)
+        else if (ParentIsComplete() || isRoot || isDebug)
         {
             r.material.color = Color.white;
         }
@@ -116,7 +118,11 @@ public class LevelMarker : MonoBehaviour {
     {
         //If this is the first level, then load the next scene. Otherwise, 
         //if the parent level has been completed, then we load that scene as well
-        if (isRoot)
+        if(isDebug){
+			LevelCoordinator.instance.LoadLevel(LevelName);
+		}
+
+		if (isRoot)
         {
             //This is a corner case for when the first root level is a tutorial
             if (isTutorial)
