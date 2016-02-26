@@ -5,7 +5,7 @@ public class ToggleTutorials : MonoBehaviour {
 
     GameObject MainMenuGroup;
     public int MoveDistance = 1350;
-    int toggle = -1;
+    //int toggle = -1;
 
 	public void LoadLevelSelector(string whichGroup)
     {

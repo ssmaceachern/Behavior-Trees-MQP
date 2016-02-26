@@ -14,8 +14,8 @@ public class CircularHealthBar : MonoBehaviour
     [SerializeField]
     Color end;
 
-    [SerializeField]
-    Color current;
+    //[SerializeField]
+    //Color current;
 
     [SerializeField]
     float BarEnd;
@@ -35,7 +35,7 @@ public class CircularHealthBar : MonoBehaviour
 
         CircleImage.fillAmount = Mathf.Clamp(scrollbar.value, 0.001f, BarEnd);
         CircleImage.color = Color.Lerp(start, end, scrollbar.value / BarEnd);
-        current = Color.Lerp(start, end, scrollbar.value);
+        //current = Color.Lerp(start, end, scrollbar.value);
     }
 
 

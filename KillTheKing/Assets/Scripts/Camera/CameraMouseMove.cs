@@ -13,13 +13,13 @@ public class CameraMouseMove : MonoBehaviour {
 	public float zBoundary;	// When to stop the camera from moving along the y-axis
 	public float yBoundary;	// When to stop the camera from moving along the y-axis
 
-    private int ScreenWidth;
-    private int ScreenHeight;
+    //private int ScreenWidth;
+    //private int ScreenHeight;
 
     // Use this for initialization
     void Start () {
-        ScreenWidth = Screen.width;
-        ScreenHeight = Screen.height;
+        //ScreenWidth = Screen.width;
+        //ScreenHeight = Screen.height;
     }
 
     // Update is called once per frame
