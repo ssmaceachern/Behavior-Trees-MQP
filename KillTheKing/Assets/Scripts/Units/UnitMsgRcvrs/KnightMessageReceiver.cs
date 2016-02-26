@@ -97,8 +97,37 @@ public class KnightMessageReceiver : MessageReceiver
 		{
 			AIRig knightAI = GetComponentInChildren<AIRig>();
 			
-			knightAI.AI.WorkingMemory.SetItem<int>("WalkSpeed", 2);
+			int oldFear = knightAI.AI.WorkingMemory.GetItem<int>("Fear");
 
+			
+			GameObject myEnemy = knightAI.AI.WorkingMemory.GetItem<GameObject>("Enemy");
+			GameObject ANull = knightAI.AI.WorkingMemory.GetItem<GameObject>("ANull");
+
+			if(myEnemy!=ANull)
+			{
+				knightAI.AI.WorkingMemory.SetItem<int>("Fear", oldFear + 10);
+			}
+			else
+			{
+				knightAI.AI.WorkingMemory.SetItem<int>("Fear", oldFear + 5);
+			}
+
+			GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Bile"));
+			particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+			Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+			Vector3 nudgeForce = new Vector3 ();
+			nudgeForce.x = (Random.value*100-50);
+			nudgeForce.y = 300;
+			nudgeForce.z = (Random.value*100-50);
+			hisBod.AddForce(nudgeForce);
+
+			GameObject myMaster = knightAI.AI.WorkingMemory.GetItem<GameObject>("Master");
+
+			if(myMaster!=ANull)
+			{
+				int oldSus=myMaster.GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<int>("Paranoia");
+				myMaster.GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<int>("Paranoia", oldSus+5);
+			}
 		}
 		
 		if (msg.msgType == (int)MessageTypes.MsgType.GetSpooked)

@@ -39,6 +39,7 @@ public class HandleTarget : RAINAction
 				int oldLoyalty = ai.WorkingMemory.GetItem<int> ("Loyalty");
 				ai.WorkingMemory.SetItem<int> ("Loyalty", oldLoyalty-oldHunger);
 				ai.WorkingMemory.SetItem<int> ("Hunger", 0);
+				ai.WorkingMemory.SetItem<int> ("Health", 100);
 
 				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
 

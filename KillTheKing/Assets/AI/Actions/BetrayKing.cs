@@ -26,8 +26,8 @@ public class BetrayKing : RAINAction
 
 
 
-		GameObject myKing= GameObject.FindGameObjectWithTag ("King");
-		newTator.GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<Vector3>("Location", myKing.transform.position);
+		GameObject chars= GameObject.FindGameObjectWithTag ("Characters");
+		newTator.transform.parent = chars.transform;//GameObject.FindGameObjectWithTag("Characters");
 
 		newTator.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Health", ai.WorkingMemory.GetItem<int>("Health"));
 
