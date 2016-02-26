@@ -19,7 +19,7 @@ public class LevelMarker : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Renderer r = GetComponent<Renderer>();
-
+        
 		if(Parents == null)
         {
             isRoot = true;
@@ -88,7 +88,7 @@ public class LevelMarker : MonoBehaviour {
         for (int i = 0; i < Parents.Length; i++)
         {
             GameObject connection = new GameObject();
-            connection.name = this.LevelName + " to " + Parents[i].LevelName;
+            connection.transform.name = this.LevelName + " to " + Parents[i].LevelName;
 
             LineRenderer line = connection.AddComponent<LineRenderer>();
 

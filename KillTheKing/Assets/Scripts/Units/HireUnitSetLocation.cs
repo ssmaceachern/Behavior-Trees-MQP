@@ -49,13 +49,17 @@ public class HireUnitSetLocation : MonoBehaviour {
         flagSprite = moveToLineIMG.AddComponent<SpriteRenderer>();
         flagSprite.sprite = Resources.Load("Flag", typeof(Sprite)) as Sprite;
         flagSprite.enabled = false;
-        moveToLineIMG.transform.Rotate(new Vector3(60f, 0f));
 
         line.SetPosition(0, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z));
         line.SetPosition(1, transform.position);
 
         moveToLine.name = transform.name + " Destination Line Path";
 		moveToLineIMG.name = transform.name + "Designation Marker";
+
+        moveToLine.transform.parent = transform;
+        moveToLineIMG.transform.parent = transform;
+        moveToLineIMG.transform.rotation = Quaternion.Euler(new Vector3(75f, 0, 0));
+
         mouseCursorTexture = Resources.Load("target") as Texture2D;
     }
 	
@@ -94,6 +98,8 @@ public class HireUnitSetLocation : MonoBehaviour {
             line.SetPosition(1, designatedLocation);
 
             moveToLineIMG.transform.position = Vector3.Lerp(transform.position, designatedLocation, 1f);
+            moveToLineIMG.transform.rotation = Quaternion.Euler(new Vector3(75f, 0, 0));
+
             flagSprite.enabled = true;
             line.enabled = true;
 
