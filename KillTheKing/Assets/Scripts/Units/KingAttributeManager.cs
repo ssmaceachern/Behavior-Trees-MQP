@@ -36,33 +36,33 @@ public class KingAttributeManager : MonoBehaviour
             case "Paranoia":
                 result = CheckThreshold(oldValue, newValue, 80);
                 if (result >= 1)
-                    kingThoughts.TurnOnThreshold(2, true);
+                    kingThoughts.TurnOnThreshold("Paranoia", true);
                 else if (result <= -1)
-                    kingThoughts.TurnOnThreshold(2, false);
+                    kingThoughts.TurnOnThreshold("Paranoia", false);
                 break;
             case "Greed":
                 result = CheckThreshold(oldValue, newValue, 0);
                 Debug.Log(result);
                 if (result >= 1)
                 {
-                    kingThoughts.TurnOnThreshold(4, true);
+                    kingThoughts.TurnOnThreshold("Greed", true);
                     break;
                 }
                 else if (result <= -1)
                 {
-                    kingThoughts.TurnOnThreshold(4, false);
+                    kingThoughts.TurnOnThreshold("Greed", false);
                     break;
                 }
                 result = CheckThreshold(oldValue, newValue, 100);
                 Debug.Log(result);
                 if (result >= 1)
                 {
-                    kingThoughts.TurnOnThreshold(4, true);
+                    kingThoughts.TurnOnThreshold("Greed", true);
                     break;
                 }
                 else if (result <= -1)
                 {
-                    kingThoughts.TurnOnThreshold(4, false);
+                    kingThoughts.TurnOnThreshold("Greed", false);
                     break;
                 }
                 break;
@@ -70,26 +70,36 @@ public class KingAttributeManager : MonoBehaviour
                 result = CheckThreshold(oldValue, newValue, 10);
                 if (result >= 1)
                 {
-                    kingThoughts.TurnOnThreshold(3, true);
+                    kingThoughts.TurnOnThreshold("Fear", true);
                     break;
                 }
                 else if (result <= -1)
                 {
-                    kingThoughts.TurnOnThreshold(3, false);
+                    kingThoughts.TurnOnThreshold("Fear", false);
                     break;
                 }
                 result = CheckThreshold(oldValue, newValue, 60);
                 if (result >= 1)
                 {
-                    Debug.Log("Turning on king thoughts");
-                    kingThoughts.TurnOnThreshold(3, true);
+                    kingThoughts.TurnOnThreshold("Fear", true);
                     break;
                 }
                 else if (result <= -1)
                 {
-                    kingThoughts.TurnOnThreshold(3, false);
+                    kingThoughts.TurnOnThreshold("Fear", false);
                     break;
                 }
+				result = CheckThreshold (oldValue, newValue, 100);
+				if (result >= 1)
+				{;
+					kingThoughts.TurnOnThreshold("Fear", true);
+					break;
+				}
+				else if (result <= -1)
+				{
+					kingThoughts.TurnOnThreshold("Fear", false);
+					break;
+				}
                 break;
             default:
                 Debug.Log("Attribute not recognized");

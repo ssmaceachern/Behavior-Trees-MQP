@@ -75,8 +75,6 @@ public class DisplayKingAttributes : MonoBehaviour {
 
 		//currentModeName = Enum.GetName(typeof(DisplayMode), Convert.ChangeType(currentMode, currentMode.GetTypeCode()));
 		SliderReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>(currentModeName);
-
-		Debug.Log(currentModeName);
 	}
 
 	// Update is called once per frame

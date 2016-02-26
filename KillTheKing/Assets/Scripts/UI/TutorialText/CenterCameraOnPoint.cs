@@ -53,7 +53,6 @@ public class CenterCameraOnPoint : MonoBehaviour
 	// Tell the camera to center on a point
 	public void SetPoint(Vector3 newPoint)
 	{
-		Debug.Log ("Centering on point " + newPoint);
 		centerPoint = newPoint;
 		returnPoint = Camera.main.transform.position;
 	}
