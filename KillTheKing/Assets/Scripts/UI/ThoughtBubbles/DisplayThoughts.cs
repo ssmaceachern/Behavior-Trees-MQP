@@ -48,14 +48,17 @@ public class DisplayThoughts : MonoBehaviour
 				knownEnemy = null;
 		}
 
-		if ((target != null) && ((knownTarget == null) || (target != knownTarget))) 
-		{
-			TurnOn ("King", "Check", "Unknown");
+        if ((target != null) && (knownTarget == null))
+        {
+            TurnOn("King", "Check", "Unknown");
 
-			knownTarget = target;
-		} 
-		else
-			knownTarget = null;
+            knownTarget = target;
+        }
+        else
+        {
+            if (target == null)
+                knownTarget = null;
+        }
 
 		// See if any statements have expired and turn them off if so
 		for (int i = 0; i < numStatements; i++)
