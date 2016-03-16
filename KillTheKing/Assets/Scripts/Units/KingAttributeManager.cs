@@ -5,14 +5,19 @@ using RAIN.Core;
 // Handle changing the king's attributes and checking for thresholds when doing so
 public class KingAttributeManager : MonoBehaviour
 {
+    // The HUD that displays the king's attributes to the player
+    public GameObject kingAttHUD;
+
     private AIRig ai;
     private DisplayThoughts kingThoughts;
+    private MessageDispatcher dispatch;
 
     // Use this for initialization
     void Start()
     {
         ai = GetComponentInChildren<AIRig>();
         kingThoughts = GetComponentInChildren<DisplayThoughts>();
+        dispatch = GetComponent<MessageDispatcher>();
     }
 
     public void ChangeAttribute(string att, int amount)
@@ -34,6 +39,13 @@ public class KingAttributeManager : MonoBehaviour
         switch(att)
         {
             case "Paranoia":
+                // Before we check for thresholds, send a message to update the HUD
+                dispatch.SendMsg(0.0f,
+                                 this.gameObject,
+                                 kingAttHUD,
+                                 (int)MessageTypes.MsgType.UpdateParanoia,
+                                 newValue);
+                // Check the thresholds
                 result = CheckThreshold(oldValue, newValue, 80);
                 if (result >= 1)
                     kingThoughts.TurnOnThreshold("Paranoia", true);
@@ -41,6 +53,13 @@ public class KingAttributeManager : MonoBehaviour
                     kingThoughts.TurnOnThreshold("Paranoia", false);
                 break;
             case "Greed":
+                // Before we check for thresholds, send a message to update the HUD
+                dispatch.SendMsg(0.0f,
+                                 this.gameObject,
+                                 kingAttHUD,
+                                 (int)MessageTypes.MsgType.UpdateGreed,
+                                 newValue);
+                // Check the thresholds
                 result = CheckThreshold(oldValue, newValue, 0);
                 Debug.Log(result);
                 if (result >= 1)
@@ -67,6 +86,13 @@ public class KingAttributeManager : MonoBehaviour
                 }
                 break;
             case "Fear":
+                // Before we check for thresholds, send a message to update the HUD
+                dispatch.SendMsg(0.0f,
+                                 this.gameObject,
+                                 kingAttHUD,
+                                 (int)MessageTypes.MsgType.UpdateFear,
+                                 newValue);
+                // Check the thresholds
                 result = CheckThreshold(oldValue, newValue, 10);
                 if (result >= 1)
                 {
