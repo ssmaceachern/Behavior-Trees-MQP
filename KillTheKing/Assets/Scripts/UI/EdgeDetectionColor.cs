@@ -40,7 +40,7 @@ namespace UnityStandardAssets.ImageEffects
 			if (edgeDetectShader == null)
 			{
 				edgeDetectShader = (Shader)Resources.Load ("EdgeDetectNormalsColor");
-				Debug.Log(edgeDetectShader);
+	//			Debug.Log(edgeDetectShader);
 			}
 			
 			edgeDetectMaterial = CheckShaderAndCreateMaterial (edgeDetectShader,edgeDetectMaterial);

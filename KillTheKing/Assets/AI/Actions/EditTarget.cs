@@ -7,11 +7,6 @@ using RAIN.Core;
 [RAINAction]
 public class EditTarget : RAINAction
 {
-    public override void Start(RAIN.Core.AI ai)
-    {
-        base.Start(ai);
-    }
-
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
 		GameObject myTarget = ai.WorkingMemory.GetItem<GameObject> ("Target");
@@ -41,10 +36,5 @@ public class EditTarget : RAINAction
 		ai.WorkingMemory.SetItem<int> ("unitsLeft", oldUnitsLeft-1);
 
         return ActionResult.SUCCESS;
-    }
-
-    public override void Stop(RAIN.Core.AI ai)
-    {
-        base.Stop(ai);
     }
 }

@@ -11,8 +11,10 @@ public class SendKnightAhead : RAINAction
     {
         GameObject mySlave = ai.WorkingMemory.GetItem<GameObject>("PossibleSlave");
 
-        if (mySlave == null)
-            return ActionResult.SUCCESS;
+        if (mySlave == null) 
+		{
+			return ActionResult.SUCCESS;
+		}
 
         bool Fleeing = mySlave.GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<bool>("Fleeing");
         int Hp = mySlave.GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<int>("Health");
@@ -23,6 +25,7 @@ public class SendKnightAhead : RAINAction
             return ActionResult.SUCCESS;
         }
 
+		mySlave.layer = 11;
         mySlave.GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<bool>("PathWalker", true);
 
         int oldFear = ai.WorkingMemory.GetItem<int>("Fear");

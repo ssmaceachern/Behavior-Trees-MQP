@@ -34,6 +34,17 @@ public class KingMessageReceiver : MessageReceiver
                 kingAI.AI.WorkingMemory.SetItem<int>("Health", -1);
             }
 		}
+
+		if (msg.msgType == (int)MessageTypes.MsgType.SeenEnemy)
+		{
+			AIRig myAI = GetComponentInChildren<AIRig>();
+			
+			if(myAI.AI.WorkingMemory.GetItem<GameObject>("Enemy")==null)
+			{
+				myAI.AI.WorkingMemory.SetItem<GameObject>("Enemy", (GameObject)msg.info);
+			}
+		}
+
 		// Add to the king's greed by some amount
 		if (msg.msgType == (int) MessageTypes.MsgType.MakeGreedy)
 		{
@@ -77,9 +88,9 @@ public class KingMessageReceiver : MessageReceiver
 
         if (msg.msgType == (int)MessageTypes.MsgType.PriestHeal)
 		{
-			AIRig kingAI = GetComponentInChildren<AIRig>();
+			//AIRig kingAI = GetComponentInChildren<AIRig>();
 			
-			int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
+			//int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
 
 			//TODO suspicion?
 			
@@ -87,9 +98,9 @@ public class KingMessageReceiver : MessageReceiver
 
 		if (msg.msgType == (int)MessageTypes.MsgType.BlueSong)
 		{
-			AIRig kingAI = GetComponentInChildren<AIRig>();
+			//AIRig kingAI = GetComponentInChildren<AIRig>();
 			
-			int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
+			//int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
 			
 			//TODO suspicion?
 			
@@ -97,9 +108,9 @@ public class KingMessageReceiver : MessageReceiver
 
 		if (msg.msgType == (int)MessageTypes.MsgType.GreenSong)
 		{
-			AIRig kingAI = GetComponentInChildren<AIRig>();
+			//AIRig kingAI = GetComponentInChildren<AIRig>();
 			
-			int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
+			//int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
 			
 			//TODO suspicion?
 			
@@ -108,7 +119,16 @@ public class KingMessageReceiver : MessageReceiver
 		if (msg.msgType == (int) MessageTypes.MsgType.SpikeTrap)
 		{
 			AIRig kingAI = GetComponentInChildren<AIRig>();
+
+
+			Vector3 boomForce = new Vector3 ();
+			boomForce.x = (this.gameObject.transform.position.x-msg.sender.gameObject.transform.position.x)*150;
+			boomForce.z = (this.gameObject.transform.position.z-msg.sender.gameObject.transform.position.z)*150;
 			
+			Rigidbody myBod = this.gameObject.GetComponent<Rigidbody> ();
+			myBod.AddForce(boomForce);
+
+
 			int currentHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
 			kingAI.AI.WorkingMemory.SetItem<int>("Health", (currentHealth - ((int) msg.info)));
 /*

@@ -27,6 +27,8 @@ public class MessageTypes : MonoBehaviour
 		BlueSong,
 		GreenSong,
         Deactivate,
-        SpikeTrap
+        SpikeTrap,
+		SeenEnemy,
+		PushFriends
 	};
 }

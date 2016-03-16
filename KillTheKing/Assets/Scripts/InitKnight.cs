@@ -8,7 +8,8 @@ public class InitKnight : MonoBehaviour {
 	void Start () {
         AI knightAI = GetComponentInChildren<AIRig>().AI;
         knightAI.WorkingMemory.SetItem<Vector3>("ReturningTo", this.gameObject.transform.position);
-
+		
+		knightAI.WorkingMemory.SetItem<int>("MyRand", ((int)(Random.value*8+2)));
 
         GameObject myGoal = GameObject.FindGameObjectWithTag("Goal");
         if (myGoal != null)

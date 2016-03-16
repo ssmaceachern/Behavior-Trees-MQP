@@ -8,11 +8,6 @@ using RAIN.Core;
 [RAINAction]
 public class AttackOpponent : RAINAction
 {
-	public override void Start(RAIN.Core.AI ai)
-	{
-		base.Start(ai);
-	}
-	
 	public override ActionResult Execute(RAIN.Core.AI ai)
 	{
 		GameObject myEnemy = ai.WorkingMemory.GetItem<GameObject> ("Opponent");
@@ -54,10 +49,5 @@ public class AttackOpponent : RAINAction
 		                  myDamage);        
 		
 		return ActionResult.SUCCESS;
-	}
-	
-	public override void Stop(RAIN.Core.AI ai)
-	{
-		base.Stop(ai);
 	}
 }

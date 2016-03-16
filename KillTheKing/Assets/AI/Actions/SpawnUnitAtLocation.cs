@@ -7,11 +7,6 @@ using RAIN.Core;
 [RAINAction]
 public class SpawnUnitAtLocation : RAINAction
 {
-    public override void Start(RAIN.Core.AI ai)
-    {
-        base.Start(ai);
-    }
-
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
 		string toSpawn= ai.WorkingMemory.GetItem<string> ("unitToSpawn");
@@ -34,10 +29,5 @@ public class SpawnUnitAtLocation : RAINAction
         }
 
         return ActionResult.SUCCESS;
-    }
-
-    public override void Stop(RAIN.Core.AI ai)
-    {
-        base.Stop(ai);
     }
 }
