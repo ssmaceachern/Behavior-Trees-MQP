@@ -7,11 +7,6 @@ using RAIN.Core;
 [RAINAction]
 public class GiveOrders : RAINAction
 {
-    public override void Start(RAIN.Core.AI ai)
-    {
-        base.Start(ai);
-    }
-
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
 		GameObject workSlave = ai.WorkingMemory.GetItem<GameObject> ("WorkingSlave");

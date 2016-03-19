@@ -61,27 +61,27 @@ public class KingAttributeManager : MonoBehaviour
                                  newValue);
                 // Check the thresholds
                 result = CheckThreshold(oldValue, newValue, 0);
-                Debug.Log(result);
+           //     Debug.Log(result);
                 if (result >= 1)
                 {
-                    kingThoughts.TurnOnThreshold("Greed", true);
+                //    kingThoughts.TurnOnThreshold("Greed", true);
                     break;
                 }
                 else if (result <= -1)
                 {
-                    kingThoughts.TurnOnThreshold("Greed", false);
+                //    kingThoughts.TurnOnThreshold("Greed", false);
                     break;
                 }
                 result = CheckThreshold(oldValue, newValue, 100);
                 Debug.Log(result);
                 if (result >= 1)
                 {
-                    kingThoughts.TurnOnThreshold("Greed", true);
+                //    kingThoughts.TurnOnThreshold("Greed", true);
                     break;
                 }
                 else if (result <= -1)
                 {
-                    kingThoughts.TurnOnThreshold("Greed", false);
+                //    kingThoughts.TurnOnThreshold("Greed", false);
                     break;
                 }
                 break;

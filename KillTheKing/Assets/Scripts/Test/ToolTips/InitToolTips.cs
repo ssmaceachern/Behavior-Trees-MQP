@@ -19,7 +19,7 @@ public class InitToolTips : MonoBehaviour
             if (pm.icons[i] != null)
             {
                 Texture2D tex2d = (Texture2D)pm.icons[i];
-                Debug.Log(pm.icons[i].name);
+  //              Debug.Log(pm.icons[i].name);
                 sprites[i].sprite = Sprite.Create(tex2d, new Rect(0, 0, tex2d.width, tex2d.height), new Vector2());
             }
         }

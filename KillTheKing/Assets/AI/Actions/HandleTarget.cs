@@ -30,6 +30,10 @@ public class HandleTarget : RAINAction
 
 		string itsType = myTrap.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<string> ("TrapType");
 
+		myTrap.GetComponentInChildren<EntityRig> ().Entity.GetAspect ("Chest").IsActive = false;
+		myTrap.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<bool> ("Used", true);
+
+
         /************************* Knights's way of handling traps ***********************/
         if (myType=="Knight") { // if this is a knight that's been ordered to check a trap by the king
 
@@ -64,7 +68,6 @@ public class HandleTarget : RAINAction
 				}
 
 				// Deactivate the trap and forget about it.
-				myTrap.SetActive(false);				
 				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
 
@@ -74,7 +77,6 @@ public class HandleTarget : RAINAction
 				ai.WorkingMemory.SetItem<int> ("Hunger", 0);
 
 				// Deactivate the trap and forget about it
-				myTrap.SetActive(false);	
 				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
 				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
@@ -112,8 +114,20 @@ public class HandleTarget : RAINAction
 					                  null);
 				}
 
+				for (int i=0; i<40; i++) 
+				{
+					GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Coin"));
+					particle.transform.position = new Vector3 (myTrap.transform.position.x, myTrap.transform.position.y, myTrap.transform.position.z);
+					Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+					Vector3 nudgeForce = new Vector3 ();
+					nudgeForce.x = (Random.value*500-250);
+					nudgeForce.y = 300;
+					nudgeForce.z = (Random.value*500-250);
+					hisBod.AddForce(nudgeForce);
+					hisBod.AddRelativeTorque(nudgeForce);
+				}
+
 				// Deactivate the trap and forget about it
-				myTrap.SetActive(false);	
 				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
 
@@ -143,9 +157,24 @@ public class HandleTarget : RAINAction
 					                  (int)MessageTypes.MsgType.CheckTrap,
 					                  null);
 				}
+
+				for(var i=0;i<20;i++)
+				{
+					
+					GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Bile"));
+					particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+					Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+					Vector3 nudgeForce = new Vector3 ();
+					nudgeForce.x = (Random.value*500-250);
+					nudgeForce.y = 300;
+					nudgeForce.z = (Random.value*250);
+					hisBod.AddForce(nudgeForce);
+				}
+
+				GameObject spooked = (GameObject)GameObject.Instantiate (Resources.Load ("FearFace"));
+				spooked.GetComponent<ParticleFade>().followTarget=ai.Body;
 				
 				// Deactivate the trap and forget about it
-				myTrap.SetActive(false);	
 				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
 
@@ -160,7 +189,6 @@ public class HandleTarget : RAINAction
 				ai.WorkingMemory.SetItem<int> ("Rooted", 7);
 
 				// Deactivate the trap and forget about it
-				myTrap.SetActive(false);			
 				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
 				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
@@ -184,7 +212,6 @@ public class HandleTarget : RAINAction
 
 			} else if(itsType == "Spooky") {
 				// Deactivate the trap and forget about it
-				myTrap.SetActive(false);	
 				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 				
 				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
@@ -215,6 +242,19 @@ public class HandleTarget : RAINAction
                 attMan.ChangeAttribute("Fear", -30);
 
                 attMan.ChangeAttribute("Paranoia", -30);
+
+				for (int i=0; i<40; i++) 
+				{
+					GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Coin"));
+					particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+					Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+					Vector3 nudgeForce = new Vector3 ();
+					nudgeForce.x = (Random.value*500-250);
+					nudgeForce.y = 300;
+					nudgeForce.z = (Random.value*500-250);
+					hisBod.AddForce(nudgeForce);
+					hisBod.AddRelativeTorque(nudgeForce);
+				}
 				
 			} else if (itsType == "JackBox") { // Spike trap
 				
@@ -223,16 +263,51 @@ public class HandleTarget : RAINAction
                 attMan.ChangeAttribute("Fear", 10);
 				
                 attMan.ChangeAttribute("Paranoia", 10);
-				
+
+				for(var i=0;i<20;i++)
+				{
+					GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Bile"));
+					particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+					Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+					Vector3 nudgeForce = new Vector3 ();
+					nudgeForce.x = (Random.value*500-250);
+					nudgeForce.y = 300;
+					nudgeForce.z = (Random.value*250);
+					hisBod.AddForce(nudgeForce);
+				}
 
 			} else if (itsType == "Vomit") { // Vomit trap
 				
 				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
-				ai.WorkingMemory.SetItem<int> ("Health", oldHealth - 10);
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth - 20);
 				
-                attMan.ChangeAttribute("Greed", -20);
+                attMan.ChangeAttribute("Greed", -30);
 				
 				ai.WorkingMemory.SetItem<int> ("Rooted", 7);
+
+				for(var i=0;i<5;i++)
+				{
+					GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
+					particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+					Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+					Vector3 nudgeForce = new Vector3 ();
+					nudgeForce.x = (Random.value*500-250);
+					nudgeForce.y = 300;
+					nudgeForce.z = (Random.value*250);
+					hisBod.AddForce(nudgeForce);
+				}
+
+				for(var i=0;i<5;i++)
+				{
+					GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Puke"));
+					particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+					Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+					Vector3 nudgeForce = new Vector3 ();
+					nudgeForce.x = (Random.value*500-250);
+					nudgeForce.y = 300;
+					nudgeForce.z = (Random.value*250);
+					hisBod.AddForce(nudgeForce);
+				}
 
 			} else if (itsType == "Food") { // Normal Food
 				
@@ -246,9 +321,6 @@ public class HandleTarget : RAINAction
 			} else { 
 				Debug.Log("King encountered an unusual trap");
 			}
-
-
-			myTrap.SetActive(false);
 
 			ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
@@ -273,8 +345,6 @@ public class HandleTarget : RAINAction
 			} else { 
 				Debug.Log("Bear encountered an unusual trap");
 			}
-			
-			myTrap.SetActive(false);
 			
 			ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
@@ -302,16 +372,9 @@ public class HandleTarget : RAINAction
 				Debug.Log("Peasant encountered an unusual trap");
 			}
 			
-			myTrap.SetActive(false);
-			
 			ai.WorkingMemory.SetItem<GameObject>("Target", null);
 		}
 
         return ActionResult.SUCCESS;
-    }
-
-    public override void Stop(RAIN.Core.AI ai)
-    {
-        base.Stop(ai);
     }
 }

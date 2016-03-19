@@ -28,8 +28,7 @@ public class MessageTypes : MonoBehaviour
 		GreenSong,
         Deactivate,
         SpikeTrap,
-        UpdateFear,
-        UpdateParanoia,
-        UpdateGreed
+		SeenEnemy,
+		PushFriends
 	};
 }

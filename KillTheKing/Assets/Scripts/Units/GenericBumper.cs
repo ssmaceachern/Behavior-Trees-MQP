@@ -12,7 +12,7 @@ public class GenericBumper : MonoBehaviour
 
 	void OnCollisionEnter(Collision col)
 	{
-
+	//	Debug.Log ("staying");
 	}
 
 	void OnCollisionStay(Collision col)
@@ -65,6 +65,14 @@ public class GenericBumper : MonoBehaviour
 			if(col.gameObject.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<string> ("UnitType") == "King")
 			{
 				Debug.Log ("i touched my king?");
+
+				Vector3 stepBackForce = new Vector3 ();
+				stepBackForce = this.gameObject.transform.forward*-100;
+
+
+				Rigidbody myBod = this.gameObject.GetComponent<Rigidbody> ();
+				myBod.AddForce(stepBackForce);
+
 				return;
 			}
 
@@ -75,7 +83,7 @@ public class GenericBumper : MonoBehaviour
 				return;
 			}
 			
-			//Debug.Log ("iThis guy is bumpy");
+		//	Debug.Log ("iThis guy is bumpy");
 			Vector3 nudgeForce = new Vector3 ();
 			nudgeForce.x = (col.gameObject.transform.position.x-this.gameObject.transform.position.x)*3;
 			nudgeForce.z = (col.gameObject.transform.position.z-this.gameObject.transform.position.z)*3;
@@ -96,6 +104,11 @@ public class GenericBumper : MonoBehaviour
 			}
 
 			hisBod.AddForce(nudgeForce);
+
+			int lastAnnoy=ai.AI.WorkingMemory.GetItem<int> ("Annoyance");
+			ai.AI.WorkingMemory.SetItem<int> ("Annoyance", lastAnnoy+1);
+
+	//		Debug.Log(lastAnnoy);
 
 			return;
 		}

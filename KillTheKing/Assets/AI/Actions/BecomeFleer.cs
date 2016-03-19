@@ -13,12 +13,8 @@ public class BecomeFleer : RAINAction
 	{
 		ai.Body.GetComponentInChildren<EntityRig> ().Entity.GetAspect ("Evil").IsActive = false;
 		ai.Body.GetComponentInChildren<EntityRig> ().Entity.GetAspect ("Minion").IsActive = false;
+		ai.Body.layer=15;
 
 		return ActionResult.SUCCESS;
-    }
-
-    public override void Stop(RAIN.Core.AI ai)
-    {
-        base.Stop(ai);
     }
 }

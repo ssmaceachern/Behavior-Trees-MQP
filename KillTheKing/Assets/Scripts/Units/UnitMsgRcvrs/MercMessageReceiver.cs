@@ -10,7 +10,18 @@ public class MercMessageReceiver : MessageReceiver
 
 	public override void ReceiveMessage (Message msg)
 	{
-		if (msg.msgType == (int) MessageTypes.MsgType.DealDamage  || msg.msgType == (int)MessageTypes.MsgType.GhoulBomb)
+
+		if(msg.msgType == (int) MessageTypes.MsgType.PushFriends)
+		{
+			Vector3 pushForce = new Vector3 ();
+			pushForce.x = (this.gameObject.transform.position.x-msg.sender.transform.position.x)*50;
+			pushForce.z = (this.gameObject.transform.position.z-msg.sender.transform.position.z)*50;
+			
+			Rigidbody myBod = this.gameObject.GetComponent<Rigidbody> ();
+			myBod.AddForce(pushForce);
+			Debug.Log("I herd this");
+		}
+		else if (msg.msgType == (int) MessageTypes.MsgType.DealDamage  || msg.msgType == (int)MessageTypes.MsgType.GhoulBomb)
 		{
 			AIRig mercAI = GetComponentInChildren<AIRig>();
 			int currentHealth = mercAI.AI.WorkingMemory.GetItem<int>("Health");

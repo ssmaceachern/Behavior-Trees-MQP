@@ -18,7 +18,7 @@ public class CreateRoadConnections : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		levelWaypoints = transform.GetComponent<WaypointRig>().WaypointSet;
-		Debug.Log("Level Waypoints Connections Count: " + levelWaypoints.Connections.Count);
+	//	Debug.Log("Level Waypoints Connections Count: " + levelWaypoints.Connections.Count);
 
 		foreach(WaypointSet.WaypointConnection wc in levelWaypoints.Connections){
 			DrawConnection(levelWaypoints.Waypoints[wc.wpOne], levelWaypoints.Waypoints[wc.wpTwo]);
@@ -40,7 +40,7 @@ public class CreateRoadConnections : MonoBehaviour {
 		if (B.x < A.x) {angleC = 0 - angleC;}
 		if (B.z > A.z) {angleC2 = 0 - angleC2;}
 		
-		Debug.Log( "inputPosA" + A + " : inputPosB" + B + " : posC" + C + " : lengthC " + lengthC + " : sineC " + sineC + " : angleC " + angleC );
+	//	Debug.Log( "inputPosA" + A + " : inputPosB" + B + " : posC" + C + " : lengthC " + lengthC + " : sineC " + sineC + " : angleC " + angleC );
 		
 		GameObject connection = Instantiate( PathBlock, C, Quaternion.identity ) as GameObject; 
 		connection.name = "Road";

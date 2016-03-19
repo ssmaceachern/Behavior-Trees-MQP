@@ -7,20 +7,31 @@ using RAIN.Core;
 [RAINAction]
 public class RigidOn : RAINAction
 {
-    public override void Start(RAIN.Core.AI ai)
-    {
-        base.Start(ai);
-    }
-
     public override ActionResult Execute(RAIN.Core.AI ai)
-    {
-		ai.Body.GetComponentInChildren<Rigidbody> ().isKinematic = false;
+	{	
+		string myType = ai.WorkingMemory.GetItem<string> ("UnitType");
+
+		if(myType=="King")
+		{
+			ai.Body.layer=8;
+			ai.Body.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+		}
+		else if(myType=="Knight")
+		{
+			ai.Body.layer=10;
+			ai.Body.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+		}
+		else if(myType=="Thug")
+		{
+			ai.Body.layer=9;
+			ai.Body.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+		}
+		else if(myType=="Archer")
+		{
+			ai.Body.layer=16;
+			ai.Body.GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+		}
 
         return ActionResult.SUCCESS;
-    }
-
-    public override void Stop(RAIN.Core.AI ai)
-    {
-        base.Stop(ai);
     }
 }

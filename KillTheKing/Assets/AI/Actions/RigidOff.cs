@@ -7,20 +7,11 @@ using RAIN.Core;
 [RAINAction]
 public class RigidOff : RAINAction
 {
-    public override void Start(RAIN.Core.AI ai)
-    {
-        base.Start(ai);
-    }
-
     public override ActionResult Execute(RAIN.Core.AI ai)
 	{
-		ai.Body.GetComponentInChildren<Rigidbody> ().isKinematic = true;
+		ai.Body.layer=11;
+		ai.Body.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 
         return ActionResult.SUCCESS;
-    }
-
-    public override void Stop(RAIN.Core.AI ai)
-    {
-        base.Stop(ai);
     }
 }
