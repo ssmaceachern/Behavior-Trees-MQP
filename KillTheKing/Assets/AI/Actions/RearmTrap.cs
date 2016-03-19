@@ -26,6 +26,9 @@ public class RearmTrap : RAINAction
 			Debug.Log("UNKNOWN UNIT TYPE IS USING REARM?");
 		}
 
+		GameObject particle = (GameObject)GameObject.Instantiate(Resources.Load("EvilAura"));
+		particle.GetComponent<ParticleFade>().followTarget = ai.Body;
+
 		ai.WorkingMemory.SetItem<bool> ("Used", false);
 
         return ActionResult.SUCCESS;

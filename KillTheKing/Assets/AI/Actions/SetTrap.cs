@@ -31,9 +31,12 @@ public class SetTrap : RAINAction
 		Quaternion rotation = Quaternion.Euler (trapRotation.Evaluate <Vector3> (ai.DeltaTime, ai.WorkingMemory));
 
 		GameObject newTrap = (GameObject)GameObject.Instantiate (Resources.Load (trap));
+		
+        GameObject charPar = GameObject.FindGameObjectWithTag("Characters");
+		newTrap.transform.parent = charPar.transform;
 
 		newTrap.transform.position = trapPos;
-		newTrap.transform.rotation = rotation;
+		//newTrap.transform.rotation = rotation;
 		
 		EntityRig pEnt = ai.Body.GetComponentInChildren<EntityRig> ();
 		pEnt.Entity.GetAspect("Good").IsActive=false;

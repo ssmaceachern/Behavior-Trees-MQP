@@ -279,11 +279,35 @@ public class HandleTarget : RAINAction
 			} else if (itsType == "Vomit") { // Vomit trap
 				
 				int oldHealth = ai.WorkingMemory.GetItem<int> ("Health");
-				ai.WorkingMemory.SetItem<int> ("Health", oldHealth - 10);
+				ai.WorkingMemory.SetItem<int> ("Health", oldHealth - 20);
 				
-                attMan.ChangeAttribute("Greed", -20);
+                attMan.ChangeAttribute("Greed", -30);
 				
 				ai.WorkingMemory.SetItem<int> ("Rooted", 7);
+
+				for(var i=0;i<5;i++)
+				{
+					GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
+					particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+					Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+					Vector3 nudgeForce = new Vector3 ();
+					nudgeForce.x = (Random.value*500-250);
+					nudgeForce.y = 300;
+					nudgeForce.z = (Random.value*250);
+					hisBod.AddForce(nudgeForce);
+				}
+
+				for(var i=0;i<5;i++)
+				{
+					GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Puke"));
+					particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+					Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+					Vector3 nudgeForce = new Vector3 ();
+					nudgeForce.x = (Random.value*500-250);
+					nudgeForce.y = 300;
+					nudgeForce.z = (Random.value*250);
+					hisBod.AddForce(nudgeForce);
+				}
 
 			} else if (itsType == "Food") { // Normal Food
 				
