@@ -34,9 +34,11 @@ public class FreezeGameplay : MonoBehaviour
             for (int i = 0; i < ais.Length; i++)
             {
                 ais[i].AI.IsActive = false;
+                if (ais[i].AI.Body.GetComponent<Rigidbody>() != null)
+                    ais[i].AI.Body.GetComponent<Rigidbody>().isKinematic = true;
             }
 
-			if(EdgeShaderComponent != null){
+            if (EdgeShaderComponent != null){
 				EdgeShaderComponent.enabled = true;
 				EdgeShaderComponent.edgesOnly = Mathf.SmoothDamp(0.0f, 1.0f, ref TransitionVelocity, ShaderTransitionSpeed);
 			}
@@ -69,9 +71,12 @@ public class FreezeGameplay : MonoBehaviour
         for (int i = 0; i < ais.Length; i++)
         {
             ais[i].AI.IsActive = false;
+            if (ais[i].AI.Body.GetComponent<Rigidbody>() != null)
+                ais[i].AI.Body.GetComponent<Rigidbody>().isKinematic = true;
+
         }
 
-		if(EdgeShaderComponent != null){
+        if (EdgeShaderComponent != null){
 			EdgeShaderComponent.enabled = true;
 			EdgeShaderComponent.edgesOnly = Mathf.SmoothDamp(0.0f, 1.0f, ref TransitionVelocity, ShaderTransitionSpeed);
 		}
@@ -84,9 +89,13 @@ public class FreezeGameplay : MonoBehaviour
         for (int i = 0; i < ais.Length; i++)
         {
             ais[i].AI.IsActive = true;
+            if (ais[i].AI.Body.GetComponent<Rigidbody>() != null)
+                ais[i].AI.Body.GetComponent<Rigidbody>().isKinematic = false;
+
+
         }
-    
-		if(EdgeShaderComponent != null){
+
+        if (EdgeShaderComponent != null){
 			EdgeShaderComponent.edgesOnly = Mathf.SmoothDamp(1.0f, 0.0f, ref TransitionVelocity, ShaderTransitionSpeed);
 			EdgeShaderComponent.enabled = false;
 		}
