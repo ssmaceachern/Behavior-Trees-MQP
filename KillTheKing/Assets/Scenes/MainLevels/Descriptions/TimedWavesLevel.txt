@@ -1,4 +1,0 @@
-LevelTitle=[Timed Wave Survival]
-LevelDescription=[The Commander is coming from the North and heading to the South of the map. In order for your units to attack the Commander directly, the Commander must first open the gate on the way down. There are three bridges overlapping three rivers. At varying intervals, a Wave will spawn from the right end of each river. Anyone hit by the wave will suffer damage, including your own mercenaries which you will have to move in order to keep them alive until the commander opens the gate.]
-ObjectiveTitle=[Kill the Commander]
-ObjectiveDescription=[Survive long enough to Assassinate the King as he comes through.]

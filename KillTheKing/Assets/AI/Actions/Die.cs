@@ -9,6 +9,15 @@ public class Die : RAINAction
 {
     public override void Start(RAIN.Core.AI ai)
     {
+		HireUnitSetLocation turnOff = ai.Body.GetComponent<HireUnitSetLocation> ();
+
+		if (turnOff != null &&
+		    turnOff.IsSelected ())
+		{
+
+			Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+		}
+
         base.Start(ai);
     }
 
@@ -25,9 +34,20 @@ public class Die : RAINAction
 
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
 
-			ai.Body.SetActive (false);
+            // Start spewing blood
+            ai.Body.GetComponent<KingDeath>().MakeDead();
+            // Deactivate our AI
+            ai.IsActive = false;
 
-			Application.LoadLevel (2);
+			if (LevelCoordinator.instance.GetLevelRegistry().ContainsKey(LevelCoordinator.instance.currentLevel))
+			{
+				LevelCoordinator.instance.GetLevelRegistry()[LevelCoordinator.instance.currentLevel].setComplete(true);
+				Debug.Log(LevelCoordinator.instance.currentLevel + ": " + 
+				          LevelCoordinator.instance.GetLevelRegistry()[LevelCoordinator.instance.currentLevel].isComplete);
+			}
+			else{
+				Debug.LogError("Could not update level information");
+			}
 
 			return ActionResult.SUCCESS;
 
@@ -38,32 +58,7 @@ public class Die : RAINAction
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
 
 			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
 
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Thug") { // if you're a thug
-		
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-		
-			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Archer") { // if you're an archer
-			
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-			
-			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Trapper") { // if you're a trapper
-		
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-		
-			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Goblin") { // if you're a Goblin
-			
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-			
-			GameObject.Destroy (ai.Body);
-			return ActionResult.SUCCESS;
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Dragon") { // if you're a Dragon
 			
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
@@ -72,27 +67,12 @@ public class Die : RAINAction
 
 			//TODO: send a message to everyone around you to take x damage
 
-			return ActionResult.SUCCESS;
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Bear") { // if you're a Bear
-			
-			ai.WorkingMemory.SetItem<int> ("Health", -1);
-
-			GameObject spawner = GameObject.FindGameObjectWithTag("GoblinRespawn");
-
-			if (spawner != null)
-			{
-				spawner.GetComponent<SpawnGoblin>().spawnAGoblin();
-			}
-
-			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
 
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Peasant") { // if you're a Peasant
 			
 			ai.WorkingMemory.SetItem<int> ("Health", -1);
 			
 			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
 
 			//TODO: care more if a peasant dies that can be put here, or should that be a per-level script attached to them?
 
@@ -100,22 +80,58 @@ public class Die : RAINAction
 			
 			ai.Body.SetActive (false);
 			return ActionResult.SUCCESS;
-		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Assassin") { // if you're an assasssin
-			
-			ai.Body.SetActive (false);
-			return ActionResult.SUCCESS;
+
 		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Ghost") { // if you're a ghost
 
 			ai.Body.SetActive (false);
+			return ActionResult.SUCCESS;
 
-		}
+			
+		} else if (ai.WorkingMemory.GetItem<string> ("UnitType") == "Ghoul") { // if you're an explosive ghoul
+			
+			ai.Body.SetActive (false);
 		
-		Debug.Log("Please make a Die() entry for unit type: " + ai.WorkingMemory.GetItem<string> ("UnitType"));
+			MessageDispatcher dispatch = ai.Body.GetComponent<MessageDispatcher> ();
 
-		// how did i get here?
+			dispatch.BroadcastMsg (0.0f,
+			                  		ai.Body,
+			                  		ai.Body.transform.position,
+			                       	15,
+			                  		(int)MessageTypes.MsgType.GhoulBomb,
+			                  		20);
 
+			for (int i=0; i<40; i++) {
+				GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Bile"));
+				particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+				Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+				Vector3 nudgeForce = new Vector3 ();
+				nudgeForce.x = (Random.value*500-250);
+				nudgeForce.y = 300;
+				nudgeForce.z = (Random.value*500-250);
+				hisBod.AddForce(nudgeForce);
+			}
+
+			return ActionResult.SUCCESS;
+
+		} else { // If you're something that dies with a generic blood spout
+
+			ai.Body.SetActive (false);
+		}
+
+
+		for (int i=0; i<6; i++) {
+			GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
+			particle.transform.position = new Vector3 (ai.Body.transform.position.x, ai.Body.transform.position.y, ai.Body.transform.position.z);
+			Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+			Vector3 nudgeForce = new Vector3 ();
+			nudgeForce.x = (Random.value*300-150);
+			nudgeForce.y = 400;
+			nudgeForce.z = (Random.value*300-150);
+			hisBod.AddForce(nudgeForce);
+		}
+	
 		ai.Body.SetActive (false);
-        return ActionResult.FAILURE;
+        return ActionResult.SUCCESS;
     }
 
     public override void Stop(RAIN.Core.AI ai)

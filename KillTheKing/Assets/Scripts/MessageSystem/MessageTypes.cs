@@ -21,6 +21,17 @@ public class MessageTypes : MonoBehaviour
 		FollowMe,
 		Saved,
 		SelectUnit,
-		DeselectUnit
+		DeselectUnit,
+		GhoulBomb,
+		PriestHeal,
+		BlueSong,
+		GreenSong,
+        Deactivate,
+        SpikeTrap,
+		SeenEnemy,
+		PushFriends,
+		UpdateGreed,
+		UpdateFear,
+		UpdateParanoia
 	};
 }

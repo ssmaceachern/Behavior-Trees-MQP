@@ -14,7 +14,9 @@ public class LoseLevel : MonoBehaviour
 		}
 		else if (col.gameObject.tag == "King")
 		{
-			Application.LoadLevel (1);
+			PlayerPrefs.SetInt ("LastLevel", Application.loadedLevel);
+			Debug.Log (Application.loadedLevel);
+			LevelLoad.StaticLoadLevel ("GameOver");
 		}
 		Debug.Log ("wut hit");
 	}

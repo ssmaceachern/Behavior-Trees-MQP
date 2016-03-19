@@ -7,11 +7,6 @@ using RAIN.Core;
 [RAINAction]
 public class GiveOrders : RAINAction
 {
-    public override void Start(RAIN.Core.AI ai)
-    {
-        base.Start(ai);
-    }
-
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
 		GameObject workSlave = ai.WorkingMemory.GetItem<GameObject> ("WorkingSlave");
@@ -56,6 +51,8 @@ public class GiveOrders : RAINAction
 		ai.WorkingMemory.SetItem<GameObject> ("WorkingSlave", mySlave);
 
 		GameObject myTrap = ai.WorkingMemory.GetItem<GameObject> ("Target");
+
+		mySlave.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Rooted", 0);
 
 		// Send a message to the slave to check out the trap.
 		dispatch.SendMsg (0.0f,

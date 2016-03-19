@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class LevelInfo {
 
-    //Filepath
-    string path = Application.dataPath + "/Scenes/MainLevels/Descriptions/";
-
     //Info to be loaded
     int index;
+
+    public bool isComplete { get; private set; }
 
     public string  FileLoc,
             LevelTitle,
@@ -19,43 +18,32 @@ public class LevelInfo {
     //Constructor
     public LevelInfo(string SceneName)
     {
-        GenerateFileLoc(SceneName);
+        isComplete = false;
 
-        //Debug.Log(path + SceneName);
-        if (File.Exists(FileLoc))
+        FileLoc = "Descriptions/" + SceneName;
+
+        if (Resources.Load(FileLoc) != null)
         {
-            ParseLevelDescriptionFile(path);
+            ParseLevelDescriptionFile(FileLoc);
         }
         else
         {
             Debug.LogWarning("Levels file does not exist, no level names available at run-time.");
-        }
+		}
 
     }
 
-    void GenerateFileLoc(string SceneName)
+    /// <summary>
+    /// Parses a level's description file for relevant details
+    /// </summary>
+    /// <param name="FileLoc">Location of the text file in the Resources Folder</param>
+    void ParseLevelDescriptionFile(string FileLoc)
     {
-        string DescriptionFileName = SceneName.Substring(0, SceneName.IndexOf(".")) + ".txt";
-        //Debug.Log(DescriptionFileName);
 
-        FileLoc = path + DescriptionFileName;
-    }
-
-    void ParseLevelDescriptionFile(string path)
-    {
-        // Read the names of all levels from the levels file.
-        using (FileStream stream = File.Open(FileLoc, FileMode.Open, FileAccess.Read))
-        {
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                //File.SetAttributes(FileLoc, FileAttributes.Normal);
-                // Possibly use ReadToEnd and string.Split(fileContent, Environment.NewLine).
-                while (!reader.EndOfStream)
-                {
-                    string line = reader.ReadLine();
-
-                    //tokens[0] = Variable
-                    //tokens[1] = [Description]
+		TextAsset ta = Resources.Load(FileLoc) as TextAsset;
+		string[] lines = ta.text.Split('\n');
+		foreach(string line in lines)
+		{
                     string[] tokens = line.Split('=');
 
                     switch (tokens[0])
@@ -76,9 +64,8 @@ public class LevelInfo {
                         Debug.LogWarning("Unknown Information is in the file.");
                         break;
                     }
-                        
-                }
-            }
-        }
+		} 
     }
+
+    public void setComplete(bool val) { isComplete = val; }
 }

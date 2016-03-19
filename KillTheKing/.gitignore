@@ -20,6 +20,11 @@ sysinfo.txt
 /*.unityproj
 /*.booproj
  
+# ============== #
+# RAIN generated #
+# ============== #
+/Assets/RAIN/Editor/RAINProjectState.asset
+
 # ============ #
 # OS generated #
 # ============ #

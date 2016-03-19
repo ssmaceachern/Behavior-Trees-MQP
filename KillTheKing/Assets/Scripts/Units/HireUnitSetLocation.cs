@@ -7,11 +7,18 @@ using RAIN.Minds;
 using RAIN.BehaviorTrees;
 using System.IO;
 
+
+
 public class HireUnitSetLocation : MonoBehaviour {
 
 	private bool givePosition = false;
 
-    Texture2D mouseCursorTexture;
+    private static Texture2D mouseCursorTexture;
+    private GameObject moveToLine;
+    private GameObject moveToLineIMG;
+
+    LineRenderer line;
+    SpriteRenderer flagSprite;
 
     public static Texture2D LoadPNG(string filePath)
     {
@@ -31,7 +38,29 @@ public class HireUnitSetLocation : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        mouseCursorTexture = LoadPNG("Assets/Textures/Target.png");
+        moveToLine = new GameObject();
+        moveToLineIMG = new GameObject();
+
+        line = moveToLine.AddComponent<LineRenderer>();
+        line.material.color = Color.black;
+        line.receiveShadows = false;
+        line.SetWidth(.2f, .2f);
+
+        flagSprite = moveToLineIMG.AddComponent<SpriteRenderer>();
+        flagSprite.sprite = Resources.Load("Flag", typeof(Sprite)) as Sprite;
+        flagSprite.enabled = false;
+
+        line.SetPosition(0, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z));
+        line.SetPosition(1, transform.position);
+
+        moveToLine.name = transform.name + " Destination Line Path";
+		moveToLineIMG.name = transform.name + "Designation Marker";
+
+        moveToLine.transform.parent = transform;
+        moveToLineIMG.transform.parent = transform;
+        moveToLineIMG.transform.rotation = Quaternion.Euler(new Vector3(75f, 0, 0));
+
+        mouseCursorTexture = Resources.Load("target") as Texture2D;
     }
 	
 	// Update is called once per frame
@@ -54,25 +83,56 @@ public class HireUnitSetLocation : MonoBehaviour {
 			if (Physics.Raycast(ray, out hit, 200.0f) != false)
 			{
 				GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<Vector3>("Location", hit.point);
+                GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<bool>("Moving", true);
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+
                 givePosition = false;
-			}
+            }
+        }
 
-			EntityRig pEnt = GetComponentInChildren<AIRig>().AI.Body.GetComponentInChildren<EntityRig> ();
+        if (GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<bool>("Moving"))
+        {
+            Vector3 designatedLocation = GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<Vector3>("Location");
 
-			if(pEnt!=null)
-			{
-				pEnt.Entity.GetAspect("Good").IsActive=true;
-				//pEnt.Entity.ActivateEntity();
-			}
-		}
-	}
+            line.SetPosition(0, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z));
+            line.SetPosition(1, designatedLocation);
+
+            moveToLineIMG.transform.position = Vector3.Lerp(transform.position, designatedLocation, 1f);
+            moveToLineIMG.transform.rotation = Quaternion.Euler(new Vector3(75f, 0, 0));
+
+            flagSprite.enabled = true;
+            line.enabled = true;
+
+            if (Vector3.Distance(moveToLineIMG.transform.position, transform.position) < 1f ||
+            GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<GameObject>("Enemy"))
+            {
+                line.enabled = false;
+                flagSprite.enabled = false;
+            }
+        }
+
+        //line.SetPosition(0, transform.position);
+
+        if (Input.GetKeyDown("x") && givePosition)
+        {
+            givePosition = false;
+            Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        }
+    }
 	
 	void OnSelect(string command)
 	{
 		if (!givePosition) {
 			GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<string> ("Command", command);
 			givePosition = true;
-		}
+
+            line.SetPosition(0, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z));
+            line.SetPosition(1, transform.position);
+        }
+	}
+
+	public bool IsSelected()
+	{
+		return givePosition;
 	}
 }

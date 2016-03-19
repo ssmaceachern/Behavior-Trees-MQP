@@ -15,11 +15,15 @@ public class KillKing : RAINAction
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
 		GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("King");
-		GameObject.Destroy(myKing);
 
-		Debug.Log ("Loading win screen");
+        MessageDispatcher dispatch = ai.Body.GetComponent<MessageDispatcher>();
 
-		Application.LoadLevel (2);
+        // Deal a lot of damage to the king to immediately kill him.
+        dispatch.SendMsg(0.0f,
+                         ai.Body,
+                         myKing,
+                         (int)MessageTypes.MsgType.DealDamage,
+                         1000);
 
         return ActionResult.SUCCESS;
     }

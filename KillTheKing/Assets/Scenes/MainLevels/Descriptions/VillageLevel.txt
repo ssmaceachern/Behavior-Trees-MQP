@@ -1,4 +1,0 @@
-LevelTitle=[Villages]
-LevelDescription=[Goblins are attacking the village and the commander has been sent to defend the peasants from the invasion. Your goal is to kill the commander before he returns to the bunker where all the peasants are fleeing to.]
-ObjectiveTitle=[Kill the commander]
-ObjectiveDescription=[Assassinate the Leader]

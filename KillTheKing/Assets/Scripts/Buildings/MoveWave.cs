@@ -28,7 +28,7 @@ public class MoveWave : MonoBehaviour
 	{
 		if (col.gameObject.tag == "King" || col.gameObject.tag == "Guard" || col.gameObject.tag == "Merc")
 		{
-			Destroy(col.gameObject);
+			col.gameObject.GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<int>("Health", 0);
 		}
 	}
 }

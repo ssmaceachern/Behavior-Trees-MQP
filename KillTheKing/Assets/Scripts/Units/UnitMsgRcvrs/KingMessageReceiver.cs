@@ -7,27 +7,58 @@ public class KingMessageReceiver : MessageReceiver
 	public override void ReceiveMessage (Message msg)
 	{
 		// Subtract from the king's health by some amount
-		if (msg.msgType == (int) MessageTypes.MsgType.DealDamage)
+		if (msg.msgType == (int) MessageTypes.MsgType.DealDamage || msg.msgType == (int)MessageTypes.MsgType.GhoulBomb)
 		{
 			AIRig kingAI = GetComponentInChildren<AIRig>();
 
 			int currentHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
 			kingAI.AI.WorkingMemory.SetItem<int>("Health", (currentHealth - ((int) msg.info)));
+            // Check that we're not already dead.
+            if (GetComponent<KingDeath>().IsDead())
+            {
+                return;
+            }
+            GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
+			particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+			Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+			Vector3 nudgeForce = new Vector3 ();
+			nudgeForce=(transform.position-msg.sender.transform.position)*50;
+			nudgeForce.x += (Random.value*100-50);
+			nudgeForce.y = 300;
+			nudgeForce.z += (Random.value*100-50);
+			hisBod.AddForce(nudgeForce);
 
+            // Check to see if the it was the assassin that killed us, if so die immediately
+            if (msg.sender.GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<string>("UnitType") == "Assassin")
+            {
+                kingAI.AI.WorkingMemory.SetItem<int>("Health", -1);
+            }
 		}
+
+		if (msg.msgType == (int)MessageTypes.MsgType.SeenEnemy)
+		{
+			AIRig myAI = GetComponentInChildren<AIRig>();
+			
+			if(myAI.AI.WorkingMemory.GetItem<GameObject>("Enemy")==null)
+			{
+				myAI.AI.WorkingMemory.SetItem<GameObject>("Enemy", (GameObject)msg.info);
+			}
+		}
+
 		// Add to the king's greed by some amount
 		if (msg.msgType == (int) MessageTypes.MsgType.MakeGreedy)
 		{
-			AIRig kingAI = GetComponentInChildren<AIRig>();
+			//AIRig kingAI = GetComponentInChildren<AIRig>();
 
-			int currentGreed = kingAI.AI.WorkingMemory.GetItem<int>("Greed");
+            GetComponent<KingAttributeManager>().ChangeAttribute("Greed", (int)msg.info);
+		/*(	int currentGreed = kingAI.AI.WorkingMemory.GetItem<int>("Greed");
 			int newGreed = currentGreed + ((int) msg.info);
 
 			// The king can't become less than not greedy at all.
 			if (newGreed < 0)
 				newGreed = 0;
 
-			kingAI.AI.WorkingMemory.SetItem<int>("Greed", newGreed);
+			kingAI.AI.WorkingMemory.SetItem<int>("Greed", newGreed); */
 		}
 		// Confirm that a guard has handled a trap
 		if (msg.msgType == (int) MessageTypes.MsgType.CheckTrap)
@@ -45,11 +76,80 @@ public class KingMessageReceiver : MessageReceiver
 		}
 		if (msg.msgType == (int)MessageTypes.MsgType.GetSpooked)
 		{
-			AIRig kingAI = GetComponentInChildren<AIRig>();
+			/*AIRig kingAI = GetComponentInChildren<AIRig>();
 			
 			int oldParanoia = kingAI.AI.WorkingMemory.GetItem<int>("Paranoia");
 			
-			kingAI.AI.WorkingMemory.SetItem<int>("Paranoia", oldParanoia + (int)msg.info);
-		};
+			kingAI.AI.WorkingMemory.SetItem<int>("Paranoia", oldParanoia + (int)msg.info); */
+
+            GetComponent<KingAttributeManager>().ChangeAttribute("Paranoia", (int)msg.info);
+
+        }
+
+        if (msg.msgType == (int)MessageTypes.MsgType.PriestHeal)
+		{
+			//AIRig kingAI = GetComponentInChildren<AIRig>();
+			
+			//int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
+
+			//TODO suspicion?
+			
+		}
+
+		if (msg.msgType == (int)MessageTypes.MsgType.BlueSong)
+		{
+			//AIRig kingAI = GetComponentInChildren<AIRig>();
+			
+			//int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
+			
+			//TODO suspicion?
+			
+		}
+
+		if (msg.msgType == (int)MessageTypes.MsgType.GreenSong)
+		{
+			//AIRig kingAI = GetComponentInChildren<AIRig>();
+			
+			//int oldHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
+			
+			//TODO suspicion?
+			
+		}
+
+		if (msg.msgType == (int) MessageTypes.MsgType.SpikeTrap)
+		{
+			AIRig kingAI = GetComponentInChildren<AIRig>();
+
+
+			Vector3 boomForce = new Vector3 ();
+			boomForce.x = (this.gameObject.transform.position.x-msg.sender.gameObject.transform.position.x)*150;
+			boomForce.z = (this.gameObject.transform.position.z-msg.sender.gameObject.transform.position.z)*150;
+			
+			Rigidbody myBod = this.gameObject.GetComponent<Rigidbody> ();
+			myBod.AddForce(boomForce);
+
+
+			int currentHealth = kingAI.AI.WorkingMemory.GetItem<int>("Health");
+			kingAI.AI.WorkingMemory.SetItem<int>("Health", (currentHealth - ((int) msg.info)));
+/*
+			int currentFear = kingAI.AI.WorkingMemory.GetItem<int>("Fear");
+			kingAI.AI.WorkingMemory.SetItem<int>("Fear", (currentFear + 35)); */
+
+            GetComponent<KingAttributeManager>().ChangeAttribute("Fear", 35);
+
+            for (int i=0;i<3;i++)
+			{
+				GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Blood"));
+				particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
+				Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
+				Vector3 nudgeForce = new Vector3 ();
+				nudgeForce=(transform.position-msg.sender.transform.position)*50;
+				nudgeForce.x += (Random.value*100-50);
+				nudgeForce.y = 300;
+				nudgeForce.z += (Random.value*100-50);
+				hisBod.AddForce(nudgeForce);
+			}
+			
+		}
 	}
 }
