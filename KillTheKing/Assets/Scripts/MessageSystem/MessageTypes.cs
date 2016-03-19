@@ -27,6 +27,9 @@ public class MessageTypes : MonoBehaviour
 		BlueSong,
 		GreenSong,
         Deactivate,
-        SpikeTrap
+        SpikeTrap,
+        UpdateFear,
+        UpdateParanoia,
+        UpdateGreed
 	};
 }

@@ -48,7 +48,6 @@ public class MessageDispatcher : MonoBehaviour
 			// If the receiver does lie within the effective range of the broadcast, send a message to the object
 			if (Vector3.Distance (broadcastSource, rcvrs[i].gameObject.transform.position) <= radius)
 			{
-				Debug.Log (Vector3.Distance (broadcastSource, rcvrs[i].gameObject.transform.position));
 				SendMsg (delay,
 				         sender,
 				         rcvrs[i].gameObject,
