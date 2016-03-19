@@ -29,6 +29,9 @@ public class MessageTypes : MonoBehaviour
         Deactivate,
         SpikeTrap,
 		SeenEnemy,
-		PushFriends
+		PushFriends,
+		UpdateGreed,
+		UpdateFear,
+		UpdateParanoia
 	};
 }
