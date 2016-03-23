@@ -8,6 +8,7 @@ public class LevelInfo {
     int index;
 
     public bool isComplete { get; private set; }
+    public bool subquestComplete { get; private set; }
 
     public string  FileLoc,
             LevelTitle,
@@ -64,8 +65,22 @@ public class LevelInfo {
                         Debug.LogWarning("Unknown Information is in the file.");
                         break;
                     }
-		} 
+		}
     }
 
+
+    /// <summary>
+    /// Example for how to use/call these functions within another class
+    /// </summary>
+    /// if (LevelCoordinator.instance.GetLevelRegistry().ContainsKey(LevelCoordinator.instance.currentLevel))
+	///		{
+	///			LevelCoordinator.instance.GetLevelRegistry()[LevelCoordinator.instance.currentLevel].setComplete(true);
+    ///        }
+	///		else{
+	///			Debug.LogError("Could not update level information");
+	///		}
+    /// <param name="val"></param>
+
     public void setComplete(bool val) { isComplete = val; }
+    public void setSubquestComplete(bool val) { isComplete = val; }
 }
