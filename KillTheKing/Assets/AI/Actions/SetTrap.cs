@@ -38,8 +38,8 @@ public class SetTrap : RAINAction
 		newTrap.transform.position = trapPos;
 		//newTrap.transform.rotation = rotation;
 		
-		EntityRig pEnt = ai.Body.GetComponentInChildren<EntityRig> ();
-		pEnt.Entity.GetAspect("Good").IsActive=false;
+		//EntityRig pEnt = ai.Body.GetComponentInChildren<EntityRig> ();
+		//pEnt.Entity.GetAspect("Good").IsActive=false;
 
         return ActionResult.SUCCESS;
     }
