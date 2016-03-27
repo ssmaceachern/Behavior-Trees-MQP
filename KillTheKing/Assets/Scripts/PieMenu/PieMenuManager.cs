@@ -95,9 +95,22 @@ public class PieMenuManager : MonoBehaviour
             GUI.skin = menu.skin;
         for (var i = 0; i < menu.icons.Count; i++)
         {
-            float theta = (d * i);
-            float ix = (Mathf.Cos(theta) * radius) - (menu.iconSize / 2);
-            float iy = (Mathf.Sin(theta) * radius) - (menu.iconSize / 2);
+            float theta;
+            float ix = 0, iy = 0;
+
+            if (menu.icons.Count == 1)
+            {
+                theta = (d * i);
+                ix = -menu.iconSize / 2;
+                iy = -(menu.iconSize) - menu.spacing;
+            }
+            else
+            {
+                theta = (d * i);
+                ix = (Mathf.Cos(theta) * radius) - (menu.iconSize / 2);
+                iy = (Mathf.Sin(theta) * radius) - (menu.iconSize / 2);
+            }
+           
             if (GUI.Button(new Rect(ix, iy, menu.iconSize, menu.iconSize), menu.icons[i]))
             {
                 StartCoroutine(_Hide(menu));
