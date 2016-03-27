@@ -40,7 +40,7 @@ public class CreateRoadConnections : MonoBehaviour {
 		if (B.x < A.x) {angleC = 0 - angleC;}
 		if (B.z > A.z) {angleC2 = 0 - angleC2;}
 		
-		Debug.Log( "inputPosA" + A + " : inputPosB" + B + " : posC" + C + " : lengthC " + lengthC + " : sineC " + sineC + " : angleC " + angleC );
+		//Debug.Log( "inputPosA" + A + " : inputPosB" + B + " : posC" + C + " : lengthC " + lengthC + " : sineC " + sineC + " : angleC " + angleC );
 
         GameObject endPiece = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         endPiece.transform.position = new Vector3(wB.Position.x, wB.Position.y + 0.2f, wB.Position.z);

@@ -62,8 +62,11 @@ public class Explode : RAINAction
 		
 		ai.Body.GetComponentInChildren<EntityRig> ().Entity.GetAspect ("Trap").IsActive = false;
 
+
+		Debug.Log("Reached the bottom of the explode script");
+		ai.WorkingMemory.SetItem<bool>("Used", true);
 		//ai.Body.SetActive (false);
 
         return ActionResult.SUCCESS;
-    }
+    }	
 }
