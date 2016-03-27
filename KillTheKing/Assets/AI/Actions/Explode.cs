@@ -38,7 +38,8 @@ public class Explode : RAINAction
 		else if (myType == "SnareTrap") 
 		{
 			GameObject myVictim = ai.WorkingMemory.GetItem<GameObject> ("Victim");
-
+			
+			Debug.Log ("Unknoed?????????");
 			myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Rooted", 15);
 
 			Vector3 pullForce = new Vector3 ();
