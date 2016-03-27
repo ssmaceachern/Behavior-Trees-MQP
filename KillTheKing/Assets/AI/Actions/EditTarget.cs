@@ -32,6 +32,8 @@ public class EditTarget : RAINAction
 		GameObject charPar = GameObject.FindGameObjectWithTag ("Characters");
 		myTarget.transform.parent = charPar.transform;
 
+		myTarget.transform.position = ai.Body.transform.position;
+
 		int oldUnitsLeft = ai.WorkingMemory.GetItem<int> ("unitsLeft");
 		ai.WorkingMemory.SetItem<int> ("unitsLeft", oldUnitsLeft-1);
 
