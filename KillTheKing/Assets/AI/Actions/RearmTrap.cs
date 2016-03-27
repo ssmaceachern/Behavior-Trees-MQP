@@ -23,11 +23,12 @@ public class RearmTrap : RAINAction
 		} 
 		else 
 		{
-			Debug.Log("UNKNOWN UNIT TYPE IS USING REARM?");
+			Debug.Log("UNKNOWN UNIT TYPE IS USING REARM? " + ai.WorkingMemory.GetItem<string> ("ChestType"));
 		}
 
 		GameObject particle = (GameObject)GameObject.Instantiate(Resources.Load("EvilAura"));
 		particle.GetComponent<ParticleFade>().followTarget = ai.Body;
+		particle.GetComponent<ParticleFade>().timeTillFade = 20;
 
 		ai.WorkingMemory.SetItem<bool> ("Used", false);
 

@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: 40bb0aa14d6eb8f44bbd3c181fa894e9
-timeCreated: 1456332547
+timeCreated: 1459106080
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - kingAttHUD: {fileID: 115448, guid: 127b64d3a6671a94e86b42975ccda925, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

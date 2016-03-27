@@ -38,7 +38,8 @@ public class Explode : RAINAction
 		else if (myType == "SnareTrap") 
 		{
 			GameObject myVictim = ai.WorkingMemory.GetItem<GameObject> ("Victim");
-
+			
+			Debug.Log ("Unknoed?????????");
 			myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Rooted", 15);
 
 			Vector3 pullForce = new Vector3 ();
@@ -50,8 +51,11 @@ public class Explode : RAINAction
 
 			if(myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<string> ("UnitType")=="King")
 			{
-				int oldFear=myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Fear");
-				myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Fear", 10+oldFear);
+				dispatch.SendMsg(0.0f,
+				                 ai.Body,
+				                 myVictim,
+				                 (int)MessageTypes.MsgType.UpdateFear,
+				                 10);
 			}
 
 		} 
@@ -62,8 +66,11 @@ public class Explode : RAINAction
 		
 		ai.Body.GetComponentInChildren<EntityRig> ().Entity.GetAspect ("Trap").IsActive = false;
 
+
+		Debug.Log("Reached the bottom of the explode script");
+		ai.WorkingMemory.SetItem<bool>("Used", true);
 		//ai.Body.SetActive (false);
 
         return ActionResult.SUCCESS;
-    }
+    }	
 }

@@ -31,4 +31,21 @@ public class PieMenu : MonoBehaviour
         manager.Show(this);
     }
 
+    public void AddCommand(string Command, Texture CommandIMG)
+    {
+        commands.Add(Command);
+        icons.Add(CommandIMG);
+    }
+
+    public void RemoveCommand(string Command)
+    {
+        if (commands.Contains(Command))
+        {
+            int removeIndex = commands.IndexOf(Command);
+            commands.RemoveAt(removeIndex);
+            icons.RemoveAt(removeIndex);
+        }
+        
+    }
+
 }

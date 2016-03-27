@@ -6,8 +6,7 @@ using RAIN.Entities.Aspects;
 using RAIN.Minds;
 using RAIN.BehaviorTrees;
 using System.IO;
-
-
+using System;
 
 public class HireUnitSetLocation : MonoBehaviour {
 
@@ -19,6 +18,9 @@ public class HireUnitSetLocation : MonoBehaviour {
 
     LineRenderer line;
     SpriteRenderer flagSprite;
+
+    float lifeTimer;
+    float indicatorLifeTime = 2.0f;
 
     public static Texture2D LoadPNG(string filePath)
     {
@@ -38,17 +40,22 @@ public class HireUnitSetLocation : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        lifeTimer = 0f;
+
         moveToLine = new GameObject();
         moveToLineIMG = new GameObject();
 
         line = moveToLine.AddComponent<LineRenderer>();
         line.material.color = Color.black;
+        line.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         line.receiveShadows = false;
         line.SetWidth(.2f, .2f);
 
         flagSprite = moveToLineIMG.AddComponent<SpriteRenderer>();
         flagSprite.sprite = Resources.Load("Flag", typeof(Sprite)) as Sprite;
         flagSprite.enabled = false;
+
+        line.material = flagSprite.material;
 
         line.SetPosition(0, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z));
         line.SetPosition(1, transform.position);
@@ -67,6 +74,7 @@ public class HireUnitSetLocation : MonoBehaviour {
 	void Update () 
 	{
         //Cursor.SetCursor(mouseCursorTexture, Vector2.zero, CursorMode.Auto);
+        fadeIndicator();
 
         if (givePosition)
         {
@@ -82,7 +90,10 @@ public class HireUnitSetLocation : MonoBehaviour {
 			
 			if (Physics.Raycast(ray, out hit, 200.0f) != false)
 			{
-				GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<Vector3>("Location", hit.point);
+                moveToLineIMG.SetActive(true);
+                moveToLine.SetActive(true);
+
+                GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<Vector3>("Location", hit.point);
                 GetComponentInChildren<AIRig>().AI.WorkingMemory.SetItem<bool>("Moving", true);
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
@@ -94,7 +105,7 @@ public class HireUnitSetLocation : MonoBehaviour {
         {
             Vector3 designatedLocation = GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<Vector3>("Location");
 
-            line.SetPosition(0, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z));
+            line.SetPosition(0, new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z));
             line.SetPosition(1, designatedLocation);
 
             moveToLineIMG.transform.position = Vector3.Lerp(transform.position, designatedLocation, 1f);
@@ -119,8 +130,22 @@ public class HireUnitSetLocation : MonoBehaviour {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
         }
     }
-	
-	void OnSelect(string command)
+
+    private void fadeIndicator()
+    {
+        float lerp = Mathf.PingPong(Time.time, indicatorLifeTime) / indicatorLifeTime;
+
+        float alpha = Mathf.Lerp(1.0f, 0.0f, lerp);
+
+        line.material.color = flagSprite.color = new Color(1f, 1f, 1f, alpha);
+        if(alpha <= 0.1)
+        {
+            moveToLineIMG.SetActive(false);
+            moveToLine.SetActive(false);
+        }
+    }
+
+    void OnSelect(string command)
 	{
 		if (!givePosition) {
 			GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<string> ("Command", command);

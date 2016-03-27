@@ -2,6 +2,7 @@
 using System.Collections;
 using RAIN.Core;
 using RAIN.Entities;
+using RAIN.Entities.Aspects;
 
 // Define how mercenaries will handle various messages
 public class MercMessageReceiver : MessageReceiver 
@@ -25,6 +26,12 @@ public class MercMessageReceiver : MessageReceiver
 		{
 			AIRig mercAI = GetComponentInChildren<AIRig>();
 			int currentHealth = mercAI.AI.WorkingMemory.GetItem<int>("Health");
+
+
+			if(mercAI.AI.WorkingMemory.GetItem<string>("UnitType")=="Thug" || mercAI.AI.WorkingMemory.GetItem<string>("UnitType")=="Archer")
+			{
+				GetComponentInChildren<EntityRig> ().Entity.GetAspect("Hurt").IsActive = true;
+			}
 
 			// Decrement our health by the amount of damage contained in the message
 			mercAI.AI.WorkingMemory.SetItem<int>("Health", (currentHealth - (int)msg.info));
@@ -129,12 +136,18 @@ public class MercMessageReceiver : MessageReceiver
 				nudgeForce.z = (Random.value*100-50);
 				hisBod.AddForce(nudgeForce);
 			}
+
+			if(oldHealth>=90)
+			{
+				GetComponentInChildren<EntityRig> ().Entity.GetAspect("Hurt").IsActive = false;
+			}
 		}
 		else if (msg.msgType == (int)MessageTypes.MsgType.GreenSong)
 		{
 			AIRig mercAi = GetComponentInChildren<AIRig>();
 
-			if(mercAi.AI.WorkingMemory.GetItem<string>("UnitType")=="Priest" || mercAi.AI.WorkingMemory.GetItem<string>("UnitType")=="Bard")
+			if(mercAi.AI.WorkingMemory.GetItem<string>("UnitType")=="Priest" || mercAi.AI.WorkingMemory.GetItem<string>("UnitType")=="Bard" 
+			   || mercAi.AI.WorkingMemory.GetItem<string>("UnitType")=="Trapper" || mercAi.AI.WorkingMemory.GetItem<string>("UnitType")=="Chester")
 			{
 				return;
 			}
@@ -153,6 +166,11 @@ public class MercMessageReceiver : MessageReceiver
 				nudgeForce.y = 300;
 				nudgeForce.z = (Random.value*100-50);
 				hisBod.AddForce(nudgeForce);
+			}
+
+			if(oldHealth>=90)
+			{
+				GetComponentInChildren<EntityRig> ().Entity.GetAspect("Hurt").IsActive = false;
 			}
 		}
 	}

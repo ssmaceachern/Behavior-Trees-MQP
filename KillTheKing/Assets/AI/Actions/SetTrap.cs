@@ -28,7 +28,7 @@ public class SetTrap : RAINAction
 
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
-		Quaternion rotation = Quaternion.Euler (trapRotation.Evaluate <Vector3> (ai.DeltaTime, ai.WorkingMemory));
+		//Quaternion rotation = Quaternion.Euler (trapRotation.Evaluate <Vector3> (ai.DeltaTime, ai.WorkingMemory));
 
 		GameObject newTrap = (GameObject)GameObject.Instantiate (Resources.Load (trap));
 		
@@ -36,10 +36,13 @@ public class SetTrap : RAINAction
 		newTrap.transform.parent = charPar.transform;
 
 		newTrap.transform.position = trapPos;
+
+        ai.Body.GetComponent<PieMenu>().RemoveCommand(trap);
+
 		//newTrap.transform.rotation = rotation;
 		
-		EntityRig pEnt = ai.Body.GetComponentInChildren<EntityRig> ();
-		pEnt.Entity.GetAspect("Good").IsActive=false;
+		//EntityRig pEnt = ai.Body.GetComponentInChildren<EntityRig> ();
+		//pEnt.Entity.GetAspect("Good").IsActive=false;
 
         return ActionResult.SUCCESS;
     }

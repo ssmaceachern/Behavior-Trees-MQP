@@ -31,8 +31,6 @@ public class CircularHealthBar : MonoBehaviour
 
     void Update()
     {
-
-
         CircleImage.fillAmount = Mathf.Clamp(scrollbar.value, 0.001f, BarEnd);
         CircleImage.color = Color.Lerp(start, end, scrollbar.value / BarEnd);
         //current = Color.Lerp(start, end, scrollbar.value);

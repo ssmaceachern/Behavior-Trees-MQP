@@ -44,8 +44,6 @@ public class TurnOnBars : MonoBehaviour
         {
             Debug.Log("No AI found");
         }
-        int initFear = kingAI.AI.WorkingMemory.GetItem<int>("Fear");
-        Debug.Log("Initial fear is " + initFear);
         InitFear(kingAI.AI.WorkingMemory.GetItem<int>("Fear"));
         InitParanoia(kingAI.AI.WorkingMemory.GetItem<System.Int32>("Paranoia"));
         InitGreed(kingAI.AI.WorkingMemory.GetItem<System.Int32>("Greed"));
