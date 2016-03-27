@@ -44,4 +44,9 @@ public class DisplayKingAttributes : MonoBehaviour {
         FearScrollbarReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>("Fear") / (100f * 4f);
 	}
 
+    void ChangeParanoia(int value)
+    {
+        
+    }
+
 }

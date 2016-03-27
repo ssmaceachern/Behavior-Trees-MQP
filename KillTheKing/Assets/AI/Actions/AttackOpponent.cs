@@ -8,7 +8,16 @@ using RAIN.Core;
 [RAINAction]
 public class AttackOpponent : RAINAction
 {
-	public override ActionResult Execute(RAIN.Core.AI ai)
+    private AudioManager audio;
+
+    public override void Start(RAIN.Core.AI ai)
+    {
+        audio = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioManager>();
+
+        base.Start(ai);
+    }
+
+    public override ActionResult Execute(RAIN.Core.AI ai)
 	{
 		GameObject myEnemy = ai.WorkingMemory.GetItem<GameObject> ("Opponent");
 		MessageDispatcher dispatch = ai.Body.GetComponent<MessageDispatcher> ();
@@ -46,8 +55,15 @@ public class AttackOpponent : RAINAction
 		                  ai.Body,
 		                  myEnemy,
 		                  (int)MessageTypes.MsgType.DealDamage,
-		                  myDamage);        
-		
-		return ActionResult.SUCCESS;
+		                  myDamage);
+
+        // Play a sound, so the player knows we are dealing damage
+        if ((audio != null) && (audio.swordSounds.Length > 0))
+        {
+            ai.Body.GetComponent<AudioSource>().clip = audio.getRandomSwordSound();
+            ai.Body.GetComponent<AudioSource>().Play();
+        }
+
+        return ActionResult.SUCCESS;
 	}
 }
