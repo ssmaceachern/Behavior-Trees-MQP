@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using RAIN.Action;
 using RAIN.Core;
+using RAIN.Entities;
+using RAIN.Entities.Aspects;
 
 [RAINAction]
 public class BecomeMerc : RAINAction
@@ -24,7 +26,10 @@ public class BecomeMerc : RAINAction
         }
 
         newMerc.transform.position = ai.Body.transform.position;
-        newMerc.transform.parent = charPar.transform;
+		newMerc.transform.parent = charPar.transform;
+		newMerc.GetComponentInChildren<EntityRig> ().Entity.GetAspect("Rebel").IsActive = false;
+
+
 
         GameObject particle = (GameObject)GameObject.Instantiate(Resources.Load("Halo"));
         particle.GetComponent<ParticleFade>().followTarget = newMerc;

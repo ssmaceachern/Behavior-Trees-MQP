@@ -35,7 +35,8 @@ public class HandleTarget : RAINAction
 
 
         /************************* Knights's way of handling traps ***********************/
-        if (myType=="Knight") { // if this is a knight that's been ordered to check a trap by the king
+		if (myType=="Knight") // if this is a knight that's been ordered to check a trap by the king
+		{
 
 			if (itsType == "FoodBribe") { // Food bribe trap
 
@@ -210,7 +211,9 @@ public class HandleTarget : RAINAction
 				
 				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 
-			} else if(itsType == "Spooky") {
+			} 
+			else if(itsType == "Spooky") 
+			{
 				// Deactivate the trap and forget about it
 				ai.WorkingMemory.SetItem<GameObject>("Target", null);
 				
@@ -221,9 +224,35 @@ public class HandleTarget : RAINAction
 				                  myKing,
 				                  (int)MessageTypes.MsgType.CheckTrap,
 				                  null);
-			} else { 
+			} 
+			else if(itsType == "SuperShield")
+			{
+				ai.WorkingMemory.SetItem<GameObject>("Target", null);
+
+				GameObject myKing = ai.WorkingMemory.GetItem<GameObject> ("Master");
+				dispatch.SendMsg (0.0f,
+				                  ai.Body,
+				                  myKing,
+				                  (int)MessageTypes.MsgType.CheckTrap,
+				                  null);
+
+				GameObject bubble = (GameObject)GameObject.Instantiate (Resources.Load ("Supershield"));
+				bubble.GetComponent<ParticleFade>().followTarget=ai.Body;
+
+			}
+			else 
+			{ 
 				Debug.Log("Knight encountered an unusual trap");
 			}
+
+
+
+
+
+
+
+
+
 
         /************************* King's way of handling traps ***********************/
         } else if (myType=="King") { // the king is greedy and activates the trap himself

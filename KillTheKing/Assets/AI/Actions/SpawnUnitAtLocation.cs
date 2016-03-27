@@ -13,20 +13,24 @@ public class SpawnUnitAtLocation : RAINAction
 
         GameObject charPar = GameObject.FindGameObjectWithTag("Characters");
 
-        if (toSpawn != "") 
+        if (toSpawn != "Null") 
 		{
 			GameObject newUnit = (GameObject)GameObject.Instantiate (Resources.Load (toSpawn));
 
 			newUnit.transform.position = ai.Body.transform.position;
-            newUnit.transform.parent = charPar.transform;
+			newUnit.transform.parent = charPar.transform;
 
-            ai.WorkingMemory.SetItem<GameObject> ("Target", newUnit);
 
-            if (charPar.GetComponent<FreezeGameplay>().IsFrozen())
-            {
-                newUnit.GetComponentInChildren<AIRig>().AI.IsActive = false;
-            }
-        }
+			ai.WorkingMemory.SetItem<GameObject> ("Target", newUnit);
+
+			if (charPar.GetComponent<FreezeGameplay> ().IsFrozen ()) {
+				newUnit.GetComponentInChildren<AIRig> ().AI.IsActive = false;
+			}
+		} 
+		else 
+		{
+			Debug.Log("I am aware i print none");
+		}
 
         return ActionResult.SUCCESS;
     }
