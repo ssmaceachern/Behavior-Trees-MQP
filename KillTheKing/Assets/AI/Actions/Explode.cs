@@ -50,8 +50,11 @@ public class Explode : RAINAction
 
 			if(myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<string> ("UnitType")=="King")
 			{
-				int oldFear=myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Fear");
-				myVictim.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Fear", 10+oldFear);
+				dispatch.SendMsg(0.0f,
+				                 ai.Body,
+				                 myVictim,
+				                 (int)MessageTypes.MsgType.UpdateFear,
+				                 10);
 			}
 
 		} 

@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class FlashColor : MonoBehaviour
 {
     // The color we will flash
-    public Color flashColor = Color.red;
+    public Color badFlashColor = Color.red;
     public float flashLength = 0.5f;
+	public Color goodFlashColor = Color.green;
 
+	private Color flashColor;
     private Image ourImage;
     private bool toFlash;
     private Color startColor;
@@ -50,7 +52,15 @@ public class FlashColor : MonoBehaviour
 
     public void Flash()
     {
+		flashColor = badFlashColor;
         toFlash = true;
         currentFlashLength = 0.0f;
     }
+
+	public void GoodFlash()
+	{
+		flashColor = goodFlashColor;
+		toFlash = true;
+		currentFlashLength = 0.0f;
+	}
 }

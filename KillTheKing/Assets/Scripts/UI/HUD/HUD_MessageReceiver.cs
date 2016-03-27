@@ -7,15 +7,15 @@ public class HUD_MessageReceiver : MessageReceiver
     {
         if (msg.msgType == (int)MessageTypes.MsgType.UpdateParanoia)
         {
-            GetComponent<TurnOnBars>().ChangeParanoia((int)msg.info);
+            GetComponentInChildren<DisplayKingAttributes>().ChangeParanoia((int)msg.info);
         }
         else if (msg.msgType == (int)MessageTypes.MsgType.UpdateGreed)
         {
-            GetComponent<TurnOnBars>().ChangeGreed((int)msg.info);
+            GetComponentInChildren<DisplayKingAttributes>().ChangeGreed((int)msg.info);
         }
         else if (msg.msgType == (int)MessageTypes.MsgType.UpdateFear)
         {
-            GetComponent<TurnOnBars>().ChangeFear((int)msg.info);
+            GetComponentInChildren<DisplayKingAttributes>().ChangeFear((int)msg.info);
         }
     }
 }
