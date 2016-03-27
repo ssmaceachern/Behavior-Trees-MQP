@@ -28,7 +28,7 @@ public class SetTrap : RAINAction
 
     public override ActionResult Execute(RAIN.Core.AI ai)
     {
-		Quaternion rotation = Quaternion.Euler (trapRotation.Evaluate <Vector3> (ai.DeltaTime, ai.WorkingMemory));
+		//Quaternion rotation = Quaternion.Euler (trapRotation.Evaluate <Vector3> (ai.DeltaTime, ai.WorkingMemory));
 
 		GameObject newTrap = (GameObject)GameObject.Instantiate (Resources.Load (trap));
 		
