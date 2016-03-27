@@ -44,7 +44,7 @@ public class KingAttributeManager : MonoBehaviour
                                  this.gameObject,
                                  kingAttHUD,
                                  (int)MessageTypes.MsgType.UpdateParanoia,
-                                 newValue);
+                                 amount);
                 // Check the thresholds
                 result = CheckThreshold(oldValue, newValue, 80);
                 if (result >= 1)
@@ -58,7 +58,7 @@ public class KingAttributeManager : MonoBehaviour
                                  this.gameObject,
                                  kingAttHUD,
                                  (int)MessageTypes.MsgType.UpdateGreed,
-                                 newValue);
+                                 amount);
                 // Check the thresholds
                 result = CheckThreshold(oldValue, newValue, 0);
            //     Debug.Log(result);
@@ -91,7 +91,7 @@ public class KingAttributeManager : MonoBehaviour
                                  this.gameObject,
                                  kingAttHUD,
                                  (int)MessageTypes.MsgType.UpdateFear,
-                                 newValue);
+                                 amount);
                 // Check the thresholds
                 result = CheckThreshold(oldValue, newValue, 10);
                 if (result >= 1)
