@@ -11,8 +11,13 @@ public class Explode : RAINAction
 {
     public override ActionResult Execute(RAIN.Core.AI ai)
 	{
+		ai.Body.GetComponentInChildren<EntityRig> ().Entity.GetAspect ("Trap").IsActive = false;
+		ai.WorkingMemory.SetItem<bool>("Used", true);
+
 		string myType = ai.WorkingMemory.GetItem<string> ("TrapType");
 		MessageDispatcher dispatch = ai.Body.GetComponent<MessageDispatcher> ();
+		
+		Debug.Log("Starting explode");
 
 		if (myType == "SpikeTrap") 
 		{
@@ -28,12 +33,16 @@ public class Explode : RAINAction
 				hisBod.AddForce(nudgeForce);
 			}
 			
+			Debug.Log("Boomxploding");
+
 			dispatch.BroadcastMsg (0.0f,
 			                       ai.Body,
 			                       ai.Body.transform.position,
 			                       5,
 			                       (int)MessageTypes.MsgType.SpikeTrap,
 			                       35);
+
+			Debug.Log("boomed");
 		} 
 		else if (myType == "SnareTrap") 
 		{
@@ -64,11 +73,8 @@ public class Explode : RAINAction
 			Debug.Log ("Unknown trap exploded?????????");
 		}
 		
-		ai.Body.GetComponentInChildren<EntityRig> ().Entity.GetAspect ("Trap").IsActive = false;
-
-
+		
 		Debug.Log("Reached the bottom of the explode script");
-		ai.WorkingMemory.SetItem<bool>("Used", true);
 		//ai.Body.SetActive (false);
 
         return ActionResult.SUCCESS;
