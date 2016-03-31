@@ -45,6 +45,7 @@ public class KingAttributeManager : MonoBehaviour
                                  kingAttHUD,
                                  (int)MessageTypes.MsgType.UpdateParanoia,
                                  amount);
+
                 // Check the thresholds
                 result = CheckThreshold(oldValue, newValue, 80);
                 if (result >= 1)

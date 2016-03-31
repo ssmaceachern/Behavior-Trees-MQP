@@ -51,17 +51,16 @@ public class HandleTarget : RAINAction
 				if(myKing != null)
 				{
 					int oldGreed=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Greed");
-					myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Greed", oldGreed+20);
+                    myKing.GetComponent<KingAttributeManager>().ChangeAttribute("Greed", 20);
 
-					int oldFear=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Fear");
-					myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Fear", oldFear-20);
+                    int oldFear=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Fear");
+                    myKing.GetComponent<KingAttributeManager>().ChangeAttribute("Fear", -20);
 
-					int oldPara=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Paranoia");
-					myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Paranoia", oldPara-20);
-				
+                    int oldPara=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Paranoia");
+                    myKing.GetComponent<KingAttributeManager>().ChangeAttribute("Paranoia", -20);
 
-					// Now that the task is complete, let the king know he can select other guards for other tasks
-					dispatch.SendMsg (0.0f,
+                    // Now that the task is complete, let the king know he can select other guards for other tasks
+                    dispatch.SendMsg (0.0f,
 					                  ai.Body,
 					                  myKing,
 					                  (int)MessageTypes.MsgType.CheckTrap,
@@ -98,17 +97,16 @@ public class HandleTarget : RAINAction
 				if(myKing != null)
 				{
 					int oldGreed=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Greed");
-					myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Greed", oldGreed+30);
-					
-					int oldFear=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Fear");
-					myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Fear", oldFear-10);
-					
-					int oldPara=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Paranoia");
-					myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<int> ("Paranoia", oldPara-10);
-					
-					
-					// Now that the task is complete, let the king know he can select other guards for other tasks
-					dispatch.SendMsg (0.0f,
+                    myKing.GetComponent<KingAttributeManager>().ChangeAttribute("Greed", 30);
+
+                    int oldFear=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Fear");
+                    myKing.GetComponent<KingAttributeManager>().ChangeAttribute("Fear", -10);
+
+                    int oldPara=myKing.GetComponentInChildren<AIRig> ().AI.WorkingMemory.GetItem<int> ("Paranoia");
+                    myKing.GetComponent<KingAttributeManager>().ChangeAttribute("Paranoia", -10);
+
+                    // Now that the task is complete, let the king know he can select other guards for other tasks
+                    dispatch.SendMsg (0.0f,
 					                  ai.Body,
 					                  myKing,
 					                  (int)MessageTypes.MsgType.CheckTrap,
