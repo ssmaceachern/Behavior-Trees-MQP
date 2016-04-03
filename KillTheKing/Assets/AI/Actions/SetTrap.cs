@@ -37,7 +37,7 @@ public class SetTrap : RAINAction
 
 		newTrap.transform.position = trapPos;
 
-        ai.Body.GetComponent<PieMenu>().RemoveCommand(trap);
+        ai.Body.GetComponent<PieMenu>().OnlyMove();
 
 		//newTrap.transform.rotation = rotation;
 		

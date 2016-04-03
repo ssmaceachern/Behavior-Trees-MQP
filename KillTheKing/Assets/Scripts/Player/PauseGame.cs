@@ -34,4 +34,33 @@ public class PauseGame : MonoBehaviour
     {
         gameSpeed = 1.0f;
     }
+
+    public void Pause()
+    {
+        /*     if (paused)
+             {
+                 paused = false;
+                 Time.timeScale = 1.0f;
+                 PauseMenu.SetActive(false);
+                 return;
+             } */
+
+        paused = true;
+        Time.timeScale = 0;
+
+        PauseMenu.SetActive(true);
+    }
+
+    public void UnPause()
+    {
+        paused = false;
+        Time.timeScale = 1;
+
+        PauseMenu.SetActive(false);
+    }
+
+    public void FF()
+    {
+        Time.timeScale = 2.0f;
+    }
 }

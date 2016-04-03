@@ -143,7 +143,7 @@ public class KingMessageReceiver : MessageReceiver
 				particle.transform.position = new Vector3 (transform.position.x, transform.position.y, transform.position.z);
 				Rigidbody hisBod = particle.GetComponent<Rigidbody> ();
 				Vector3 nudgeForce = new Vector3 ();
-				nudgeForce=(transform.position-msg.sender.transform.position)*50;
+				nudgeForce=(transform.position-msg.sender.transform.position)*50000000;
 				nudgeForce.x += (Random.value*100-50);
 				nudgeForce.y = 300;
 				nudgeForce.z += (Random.value*100-50);

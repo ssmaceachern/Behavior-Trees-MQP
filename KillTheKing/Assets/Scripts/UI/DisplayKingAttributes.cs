@@ -44,9 +44,9 @@ public class DisplayKingAttributes : MonoBehaviour {
 
 		ParanoiaScrollbarReference = ParanoiaHUD.GetComponentInChildren<Scrollbar> ();
 		GreedScrollbarReference = GreedHUD.GetComponentInChildren<Scrollbar> ();
-		FearScrollbarReference = FearHUD.GetComponentInChildren<Scrollbar> ();
+        FearScrollbarReference = FearHUD.GetComponentInChildren<Scrollbar> ();
 
-		paranoiaEmoji = ParanoiaHUD.transform.FindChild ("Emoji").gameObject.GetComponent<Image> ();
+        paranoiaEmoji = ParanoiaHUD.transform.FindChild ("Emoji").gameObject.GetComponent<Image> ();
 		greedEmoji = GreedHUD.transform.FindChild ("Emoji").gameObject.GetComponent<Image> ();
 		fearEmoji = FearHUD.transform.FindChild ("Emoji").gameObject.GetComponent<Image> ();
 
@@ -60,15 +60,15 @@ public class DisplayKingAttributes : MonoBehaviour {
 
 		//SliderReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>(currentModeName);
         HealthScrollbarReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>("Health") / (100f * 1f);
-/*        ParanoiaScrollbarReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>("Paranoia") / (100f * 4f);
+        ParanoiaScrollbarReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>("Paranoia") / (100f * 4f);
         GreedScrollbarReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>("Greed") / (100f * 4f);
-        FearScrollbarReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>("Fear") / (100f * 4f); */
+        FearScrollbarReference.value = tRig.AI.WorkingMemory.GetItem<System.Int32>("Fear") / (100f * 4f);
 	}
 
     public void ChangeParanoia(int value)
     {
 		ParanoiaScrollbarReference.value += (value / (100f * 4f));
-		//ParanoiaScrollbarReference.value /= (100f * 4f);
+
 		if (value > 0) {
 			paranoiaEmoji.GetComponent<FlashColor> ().GoodFlash ();
 		} else
@@ -78,7 +78,7 @@ public class DisplayKingAttributes : MonoBehaviour {
 	public void ChangeFear(int value)
 	{
 		FearScrollbarReference.value += (value / (100f * 4f));
-		//ParanoiaScrollbarReference.value /= (100f * 4f);
+
 		if (value > 0) {
 			fearEmoji.GetComponent<FlashColor> ().GoodFlash ();
 		} else
@@ -87,8 +87,13 @@ public class DisplayKingAttributes : MonoBehaviour {
 
 	public void ChangeGreed(int value)
 	{
+        if (GreedScrollbarReference == null)
+        {
+            Debug.Log("Null reference for greed scroll bar");
+            return;
+        }
 		GreedScrollbarReference.value += (value / (100f * 4f));
-		//GreedScrollbarReference.value /= (100f * 4f);
+
 		if (value > 0) {
 			greedEmoji.GetComponent<FlashColor> ().GoodFlash ();
 		} else

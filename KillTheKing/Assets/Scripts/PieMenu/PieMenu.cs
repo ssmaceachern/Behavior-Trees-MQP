@@ -48,4 +48,16 @@ public class PieMenu : MonoBehaviour
         
     }
 
+	public void OnlyMove()
+	{
+		while(commands.Count!=0)
+		{
+			commands.RemoveAt(0);
+			icons.RemoveAt(0);
+		}
+
+		commands.Add ("Move");
+		icons.Add((Texture2D)Resources.Load("Check.png"));
+	}
+
 }

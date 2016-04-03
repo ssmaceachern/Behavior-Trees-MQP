@@ -41,6 +41,9 @@ public class PieMenuManager : MonoBehaviour
         }
         display.Add(menu);
         StartCoroutine(_Show(menu));
+
+		GameObject indicator=menu.transform.FindChild("range").gameObject;
+		indicator.SetActive(true);
     }
 
     public void Hide(PieMenu menu)
@@ -59,6 +62,9 @@ public class PieMenuManager : MonoBehaviour
         menu.scale = 0f;
         menu.angle = 0f;
         display.Remove(menu);
+
+		GameObject indicator=menu.transform.FindChild("range").gameObject;
+		indicator.SetActive(false);
     }
 
     private IEnumerator _Show(PieMenu menu)
