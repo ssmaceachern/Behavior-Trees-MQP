@@ -98,6 +98,12 @@ public class HireUnitSetLocation : MonoBehaviour {
                 Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
 
                 givePosition = false;
+
+				GameObject indicator=transform.FindChild("range").gameObject;
+				if(indicator!=null)
+				{
+					indicator.SetActive(false);
+				}
             }
         }
 
@@ -150,6 +156,12 @@ public class HireUnitSetLocation : MonoBehaviour {
 		if (!givePosition) {
 			GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<string> ("Command", command);
 			givePosition = true;
+
+			GameObject indicator=transform.FindChild("range").gameObject;
+			if(indicator!=null)
+			{
+				indicator.SetActive(true);
+			}
 
             line.SetPosition(0, new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z));
             line.SetPosition(1, transform.position);
