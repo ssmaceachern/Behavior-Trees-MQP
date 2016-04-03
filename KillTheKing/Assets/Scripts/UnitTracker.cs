@@ -67,7 +67,7 @@ public class UnitTracker : MonoBehaviour {
         activated = true;
         TargetPos = new Vector3(goTarget.transform.position.x, Camera.main.transform.position.y, goTarget.transform.position.z);
         //Debug.Log("Button clicked");
-        StartCoroutine(MoveCamera(Camera.main.transform.position, TargetPos, 1.5f));
+        StartCoroutine(MoveCamera(Camera.main.transform.position, TargetPos, 1f));
     }
 
     IEnumerator MoveCamera(Vector3 source, Vector3 target, float overTime)

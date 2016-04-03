@@ -13,6 +13,7 @@ public class UnitTrackerSpawner : MonoBehaviour {
         spawnable = new Dictionary<string, Sprite>{
         { "Trapper" , Resources.Load("Icons/ActorSprites/Trapper", typeof(Sprite)) as Sprite},
         { "Archer Tower" , Resources.Load("Icons/ActorSprites/Tower", typeof(Sprite)) as Sprite},
+		{ "Chester" , Resources.Load("Icons/ActorSprites/Chester", typeof(Sprite)) as Sprite},
         { "Archer" , Resources.Load("Icons/ActorSprites/Archer", typeof(Sprite)) as Sprite},
         { "Assassin" , Resources.Load("Icons/ActorSprites/Assassin", typeof(Sprite)) as Sprite},
         { "Priest" , Resources.Load("Icons/ActorSprites/Priest", typeof(Sprite)) as Sprite},
