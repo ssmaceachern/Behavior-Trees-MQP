@@ -20,7 +20,7 @@ public class MercMessageReceiver : MessageReceiver
 			
 			Rigidbody myBod = this.gameObject.GetComponent<Rigidbody> ();
 			myBod.AddForce(pushForce);
-			Debug.Log("I herd this");
+			Debug.Log(GetComponentInChildren<AIRig>().AI.WorkingMemory.GetItem<string>("UnitType")+ " herd this");
 		}
 		else if (msg.msgType == (int) MessageTypes.MsgType.DealDamage  || msg.msgType == (int)MessageTypes.MsgType.GhoulBomb)
 		{
