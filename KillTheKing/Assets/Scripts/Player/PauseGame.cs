@@ -12,14 +12,10 @@ public class PauseGame : MonoBehaviour
 	{
 		if (Input.GetKeyDown (KeyCode.Escape) == true)
 		{
-			paused = !paused;
-
             if (paused)
-                Time.timeScale = 0;
+                UnPause();
             else
-                Time.timeScale = gameSpeed;
-			
-			PauseMenu.SetActive (paused);
+                Pause();
 		}
 	}
 
@@ -37,14 +33,6 @@ public class PauseGame : MonoBehaviour
 
     public void Pause()
     {
-        /*     if (paused)
-             {
-                 paused = false;
-                 Time.timeScale = 1.0f;
-                 PauseMenu.SetActive(false);
-                 return;
-             } */
-
         paused = true;
         Time.timeScale = 0;
 
@@ -62,5 +50,10 @@ public class PauseGame : MonoBehaviour
     public void FF()
     {
         Time.timeScale = 2.0f;
+    }
+
+    public bool isPaused()
+    {
+        return paused;
     }
 }

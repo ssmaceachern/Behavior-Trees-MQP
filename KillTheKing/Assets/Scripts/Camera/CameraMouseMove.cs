@@ -16,9 +16,7 @@ public class CameraMouseMove : MonoBehaviour {
     public float minX, minY, minZ;
     public float maxX, maxY, maxZ;
     private Vector3 topLeftCorner, topRightCorner, bottomLeftCorner, bottomRightCorner;
-
-    //private int ScreenWidth;
-    //private int ScreenHeight;
+    private PauseGame pg;
 
     // Use this for initialization
     void Start () {
@@ -30,11 +28,17 @@ public class CameraMouseMove : MonoBehaviour {
         bottomRightCorner = new Vector3(maxX, yBoundary, minZ);
         topLeftCorner = new Vector3(minX, yBoundary, maxZ);
         topRightCorner = new Vector3(maxX, yBoundary, maxZ);
+
+        pg = GameObject.FindGameObjectWithTag("Player").GetComponent<PauseGame>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Don't move the camera when the game is paused
+        if (pg.isPaused())
+            return;
+
 		float horizontal = Input.GetAxis ("Horizontal");
 		float vertical = Input.GetAxis ("Vertical");
 
