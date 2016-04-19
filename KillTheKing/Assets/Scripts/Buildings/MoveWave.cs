@@ -21,10 +21,16 @@ public class MoveWave : MonoBehaviour
 		{
 			Destroy (this.gameObject);
 		}
+
 	}
 
-	// Destroy a game object hit by a wave
-	void OnTriggerEnter(Collider col)
+    void LateUpdate()
+    {
+        transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+    }
+
+    // Destroy a game object hit by a wave
+    void OnTriggerEnter(Collider col)
 	{
 		if (col.gameObject.tag == "King" || col.gameObject.tag == "Guard" || col.gameObject.tag == "Merc")
 		{
