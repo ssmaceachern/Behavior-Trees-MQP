@@ -28,7 +28,12 @@ public class UnitTracker : MonoBehaviour {
         float vertical = Input.GetAxis("Vertical");
 
         movement = new Vector3(horizontal * speed, 0.0f, vertical * speed);
-        PositionArrow();
+        
+		if (goTarget.transform == null || goTarget.activeSelf == false) {
+			Destroy (this.gameObject);
+		} else {
+			PositionArrow();
+		}
 
         if(Input.anyKeyDown)
         {
@@ -44,6 +49,7 @@ public class UnitTracker : MonoBehaviour {
 
     void PositionArrow()
     {
+
         Vector3 v3Screen = Camera.main.WorldToViewportPoint(goTarget.transform.position);
         if (v3Screen.x > -0.1f && v3Screen.x < 1.1f && v3Screen.y > -0.1f && v3Screen.y < 0.95f)
         {

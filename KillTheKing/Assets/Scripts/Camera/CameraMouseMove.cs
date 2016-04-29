@@ -17,6 +17,8 @@ public class CameraMouseMove : MonoBehaviour {
     public float maxX, maxY, maxZ;
     private Vector3 topLeftCorner, topRightCorner, bottomLeftCorner, bottomRightCorner;
 
+	public bool CameraMinMaxBoundsEnabled;
+
     //private int ScreenWidth;
     //private int ScreenHeight;
 
@@ -42,10 +44,17 @@ public class CameraMouseMove : MonoBehaviour {
 
 		Vector3 newPos = transform.position + movement;
 
-		if (newPos.x >= xBoundary || newPos.x <= -xBoundary)
-			newPos.x = transform.position.x;
-		if (newPos.z >= zBoundary || newPos.z <= -zBoundary)
-			newPos.z = transform.position.z;
+		if (CameraMinMaxBoundsEnabled) {
+			if (newPos.x >= maxX || newPos.x <= minX)
+				newPos.x = transform.position.x;
+			if (newPos.z >= maxZ || newPos.z <= minZ)
+				newPos.z = transform.position.z;
+		} else {
+			if (newPos.x >= xBoundary || newPos.x <= -xBoundary)
+				newPos.x = transform.position.x;
+			if (newPos.z >= zBoundary || newPos.z <= -zBoundary)
+				newPos.z = transform.position.z;
+		}
 
 		transform.position = newPos;
 
@@ -84,24 +93,20 @@ public class CameraMouseMove : MonoBehaviour {
 
     public void OnDrawGizmos()
     {
-        if(xBoundary > 0 && yBoundary > 0 && zBoundary > 0)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(new Vector3(xBoundary, 5f, zBoundary), new Vector3(xBoundary, 5f, -zBoundary));
-            Gizmos.DrawLine(new Vector3(-xBoundary, 5f, zBoundary), new Vector3(xBoundary, 5f, zBoundary));
-
-            Gizmos.DrawLine(new Vector3(-xBoundary, 5f, -zBoundary), new Vector3(xBoundary, 5f, -zBoundary));
-            Gizmos.DrawLine(new Vector3(-xBoundary, 5f, -zBoundary), new Vector3(-xBoundary, 5f, zBoundary));
-        }
-        else
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(bottomLeftCorner, bottomRightCorner);
-            Gizmos.DrawLine(bottomLeftCorner, topLeftCorner);
-            Gizmos.DrawLine(topRightCorner, bottomRightCorner);
-            Gizmos.DrawLine(topRightCorner, topLeftCorner);
-        }
-
+		if (CameraMinMaxBoundsEnabled) {
+			Gizmos.color = Color.red;
+			Gizmos.DrawLine (bottomLeftCorner, bottomRightCorner);
+			Gizmos.DrawLine (bottomLeftCorner, topLeftCorner);
+			Gizmos.DrawLine (topRightCorner, bottomRightCorner);
+			Gizmos.DrawLine (topRightCorner, topLeftCorner);
+		} else {
+			Gizmos.color = Color.red;
+			Gizmos.DrawLine(new Vector3(xBoundary, 5f, zBoundary), new Vector3(xBoundary, 5f, -zBoundary));
+			Gizmos.DrawLine(new Vector3(-xBoundary, 5f, zBoundary), new Vector3(xBoundary, 5f, zBoundary));
+			
+			Gizmos.DrawLine(new Vector3(-xBoundary, 5f, -zBoundary), new Vector3(xBoundary, 5f, -zBoundary));
+			Gizmos.DrawLine(new Vector3(-xBoundary, 5f, -zBoundary), new Vector3(-xBoundary, 5f, zBoundary));
+		}
         
     }
 

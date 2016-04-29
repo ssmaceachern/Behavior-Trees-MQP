@@ -44,7 +44,7 @@ public class CreateRoadConnections : MonoBehaviour {
 
         GameObject endPiece = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         endPiece.transform.position = new Vector3(wB.Position.x, wB.Position.y + 0.2f, wB.Position.z);
-        endPiece.transform.localScale = new Vector3(lineWidth + 0.1f, lineHeight, lineWidth + 0.1f);
+        endPiece.transform.localScale = new Vector3(lineWidth + 0.1f, lineHeight * 0.6f, lineWidth + 0.1f);
         Destroy(endPiece.GetComponent<CapsuleCollider>());
 
         float c_rad = lineWidth / 2;
