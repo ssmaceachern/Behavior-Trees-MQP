@@ -16,6 +16,11 @@ public class EditTarget : RAINAction
 		{
 			Vector3 newLoc=ai.WorkingMemory.GetItem<Vector3> ("newVec");
 			myTarget.GetComponentInChildren<AIRig> ().AI.WorkingMemory.SetItem<Vector3> ("Location", newLoc);
+
+			if(myTarget.GetComponent<InitPosition>()!=null)
+			{
+				myTarget.GetComponent<InitPosition>().initializeLocation=false;
+			}
 		}
 		else if (thisEdit=="giveMaster") 
 		{

@@ -34,6 +34,7 @@ public class ShootArrowAtEnemy : RAINAction
 
 		GameObject newArrow = (GameObject)GameObject.Instantiate (Resources.Load ("Arrow"));
 		newArrow.transform.position = ai.Body.transform.position;
+		//newArrow.transform.position.y = 5;
 
         // Play a sound indicating that we've shot the arrow
         if (audio.arrowSounds.Length > 0)

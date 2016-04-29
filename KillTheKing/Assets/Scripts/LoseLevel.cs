@@ -6,7 +6,7 @@ public class LoseLevel : MonoBehaviour
 	// If the king reaches the end, the player loses
 	void OnTriggerEnter(Collider col)
 	{
-		Debug.Log ("Collider hit");
+		Debug.Log ("loseLevel hit");
 		if (col.isTrigger)
 		{
 			Debug.Log ("fake hit");

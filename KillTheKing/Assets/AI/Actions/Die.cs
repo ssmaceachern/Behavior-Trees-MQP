@@ -98,7 +98,7 @@ public class Die : RAINAction
 			                  		ai.Body.transform.position,
 			                       	15,
 			                  		(int)MessageTypes.MsgType.GhoulBomb,
-			                  		20);
+			                  		10);
 
 			for (int i=0; i<40; i++) {
 				GameObject particle = (GameObject)GameObject.Instantiate (Resources.Load ("Bile"));
