@@ -7,7 +7,7 @@ public class FixRotation : MonoBehaviour
     private Quaternion initRot;     // The initial rotation of the game object to freeze at
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
     {
         // Save our initial rotation
         initRot = transform.rotation;

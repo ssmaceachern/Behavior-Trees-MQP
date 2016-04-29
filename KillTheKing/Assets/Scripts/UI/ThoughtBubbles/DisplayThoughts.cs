@@ -143,7 +143,7 @@ public class DisplayThoughts : MonoBehaviour
 			currentStatements[j] = currentStatements[j + 1];
 
 			currentStatements[j].transform.localPosition = new Vector3(currentStatements[j].transform.localPosition.x,
-			                                                      	   currentStatements[j].transform.localPosition.y + statementSpacing,
+			                                                      	   currentStatements[j].transform.localPosition.y + (statementSpacing / 2),
 			                                                     	   currentStatements[j].transform.localPosition.z);
 
 			timeLeftForStatements[j] = timeLeftForStatements[j + 1];
@@ -165,7 +165,7 @@ public class DisplayThoughts : MonoBehaviour
 		{
 			statement.transform.localPosition = currentStatements [numStatements - 1].transform.localPosition;
 			statement.transform.localPosition = new Vector3(statement.transform.localPosition.x,
-		    	                                       statement.transform.localPosition.y - statementSpacing,
+		    	                                       statement.transform.localPosition.y - (statementSpacing / 2f),
 		        	                                   statement.transform.localPosition.z);
 		}
 		else
@@ -174,6 +174,9 @@ public class DisplayThoughts : MonoBehaviour
 		}
 
 		currentStatements [numStatements] = statement;
+		currentStatements [numStatements].transform.localPosition = new Vector3 (statement.transform.localPosition.x,
+		                                                                        statement.transform.localPosition.y + (statementSpacing / 2f),
+		                                                                        statement.transform.localPosition.z);
 		timeLeftForStatements [numStatements] = timeToDisplay;
 
 		numStatements++;
